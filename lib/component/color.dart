@@ -4,6 +4,7 @@ class Warna {
   static const Color biruTua = Color.fromRGBO(2, 54, 103, 1);
   static const Color abuAbu = Color.fromRGBO(52, 71, 99, 1);
   static const Color kuning = Color.fromRGBO(255, 212, 0, 1);
+
   static const Color abuMuda = Color.fromRGBO(133, 145, 180, 1);
   static const Color abuMudaBG = Color.fromRGBO(242, 246, 249, 1);
   static const Color abuDisable = Color.fromRGBO(232, 232, 237, 1);
@@ -27,7 +28,7 @@ class Warna {
   static const Color softBlueCyan = Color.fromRGBO(138, 221, 244, 1);
   static const Color softWhite = Color.fromRGBO(251, 250, 245, 1);
   static const Color softPurple = Color.fromRGBO(141, 141, 189, 1);
-  
-
-  
+  static const Color softBlack = Color.fromRGBO(64, 64, 64, 1);
+  static const Color softSilver = Color.fromRGBO(207, 203, 203, 1);
+  static const Color hitam = Color.fromRGBO(45, 45, 45, 1);
 }

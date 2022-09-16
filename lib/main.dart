@@ -1,10 +1,15 @@
 import 'package:coscos/component/color.dart';
-import 'package:coscos/page/dashboard.dart';
+import 'package:coscos/component/sizeConfig.dart';
+import 'package:coscos/page/dashboard/view/dashboard.dart';
+import 'package:coscos/page/main_bindings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-void main()async {
-   String fileName = '.env-develop';
+import 'package:intl/date_symbol_data_local.dart';
+
+void main() async {
+  String fileName = '.env-develop';
   await dotenv.load(fileName: fileName);
   if (fileName == '.env-develop') {
     // logger.setLevel(
@@ -17,6 +22,10 @@ void main()async {
     //   Level.WARNING,
     // );
   }
+  initializeDateFormatting();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -28,17 +37,15 @@ class Splash extends StatelessWidget {
     bool lightMode =
         MediaQuery.of(context).platformBrightness == Brightness.light;
     return Scaffold(
-      backgroundColor: lightMode
-          ?  Warna.softMerahMuda2
-          : Warna.softMerahMuda2,
+      backgroundColor: lightMode ? Warna.softMerahMuda2 : Warna.softMerahMuda2,
       body: Center(
           child: lightMode
               ? Padding(
-                  padding:  EdgeInsets.all(Get.width/10),
+                  padding: EdgeInsets.all(Get.height / 10),
                   child: Image.asset('lib/assets/bg/logo-bg.png'),
                 )
               : Padding(
-                  padding: EdgeInsets.all(Get.width/10),
+                  padding: EdgeInsets.all(Get.height / 10),
                   child: Image.asset('lib/assets/bg/logo-bg.png'),
                 )),
     );
@@ -52,12 +59,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: MainBinding(),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-       routes: {
-            '/': (context) => DashboardPage(), //
-       },
-      title: 'Coscos',   
+      routes: {
+        '/': (context) => DashboardPage(), //
+      },
+      title: 'Coscos',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
