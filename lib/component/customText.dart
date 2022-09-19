@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 
 class CustomText {
   Text titleText(String Content,
-      {Color textColor = Warna.hitam, double fontSize = 14}) {
+      {Color textColor = Warna.hitam,
+      double fontSize = 14,
+      FontWeight fontWeight = FontWeight.bold}) {
     return Text(
       Content,
       style: TextStyle(
-          color: textColor, fontWeight: FontWeight.bold, fontSize: fontSize),
+          color: textColor, fontWeight: fontWeight, fontSize: fontSize),
     );
   }
 
@@ -40,8 +42,11 @@ class CustomText {
       double fontSize = 14,
       Color iconColor = Warna.softWhite,
       bool isBack = false,
+      bool isCenter = false,
       FontWeight fontWeight = FontWeight.bold}) {
     return Row(
+      mainAxisAlignment:
+          isCenter ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
         isBack
             ? Icon(
@@ -62,6 +67,28 @@ class CustomText {
                 color: iconColor,
               )
             : Container()
+      ],
+    );
+  }
+
+  Widget bulletList(String Content,
+      {Color textColor = Warna.hitam,
+      double fontSize = 14,
+      FontWeight fontWeight = FontWeight.bold}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("• "),
+        Expanded(
+          child: Text(
+            Content,
+            style: TextStyle(
+              color: textColor,
+              fontWeight: fontWeight,
+              fontSize: fontSize,
+            ),
+          ),
+        ),
       ],
     );
   }

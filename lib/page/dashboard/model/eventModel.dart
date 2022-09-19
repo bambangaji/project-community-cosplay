@@ -1,12 +1,15 @@
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/guestStarModel.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
+import 'package:flutter/material.dart';
 
 class EventModel {
   String id_event;
   String name_event;
   DateTime date_start_event;
   DateTime date_end_event;
+  String? time_start_event;
+  String? time_end_event;
   bool isExpired;
   String country;
   String city;
@@ -30,7 +33,9 @@ class EventModel {
       required this.description,
       required this.createdAt,
       required this.guest_star,
-      required this.anime});
+      required this.anime,
+      this.time_end_event,
+      this.time_start_event});
   factory EventModel.onError() => EventModel(
         id_event: "",
         address: "",

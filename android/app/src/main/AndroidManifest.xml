@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.coscos">
    <application
-        android:label="coscos"
+        android:label="Tiwi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

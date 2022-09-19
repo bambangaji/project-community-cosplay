@@ -8,6 +8,7 @@ import 'package:coscos/page/dashboard/model/ticketModel.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/event/view/Event.dart';
 import 'package:coscos/page/main_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController
@@ -92,11 +93,13 @@ class DashboardController extends GetxController
               createdAt: DateTime.now())
         ],
         description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
+            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. , Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
         id_event: "1",
         name_event: EventName,
-        date_start_event: CustomFormatDate().toDateFormat("2022-10-01"),
-        date_end_event: CustomFormatDate().toDateFormat("2022-10-02"),
+        date_start_event: CustomFormatDate().toDateFormat("2022-10-01T08:00"),
+        date_end_event: CustomFormatDate().toDateFormat("2022-10-02T20:00"),
+        time_start_event: "08:00",
+        time_end_event: "20:00",
         isExpired: false,
         address:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
