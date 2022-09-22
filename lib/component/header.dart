@@ -57,7 +57,7 @@ AppBar CustomAppBar(BuildContext context,
                 .titleText(title, fontSize: 16, textColor: Warna.softWhite)),
     elevation: 1,
     automaticallyImplyLeading: false,
-    backgroundColor: Warna.softBlueCyan,
+    backgroundColor: Warna.cyan,
     actions: [
       Padding(
           padding: EdgeInsets.only(right: Get.height / 80),

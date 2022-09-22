@@ -76,7 +76,7 @@ class CustomWidget {
                     color: data.tiketFee > 100000 ? Colors.red : Colors.green),
                 borderRadius: BorderRadius.circular(10),
                 color: data.tiketFee > 100000
-                    ? Warna.softMerahMuda2
+                    ? Warna.pink
                     : Warna.softIjoMuda),
             child: Padding(
               padding: const EdgeInsets.all(8.0),

@@ -255,12 +255,12 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Get.find<EventController>().changeTab(4);
-                            Get.showSnackbar(GetSnackBar(
-                              duration: Duration(seconds: 2),
-                              message: "Coming Soon",
-                              backgroundColor: Warna.abuMuda,
-                            ));
+                            Get.find<EventController>().changeTab(4);
+                            // Get.showSnackbar(GetSnackBar(
+                            //   duration: Duration(seconds: 2),
+                            //   message: "Coming Soon",
+                            //   backgroundColor: Warna.abuMuda,
+                            // ));
                           },
                           child: Container(
                               width: 100,

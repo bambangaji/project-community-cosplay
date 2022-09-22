@@ -4,6 +4,7 @@ import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
+import 'package:coscos/page/event/view/AttendanceDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
@@ -110,20 +111,25 @@ class EventPage extends GetView<EventController> {
                       ),
                       Positioned(
                           bottom: 0,
-                          child: Container(
-                            width: Get.width,
-                            height: 44,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                color: Warna.biruToscaMuda),
-                            child: Center(
-                              child: CustomText().titleTextWithIcon(
-                                  isCenter: true,
-                                  isBack: true,
-                                  "Attend this event",
-                                  Icons.edit),
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.showAttendance();
+                            },
+                            child: Container(
+                              width: Get.width,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  color: Warna.biruToscaMuda),
+                              child: Center(
+                                child: CustomText().titleTextWithIcon(
+                                    isCenter: true,
+                                    isBack: true,
+                                    "Attend this event",
+                                    Icons.edit),
+                              ),
                             ),
                           )),
                       Obx(() => controller.isExpand.value
@@ -144,7 +150,24 @@ class EventPage extends GetView<EventController> {
                                 ),
                               ),
                             )
-                          : Container())
+                          : Container()),
+                      Obx(
+                        () => controller.openAttendanceCosplayer.value
+                            ? Positioned(
+                                child: GestureDetector(
+                                  onTap: () {controller.changeAttendanceCosplayer();} ,
+                                  child: Container(
+                                  height: Get.height,
+                                  width: Get.width,
+                                  color: Warna.silver.withOpacity(0.8),
+                                  child: Container(
+                                    width: Get.width,
+                                    height: Get.height/2,
+                                    child: AttendanceDetail()),
+                              ),
+                                ))
+                            : Container(),
+                      )
                     ],
                   ),
                 ]));

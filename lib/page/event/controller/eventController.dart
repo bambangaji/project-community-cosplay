@@ -1,13 +1,19 @@
 import 'dart:developer';
 
+import 'package:coscos/component/card.dart';
+import 'package:coscos/component/color.dart';
+import 'package:coscos/component/customText.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
+import 'package:coscos/page/dashboard/model/runDown.dart';
+import 'package:coscos/page/dashboard/model/schedule.dart';
 import 'package:coscos/page/event/view/Cosplayer.dart';
 import 'package:coscos/page/event/view/Information.dart';
 import 'package:coscos/page/event/view/ListCosplayer.dart';
 import 'package:coscos/page/event/view/Performance.dart';
 import 'package:coscos/page/event/view/Rules.dart';
+import 'package:coscos/page/event/view/RunDown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +24,8 @@ class EventController extends GetxController {
   int selectTab = 1;
   EventModel? eventModel;
   AnimeModel? animeModel;
+  List<ScheduleModel>? scheduleModel;
+  var openAttendanceCosplayer = false.obs;
   changePage(int page) {
     activePage = page;
     update();
@@ -28,7 +36,10 @@ class EventController extends GetxController {
     selectTab = page;
     update();
   }
-
+  changeAttendanceCosplayer(){
+    openAttendanceCosplayer.value = !openAttendanceCosplayer.value;
+    update();
+  }
   Widget contentTab() {
     Widget? output;
     switch (selectTab) {
@@ -44,8 +55,94 @@ class EventController extends GetxController {
         // do something else
         output = CosplayerPage();
         break;
+      case 4:
+        // do something else
+        output = RunDownPage();
+        getDataRunDown();
+        break;
     }
     return output!;
+  }
+
+  getDataRunDown() {
+    scheduleModel = [
+      ScheduleModel(id: "1", dateEvent: DateTime.parse("2022-10-01"), runDown: [
+        RunDownModel(
+            id: "1",
+            startTime: "08:00",
+            endTime: "10:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "10:00",
+            endTime: "11:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, cipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "11:00",
+            endTime: "12:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum t, consectetur, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "12:00",
+            endTime: "15:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "15:05",
+            endTime: "17:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "17:05",
+            endTime: "20:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsit amet, consectetur, adipisci velit")
+      ]),
+      ScheduleModel(id: "1", dateEvent: DateTime.parse("2022-10-02"), runDown: [
+        RunDownModel(
+            id: "1",
+            startTime: "08:00",
+            endTime: "10:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "10:00",
+            endTime: "11:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, cipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "11:00",
+            endTime: "12:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum t, consectetur, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "12:00",
+            endTime: "15:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "15:05",
+            endTime: "17:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, adipisci velit"),
+        RunDownModel(
+            id: "1",
+            startTime: "17:05",
+            endTime: "20:00",
+            content:
+                "Neque porro quisquam est qui dolorem ipsit amet, consectetur, adipisci velit")
+      ])
+    ];
   }
 
   var isExpand = false.obs;
@@ -106,5 +203,39 @@ class EventController extends GetxController {
             shape: BoxShape.circle),
       );
     });
+  }
+
+  showAttendance(){
+    Get.defaultDialog(
+      title:  "Select Type Attendance",
+      content: Padding(
+        padding: const EdgeInsets.fromLTRB(15,0,15,0),
+        child: Column(
+          children: [
+              GestureDetector(
+                onTap: (){
+                  Get.close(1);
+
+                },
+                child: customCard().cardWidget(colorBg: Warna.biru,Padding(
+                  padding: const EdgeInsets.only(left:8.0,right: 8),
+                  child: CustomText().titleTextWithIcon("Attend as visitor", Icons.snowshoeing_outlined ,isBack: true ,),
+                )),
+              ),
+           GestureDetector(
+                onTap: (){
+                  Get.close(1);
+                  changeAttendanceCosplayer();
+                },
+                child: customCard().cardWidget(colorBg: Warna.biru,Padding(
+                  padding: const EdgeInsets.only(left:8.0,right: 8),
+                  child: CustomText().titleTextWithIcon("Attend as cosplayer", Icons.masks_rounded ,isBack: true ,),
+                )),
+              ),
+     
+          ],
+        ),
+      ),
+    );
   }
 }

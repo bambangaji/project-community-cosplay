@@ -130,7 +130,7 @@ class customCard {
                 color: data.gender == "F" ? Warna.softMerahMuda : Warna.biru),
             borderRadius: BorderRadius.circular(30),
             color:
-                data.gender == "F" ? Warna.softMerahMuda2 : Warna.softBlueCyan),
+                data.gender == "F" ? Warna.pink : Warna.softBlueCyan),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -193,9 +193,9 @@ class customCard {
       child: Container(
         // width: Get.width / 2.5,
         decoration: BoxDecoration(
-            border: Border.all(color: Warna.softBiruMuda),
+            border: Border.all(color: Warna.biruTua),
             borderRadius: BorderRadius.circular(10),
-            color: Warna.softBlueCyan),
+            color: Warna.biru),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -276,7 +276,7 @@ class customCard {
         decoration: BoxDecoration(
             border: Border.all(color: Warna.softMerahMuda),
             borderRadius: BorderRadius.circular(10),
-            color: Warna.softMerahMuda2),
+            color: Warna.pink),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
           child: content,

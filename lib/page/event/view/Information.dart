@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:photo_view/photo_view.dart';
 
 import '../../../component/card.dart';
 import '../../../component/color.dart';
