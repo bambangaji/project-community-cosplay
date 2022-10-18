@@ -1,3 +1,4 @@
+import 'package:coscos/component/MotionTabBar/MotionTabController.dart';
 import 'package:coscos/component/dateFormat.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
@@ -11,16 +12,34 @@ import 'package:coscos/page/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../dashboard.dart';
+
 class DashboardController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetTickerProviderStateMixin {
+  var isLoading = false.obs;
   List<EventModel> listEvent = [];
+  MotionTabController? tabController;
 
   MainController getMainController() {
     return Get.find<MainController>();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    tabController!.dispose();
+  }
+
+  changeIndexTab(int value) {
+    tabController!.index = value;
+    update();
+  }
+
   onBuildPage() async {
-    getMainController().changeLoading();
+    tabController =
+        MotionTabController(initialIndex: 0, vsync: this, length: 3);
+    // getMainController().changeLoading();
+    changeLoading();
     addDataDummy("Comifuro 15");
     addDataDummy("Indonesia Comic Con ");
     addDataDummy("Clash H");
@@ -39,7 +58,13 @@ class DashboardController extends GetxController
     // event.date_end_event = CustomFormatDate().toDateFormat("2022-10-02");
     // update();
     // listEvent.add(event);
-    getMainController().changeLoading();
+    // getMainController().changeLoading();
+    changeLoading();
+  }
+
+  changeLoading() {
+    isLoading.value = !isLoading.value;
+    update();
   }
 
   goToEventDetail(EventModel data) async {
@@ -279,4 +304,10 @@ class DashboardController extends GetxController
         ]);
     listEvent.add(event);
   }
+
+  // login() {
+  //   Get.find<MainController>().isLogin = true.obs;
+  //   update();
+  //   Get.off(() => Get.off(DashboardPage()));
+  // }
 }

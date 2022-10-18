@@ -2,6 +2,7 @@ import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/dateFormat.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -235,6 +236,26 @@ class InformationPage extends GetView<EventController> {
                               child: CustomText().titleTextWithWidgetIcon(
                                 "test@gmail.com ",
                                 Icon(Icons.mail, color: Warna.white),
+                                isBack: true,
+                                isMaxWidth: true,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: CustomText().titleTextWithWidgetIcon(
+                                "@Instagram ",
+                                FaIcon(FontAwesomeIcons.instagram,
+                                    size: 25, color: Warna.softWhite),
+                                isBack: true,
+                                isMaxWidth: true,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: CustomText().titleTextWithWidgetIcon(
+                                "Facebook Fans Page ",
+                                FaIcon(FontAwesomeIcons.facebook,
+                                    size: 25, color: Warna.softWhite),
                                 isBack: true,
                                 isMaxWidth: true,
                               ),

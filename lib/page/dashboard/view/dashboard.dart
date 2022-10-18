@@ -19,7 +19,8 @@ class DashboardPage extends GetView<DashboardController> {
     controller.onBuildPage();
     return GetBuilder<DashboardController>(
       init: DashboardController(), // INIT IT ONLY THE FIRST TIME
-      builder: (_) => CustomScaffold.baseScaffold(
+      builder: (_) => CustomScaffold().baseScaffold(
+        isTabBar: true,
         context,
         children: [
           Container(

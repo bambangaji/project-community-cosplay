@@ -18,7 +18,7 @@ class ListCosplayerPage extends GetView<EventController> {
   Widget build(BuildContext context) {
     return GetBuilder<EventController>(
         init: EventController(), // INIT IT ONLY THE FIRST TIME
-        builder: (_) => CustomScaffold.baseScaffold(
+        builder: (_) => CustomScaffold().baseScaffold(
               context,
               isSearchBar: false,
               isBack: true,

@@ -29,147 +29,147 @@ class EventPage extends GetView<EventController> {
   Widget build(BuildContext context) {
     return GetBuilder<EventController>(
         init: EventController(), // INIT IT ONLY THE FIRST TIME
-        builder: (_) => CustomScaffold.baseScaffold(context,
-                isBack: false,
-                appBar: false,
+        builder: (_) => CustomScaffold()
+                .baseScaffold(context, isBack: false, appBar: false, children: [
+              Stack(
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: Get.height,
-                        width: Get.width,
-                        color: Warna.white,
-                        child: CustomScrollView(
-                          slivers: [
-                            // SliverAppBar(
-                            //   automaticallyImplyLeading: true,
-                            //   pinned: false,
-                            //   snap: false,
-                            //   floating: false,
-                            //   expandedHeight: 220.0,
-                            //   flexibleSpace: Padding(
-                            //     padding: const EdgeInsets.only(top: 24.0),
-                            //     child: Stack(
-                            //       children: [
-                            //         SizedBox(
-                            //           height: Get.height / 2.5,
-                            //           width: Get.width,
-                            //           child: PageView.builder(
-                            //               itemCount: 3,
-                            //               pageSnapping: true,
-                            //               controller: controller.pageController,
-                            //               onPageChanged: (page) {
-                            //                 controller.changePage(page);
-                            //               },
-                            //               itemBuilder: (context, pagePosition) {
-                            //                 return AnimatedContainer(
-                            //                   duration: Duration(milliseconds: 500),
-                            //                   curve: Curves.easeInOutCubic,
-                            //                   height: Get.height / 4.5,
-                            //                   width: Get.width,
-                            //                   decoration: BoxDecoration(
-                            //                     image: DecorationImage(
-                            //                         image: AssetImage(
-                            //                             "lib/assets/comifuro.jpg"),
-                            //                         fit: BoxFit.cover),
-                            //                   ),
-                            //                 );
-                            //               }),
-                            //         ),
-                            //         Positioned(
-                            //             bottom: Get.height / 30,
-                            //             child: Container(
-                            //               width: Get.width,
-                            //               child: Row(
-                            //                   mainAxisAlignment:
-                            //                       MainAxisAlignment.center,
-                            //                   children:
-                            //                       indicators(3, controller.activePage)),
-                            //             )),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                            SliverPersistentHeader(
-                                pinned: true,
-                                floating: false,
-                                delegate: MySliverAppBar(
-                                    expandedHeight: Get.height / 2.3)),
-                            SliverList(
-                                delegate: SliverChildListDelegate(
-                              [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 50.0),
-                                  child: Stack(
-                                    children: [controller.contentTab()],
-                                  ),
-                                ),
-                              ],
-                            ))
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.showAttendance();
-                            },
-                            child: Container(
-                              width: Get.width,
-                              height: 44,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10)),
-                                  color: Warna.biruToscaMuda),
-                              child: Center(
-                                child: CustomText().titleTextWithIcon(
-                                    isCenter: true,
-                                    isBack: true,
-                                    "Attend this event",
-                                    Icons.edit),
+                  Container(
+                    height: Get.height,
+                    width: Get.width,
+                    color: Warna.white,
+                    child: CustomScrollView(
+                      slivers: [
+                        // SliverAppBar(
+                        //   automaticallyImplyLeading: true,
+                        //   pinned: false,
+                        //   snap: false,
+                        //   floating: false,
+                        //   expandedHeight: 220.0,
+                        //   flexibleSpace: Padding(
+                        //     padding: const EdgeInsets.only(top: 24.0),
+                        //     child: Stack(
+                        //       children: [
+                        //         SizedBox(
+                        //           height: Get.height / 2.5,
+                        //           width: Get.width,
+                        //           child: PageView.builder(
+                        //               itemCount: 3,
+                        //               pageSnapping: true,
+                        //               controller: controller.pageController,
+                        //               onPageChanged: (page) {
+                        //                 controller.changePage(page);
+                        //               },
+                        //               itemBuilder: (context, pagePosition) {
+                        //                 return AnimatedContainer(
+                        //                   duration: Duration(milliseconds: 500),
+                        //                   curve: Curves.easeInOutCubic,
+                        //                   height: Get.height / 4.5,
+                        //                   width: Get.width,
+                        //                   decoration: BoxDecoration(
+                        //                     image: DecorationImage(
+                        //                         image: AssetImage(
+                        //                             "lib/assets/comifuro.jpg"),
+                        //                         fit: BoxFit.cover),
+                        //                   ),
+                        //                 );
+                        //               }),
+                        //         ),
+                        //         Positioned(
+                        //             bottom: Get.height / 30,
+                        //             child: Container(
+                        //               width: Get.width,
+                        //               child: Row(
+                        //                   mainAxisAlignment:
+                        //                       MainAxisAlignment.center,
+                        //                   children:
+                        //                       indicators(3, controller.activePage)),
+                        //             )),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        SliverPersistentHeader(
+                            pinned: true,
+                            floating: false,
+                            delegate: MySliverAppBar(
+                                expandedHeight: Get.height / 2.3)),
+                        SliverList(
+                            delegate: SliverChildListDelegate(
+                          [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 50.0),
+                              child: Stack(
+                                children: [controller.contentTab()],
                               ),
                             ),
-                          )),
-                      Obx(() => controller.isExpand.value
-                          ? GestureDetector(
-                              onTap: () => controller.viewPhoto(),
-                              child: Container(
-                                height: Get.height,
-                                width: Get.width,
-                                color: Warna.abuMuda.withOpacity(0.7),
-                                child: Center(
-                                  child: Container(
-                                    width: Get.width - 40,
-                                    height: Get.height / 1.8,
-                                    child: PhotoView(
-                                        imageProvider: AssetImage(
-                                            "lib/assets/mapEvent.jpg")),
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Container()),
-                      Obx(
-                        () => controller.openAttendanceCosplayer.value
-                            ? Positioned(
-                                child: GestureDetector(
-                                  onTap: () {controller.changeAttendanceCosplayer();} ,
-                                  child: Container(
-                                  height: Get.height,
-                                  width: Get.width,
-                                  color: Warna.silver.withOpacity(0.8),
-                                  child: Container(
-                                    width: Get.width,
-                                    height: Get.height/2,
-                                    child: AttendanceDetail()),
-                              ),
-                                ))
-                            : Container(),
-                      )
-                    ],
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
-                ]));
+                  Positioned(
+                      bottom: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          controller.showAttendance();
+                        },
+                        child: Container(
+                          width: Get.width,
+                          height: 44,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              color: Warna.biruToscaMuda),
+                          child: Center(
+                            child: CustomText().titleTextWithIcon(
+                                isCenter: true,
+                                isBack: true,
+                                "Attend this event",
+                                Icons.edit),
+                          ),
+                        ),
+                      )),
+                  Obx(() => controller.isExpand.value
+                      ? GestureDetector(
+                          onTap: () => controller.viewPhoto(),
+                          child: Container(
+                            height: Get.height,
+                            width: Get.width,
+                            color: Warna.abuMuda.withOpacity(0.7),
+                            child: Center(
+                              child: Container(
+                                width: Get.width - 40,
+                                height: Get.height / 1.8,
+                                child: PhotoView(
+                                    imageProvider:
+                                        AssetImage("lib/assets/mapEvent.jpg")),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container()),
+                  Obx(
+                    () => controller.openAttendanceCosplayer.value
+                        ? Positioned(
+                            child: GestureDetector(
+                            onTap: () {
+                              controller.changeAttendanceCosplayer();
+                            },
+                            child: Container(
+                              height: Get.height,
+                              width: Get.width,
+                              color: Warna.silver.withOpacity(0.8),
+                              child: Container(
+                                  width: Get.width,
+                                  height: Get.height / 2,
+                                  child: AttendanceDetail()),
+                            ),
+                          ))
+                        : Container(),
+                  )
+                ],
+              ),
+            ]));
   }
 }
