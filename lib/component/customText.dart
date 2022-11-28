@@ -23,6 +23,10 @@ class CustomText {
     );
   }
 
+  String Capitalize(String content) {
+    return "${content[0].toUpperCase()}${content.substring(1).toLowerCase()}";
+  }
+
   Text longText(String Content,
       {Color textColor = Warna.hitam, double fontSize = 14}) {
     return Text(

@@ -1,3 +1,4 @@
+import 'package:animate_gradient/animate_gradient.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
 import 'package:coscos/page/dashboard/model/guestStarModel.dart';
@@ -14,14 +15,14 @@ import 'dateFormat.dart';
 class customCard {
   Widget cardEvent(EventModel data) {
     return Padding(
-      padding: EdgeInsets.only(right: Get.height / 30),
+      padding: EdgeInsets.only(right: 30),
       child: GestureDetector(
         onTap: () {
           print("object");
           Get.find<DashboardController>().goToEventDetail(data);
         },
         child: Container(
-          width: Get.width / 1.4,
+          width: 300,
           child: Column(
             children: [
               Container(
@@ -45,7 +46,7 @@ class customCard {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: Get.height / 4.5,
+                      height: 126,
                       // width: Get.height / 1.4,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
@@ -129,8 +130,7 @@ class customCard {
             border: Border.all(
                 color: data.gender == "F" ? Warna.softMerahMuda : Warna.biru),
             borderRadius: BorderRadius.circular(30),
-            color:
-                data.gender == "F" ? Warna.pink : Warna.softBlueCyan),
+            color: data.gender == "F" ? Warna.pink : Warna.softBlueCyan),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -261,6 +261,54 @@ class customCard {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
           child: content,
+        ),
+      ),
+    );
+  }
+
+  Widget cardWidgetAnime(Widget content,
+      {Color colorBorder = Warna.softIjoMuda,
+      Color colorBg = Warna.softIjoMedium,
+      required void Function() callBack,
+      bool isPopular = false}) {
+    return GestureDetector(
+      onTap: callBack,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+        child: Container(
+          // width: Get.width / 2.5,
+          decoration: BoxDecoration(
+              border: Border.all(color: colorBorder),
+              borderRadius: BorderRadius.circular(10),
+              color: colorBg),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                child: content,
+              ),
+              Positioned(
+                  top: 0,
+                  child: isPopular
+                      ? Container(
+                          // width: 100,
+                          // height: 15,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              gradient: LinearGradient(colors: [
+                                Color(0xff2196f3),
+                                Color(0xff8bc34a)
+                              ])),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 10),
+                            child: CustomText().titleText("Most Popular",
+                                textColor: Warna.white, fontSize: 10),
+                          ),
+                        )
+                      : Container())
+            ],
+          ),
         ),
       ),
     );

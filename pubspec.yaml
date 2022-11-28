@@ -49,7 +49,10 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flag: ^6.0.0
   font_awesome_flutter: ^10.2.1
-
+  dropdown_below: ^1.0.3
+  animate_gradient: ^0.0.2
+  path: ^1.8.2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

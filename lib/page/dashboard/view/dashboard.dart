@@ -24,8 +24,8 @@ class DashboardPage extends GetView<DashboardController> {
         context,
         children: [
           Container(
-            color: Warna.softIjoMedium,
-            height: Get.height / 18,
+            color: Warna.flowerBlue4,
+            height: 40,
             child: Padding(
               padding: EdgeInsets.only(
                   left: Get.height / 50, right: Get.height / 50),
@@ -50,7 +50,9 @@ class DashboardPage extends GetView<DashboardController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 4, 10, 10),
                     child: Column(
@@ -72,7 +74,7 @@ class DashboardPage extends GetView<DashboardController> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Container(
-                            height: Get.height / 3,
+                            height: 200,
                             child: controller.listEvent.length == 0
                                 ? const Center(
                                     child: Text("Tidak Ada Event di bulan ini"),
@@ -95,9 +97,11 @@ class DashboardPage extends GetView<DashboardController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
                       child: Column(

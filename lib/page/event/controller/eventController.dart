@@ -14,16 +14,26 @@ import 'package:coscos/page/event/view/ListCosplayer.dart';
 import 'package:coscos/page/event/view/Performance.dart';
 import 'package:coscos/page/event/view/Rules.dart';
 import 'package:coscos/page/event/view/RunDown.dart';
+import 'package:coscos/page/list/controller/ListController.dart';
+import 'package:coscos/page/list/view/List.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class EventController extends GetxController {
   PageController pageController =
       PageController(viewportFraction: 1, initialPage: 1);
   int activePage = 1;
   int selectTab = 1;
+  int typeContent = 1;
   EventModel? eventModel;
+
   AnimeModel? animeModel;
+  String selectSerialValue = "";
+  var selectSerialController = TextEditingController().obs;
+  var selectCharacterController = TextEditingController().obs;
+  var selectDateController = TextEditingController().obs;
+  var selectDateAttendance = "".obs;
   List<ScheduleModel>? scheduleModel;
   var openAttendanceCosplayer = false.obs;
   changePage(int page) {
@@ -36,10 +46,28 @@ class EventController extends GetxController {
     selectTab = page;
     update();
   }
-  changeAttendanceCosplayer(){
+
+  changeAttendanceCosplayer() {
     openAttendanceCosplayer.value = !openAttendanceCosplayer.value;
     update();
   }
+
+  selectDate(BuildContext context, int type) async {
+    DateTime startDate = eventModel!.date_start_event;
+    DateTime endDate = eventModel!.date_end_event;
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: endDate, // Refer step 1
+      firstDate: startDate,
+      lastDate: endDate,
+    );
+    if (picked != null) {
+      selectDateAttendance.value =
+          DateFormat('yyyy/MM/dd').format(DateTime.parse(picked.toString()));
+    }
+    update();
+  }
+
   Widget contentTab() {
     Widget? output;
     switch (selectTab) {
@@ -192,6 +220,27 @@ class EventController extends GetxController {
     Get.to(ListCosplayerPage());
   }
 
+  selectSerial(AnimeModel data) {
+    // selectSerialValue = data.name;
+    print(data.name);
+    selectSerialController.value.text = data.name;
+    selectCharacterController.value.text = "";
+    animeModel = data;
+
+    update();
+    print(selectSerialController.value.text);
+    Get.back();
+  }
+
+  selectCharacter(CharacterModel data) {
+    // selectSerialValue = data.name;
+    print(data.name);
+    selectCharacterController.value.text = data.name;
+    update();
+    print(selectSerialController.value.text);
+    Get.back();
+  }
+
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
       return Container(
@@ -205,37 +254,66 @@ class EventController extends GetxController {
     });
   }
 
-  showAttendance(){
+  showAttendance() {
     Get.defaultDialog(
-      title:  "Select Type Attendance",
+      title: "Select Type Attendance",
       content: Padding(
-        padding: const EdgeInsets.fromLTRB(15,0,15,0),
+        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         child: Column(
           children: [
-              GestureDetector(
-                onTap: (){
-                  Get.close(1);
-
-                },
-                child: customCard().cardWidget(colorBg: Warna.biru,Padding(
-                  padding: const EdgeInsets.only(left:8.0,right: 8),
-                  child: CustomText().titleTextWithIcon("Attend as visitor", Icons.snowshoeing_outlined ,isBack: true ,),
-                )),
-              ),
-           GestureDetector(
-                onTap: (){
-                  Get.close(1);
-                  changeAttendanceCosplayer();
-                },
-                child: customCard().cardWidget(colorBg: Warna.biru,Padding(
-                  padding: const EdgeInsets.only(left:8.0,right: 8),
-                  child: CustomText().titleTextWithIcon("Attend as cosplayer", Icons.masks_rounded ,isBack: true ,),
-                )),
-              ),
-     
+            GestureDetector(
+              onTap: () {
+                Get.close(1);
+              },
+              child: customCard().cardWidget(
+                  colorBg: Warna.biru,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: CustomText().titleTextWithIcon(
+                      "Attend as visitor",
+                      Icons.snowshoeing_outlined,
+                      isBack: true,
+                    ),
+                  )),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.close(1);
+                changeAttendanceCosplayer();
+              },
+              child: customCard().cardWidget(
+                  colorBg: Warna.biru,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: CustomText().titleTextWithIcon(
+                      "Attend as cosplayer",
+                      Icons.masks_rounded,
+                      isBack: true,
+                    ),
+                  )),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  goToSerialPage(int type) {
+    typeContent = type;
+    update();
+    Get.lazyPut(() => ListController());
+    if (typeContent == 2) {
+      if (animeModel == null) {
+        Get.showSnackbar(const GetSnackBar(
+          duration: Duration(seconds: 2),
+          message: "Select serial first",
+          backgroundColor: Warna.abuMuda,
+        ));
+      } else {
+        Get.to(const PageList());
+      }
+    } else {
+      Get.to(const PageList());
+    }
   }
 }

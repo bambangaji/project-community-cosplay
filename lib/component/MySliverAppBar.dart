@@ -15,7 +15,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Warna.white,
         // image: DecorationImage(
         //     fit: BoxFit.cover,
@@ -46,7 +46,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         },
                         itemBuilder: (context, pagePosition) {
                           return AnimatedContainer(
-                            duration: Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOutCubic,
                             height: Get.height / 4.5,
                             width: Get.width,
@@ -62,7 +62,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                 ),
                               ),
                             ),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("lib/assets/comifuro.jpg"),
                                   fit: BoxFit.cover),
@@ -142,11 +142,11 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 child: Container(
                   height: 30,
                   width: Get.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border:
                           Border(bottom: BorderSide(color: Warna.softSilver))),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 6),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 6),
                     child: ListView(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -287,7 +287,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         GestureDetector(
                           onTap: () {
                             // Get.find<EventController>().changeTab(5);
-                            Get.showSnackbar(GetSnackBar(
+                            Get.showSnackbar(const GetSnackBar(
                               duration: Duration(seconds: 2),
                               message: "Coming Soon",
                               backgroundColor: Warna.abuMuda,
@@ -339,7 +339,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         GestureDetector(
                           onTap: () {
                             // Get.find<EventController>().changeTab(6);
-                            Get.showSnackbar(GetSnackBar(
+                            Get.showSnackbar(const GetSnackBar(
                               duration: Duration(seconds: 2),
                               message: "Coming Soon",
                               backgroundColor: Warna.abuMuda,

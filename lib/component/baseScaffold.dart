@@ -47,7 +47,7 @@ class CustomScaffold {
                   back: isBack, isSearchBar: isSearchBar, title: title)
               : null,
           resizeToAvoidBottomInset: true,
-          backgroundColor: Colors.grey[50],
+          backgroundColor: Warna.abuMudaBG,
           // bottomNavigationBar: isTabBar
           //     ? MotionTabBar(
           //         labels: ["Account", "Home", "Dashboard"],

@@ -13,7 +13,11 @@ import 'customText.dart';
 class CustomWidget {
   static Widget customTextField(
       {String hintText = "",
+      void Function()? callBack,
+      void Function(String)? onChanged,
+      bool isDisable = false,
       InputBorder inputBorder = InputBorder.none,
+      Rx<TextEditingController>? controller,
       Color bgColor = Warna.softWhite}) {
     return Container(
         decoration: BoxDecoration(
@@ -21,6 +25,10 @@ class CustomWidget {
         child: Padding(
           padding: EdgeInsets.only(left: Get.height / 30),
           child: TextFormField(
+            onChanged: onChanged,
+            controller: controller?.value,
+            onTap: callBack,
+            readOnly: isDisable,
             decoration: InputDecoration(
               border: inputBorder,
               hintText: hintText,
@@ -75,9 +83,7 @@ class CustomWidget {
                 border: Border.all(
                     color: data.tiketFee > 100000 ? Colors.red : Colors.green),
                 borderRadius: BorderRadius.circular(10),
-                color: data.tiketFee > 100000
-                    ? Warna.pink
-                    : Warna.softIjoMuda),
+                color: data.tiketFee > 100000 ? Warna.pink : Warna.softIjoMuda),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -177,5 +183,65 @@ class CustomWidget {
               ),
             ),
     );
+  }
+
+  static Widget ListTileTopUpCard(
+      {required String leadIconLocation,
+      required String title,
+      String? subTitle,
+      Widget? icon,
+      required void Function() callBack,
+      bool isPopular = false,
+      double imageWidth = 10}) {
+    return customCard().cardWidgetAnime(
+        ListTile(
+          trailing: Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: Warna.softBlack,
+            size: Get.width / 15,
+          ),
+          leading: Container(
+            height: 150,
+            width: 90,
+            decoration: BoxDecoration(
+                color: Colors.amber,
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: AssetImage(leadIconLocation))),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Row(
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                    color: Warna.softBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+              ),
+              icon ?? Container()
+            ],
+          ),
+          subtitle: subTitle == null
+              ? null
+              : Text(
+                  CustomText().Capitalize(subTitle),
+                  style: TextStyle(color: Warna.softBlack),
+                ),
+          tileColor: Colors.white,
+        ),
+        callBack: callBack,
+        colorBg: Warna.white,
+        colorBorder: Warna.white,
+        isPopular: isPopular);
+  }
+
+  static Future<dynamic> showDialog(String title, String content) {
+    return Get.defaultDialog(
+        title: title,
+        content: Center(
+          child: CustomText().titleTextWithoutBold(content),
+        ));
   }
 }

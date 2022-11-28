@@ -4,30 +4,52 @@ import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class AttendanceDetail extends GetView<EventController> {
-  Widget step(String title) {
-    return Padding(
-      padding: EdgeInsets.only(
-          right: Get.width / 20, left: Get.width / 20, top: Get.width / 40),
-      child: Row(
-        // mainAxisAlignment: ,
+  const AttendanceDetail({super.key});
+  Container contentDialog(BuildContext context) {
+    return Container(
+      // color: Warna.abuDisable,
+      height: 60,
+      // width: 200,
+      child: Column(
         children: [
-          Icon(
-            Icons.circle,
-            color: Warna.biruTua,
-            size: Get.width / 35,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: Get.width / 60),
-            child: Container(
-              child: Text(
-                "${title}",
-                maxLines: 4,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 100,
+                // height: 20,
+                child: TextFormField(
+                  controller: controller.selectDateController.value,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Start Date',
+                  ),
+                  readOnly: true,
+                  onTap: () {
+                    controller.selectDate(context, 1);
+                  },
+                  // initialValue: "test",
+                ),
               ),
-              width: Get.width - (Get.width / 4.5),
-            ),
+              Container(
+                width: 100,
+                // height: 20,
+                child: TextFormField(
+                  controller: controller.selectDateController.value,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'End Date',
+                  ),
+                  readOnly: true,
+                  onTap: () {
+                    controller.selectDate(context, 2);
+                  },
+                  // initialValue: "test",
+                ),
+              )
+            ],
           )
         ],
       ),
@@ -39,7 +61,7 @@ class AttendanceDetail extends GetView<EventController> {
     return SizedBox.expand(
         child: DraggableScrollableSheet(
             minChildSize: 0.2,
-            initialChildSize: 0.85,
+            initialChildSize: 0.75,
             maxChildSize: 0.85,
             builder: (BuildContext context, ScrollController scrollController) {
               return GestureDetector(
@@ -62,7 +84,7 @@ class AttendanceDetail extends GetView<EventController> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 65,
                                 ),
                                 Padding(
@@ -71,7 +93,14 @@ class AttendanceDetail extends GetView<EventController> {
                                       "Select Movie / Anime / Game Name"),
                                 ),
                                 CustomWidget.customTextField(
-                                    bgColor: Warna.grey),
+                                    callBack: () {
+                                      controller.goToSerialPage(1);
+                                    },
+                                    hintText: "Naruto",
+                                    bgColor: Warna.grey,
+                                    controller:
+                                        controller.selectSerialController,
+                                    isDisable: true),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: 10.0, top: 10),
@@ -79,23 +108,64 @@ class AttendanceDetail extends GetView<EventController> {
                                       .titleText("Select Character"),
                                 ),
                                 CustomWidget.customTextField(
+                                    isDisable: true,
+                                    callBack: () {
+                                      controller.goToSerialPage(2);
+                                    },
+                                    controller:
+                                        controller.selectCharacterController,
                                     bgColor: Warna.grey),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 10.0, top: 10),
-                                  child: CustomText()
-                                      .titleText("Select Type Costume"),
-                                ),
-                                CustomWidget.customTextField(
-                                    bgColor: Warna.grey),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       bottom: 10.0, top: 10),
+                                //   child: CustomText()
+                                //       .titleText("Select Type Costume"),
+                                // ),
+                                // CustomWidget.customTextField(
+                                //     bgColor: Warna.grey),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: 10.0, top: 10),
                                   child: CustomText()
                                       .titleText("Select Date Attendance"),
                                 ),
-                                CustomWidget.customTextField(
-                                    bgColor: Warna.grey),
+                                OutlinedButton(
+                                  onPressed: () {
+                                    // Get.off(PageDashboard());
+                                    controller.selectDate(context, 1);
+                                    // child: dialogDate(true)));
+                                    // showAlertDialog(context);
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                      // elevation: 5.0,
+                                      // fixedSize: (40),
+                                      // minimumSize,
+                                      maximumSize: Size(Get.width, 45),
+                                      minimumSize: Size(Get.width / 2, 45),
+                                      backgroundColor: Warna.grey,
+                                      side: BorderSide.none,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      )
+                                      // fixedSize: Size(size.width! / 3.3, 20)
+                                      ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Obx(() => Text(
+                                            controller.selectDateAttendance
+                                                        .value ==
+                                                    ""
+                                                ? 'Select date attendace'
+                                                : controller
+                                                    .selectDateAttendance.value,
+                                            style: const TextStyle(
+                                                color: Warna.softBlack),
+                                          ))
+                                    ],
+                                  ),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: 10.0, top: 10),
@@ -104,10 +174,10 @@ class AttendanceDetail extends GetView<EventController> {
                                 ),
                                 CustomWidget.customTextField(
                                     bgColor: Warna.grey),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
-                                Container(
+                                SizedBox(
                                   width: Get.width,
                                   child: OutlinedButton(
                                       style: TextButton.styleFrom(
@@ -121,7 +191,7 @@ class AttendanceDetail extends GetView<EventController> {
                           ),
                           Positioned(
                               top: -10,
-                              child: Container(
+                              child: SizedBox(
                                 width: Get.width,
                                 child: Column(
                                   children: [

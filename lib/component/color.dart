@@ -5,7 +5,7 @@ class Warna {
   static const Color abuAbu = Color.fromRGBO(52, 71, 99, 1);
   static const Color kuning = Color.fromRGBO(255, 212, 0, 1);
   static const Color abuMuda = Color.fromRGBO(133, 145, 180, 1);
-  static const Color abuMudaBG = Color.fromRGBO(242, 246, 249, 1);
+  static const Color abuMudaBG = Color.fromARGB(255, 234, 240, 245);
   static const Color abuDisable = Color.fromRGBO(232, 232, 237, 1);
   static const Color abuLebihMuda = Color.fromRGBO(245, 245, 245, 1);
   static const Color biruMuda = Color.fromRGBO(85, 172, 238, 1);
@@ -39,4 +39,19 @@ class Warna {
   static const Color biruCold = Color.fromRGBO(92, 122, 234, 1);
   static const Color ungu = Color.fromRGBO(164, 96, 237, 1);
   static const Color pink = Color.fromRGBO(240, 125, 234, 1);
+  static const Color retro = Color.fromRGBO(238, 242, 255, 1);
+  static const Color retro2 = Color.fromRGBO(205, 222, 255, 1);
+  static const Color retro3 = Color.fromRGBO(241, 246, 249, 1);
+  static const Color jellyBlue = Color.fromRGBO(60, 120, 146, 1);
+  static const Color jellyBlue2 = Color.fromRGBO(184, 216, 225, 1);
+  static const Color jellyBlue3 = Color.fromRGBO(15, 48, 91, 1);
+  static const Color jellyBlue4 = Color.fromRGBO(127, 180, 190, 1);
+  static const Color jellyBlue5 = Color.fromRGBO(82, 140, 158, 1);
+  static const Color jellyBlue6 = Color.fromRGBO(196, 227, 233, 1);
+  static const Color moonStone = Color.fromRGBO(42, 167, 192, 1);
+  static const Color moonStone2 = Color.fromRGBO(140, 208, 225, 1);
+  static const Color flowerBlue = Color.fromRGBO(43, 140, 240, 1);
+  static const Color flowerBlue2 = Color.fromRGBO(0, 74, 178, 1);
+  static const Color flowerBlue4 = Color.fromRGBO(42, 136, 159, 1);
+  static const Color flowerGreen = Color.fromRGBO(192, 202, 59, 1);
 }

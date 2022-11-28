@@ -9,12 +9,21 @@ class AnimeModel {
   List<CharacterModel> character;
   DateTime createdAt;
   bool isExpand;
+  String imageURL;
+  String type;
   AnimeModel(
       {required this.id,
       required this.name,
       required this.character,
       required this.createdAt,
+      required this.imageURL,
+      required this.type,
       this.isExpand = false});
-  factory AnimeModel.onError() =>
-      AnimeModel(id: "", name: "", character: [], createdAt: DateTime.now());
+  factory AnimeModel.onError() => AnimeModel(
+      id: "",
+      name: "",
+      character: [],
+      createdAt: DateTime.now(),
+      imageURL: "",
+      type: "NULL");
 }

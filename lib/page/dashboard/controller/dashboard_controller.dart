@@ -185,6 +185,8 @@ class DashboardController extends GetxController
           AnimeModel(
               id: "1",
               name: "Kimetsu No Yaiba",
+              imageURL: "aaaa",
+              type: "ANIME",
               character: [
                 CharacterModel(
                     id: "1",
@@ -257,6 +259,8 @@ class DashboardController extends GetxController
           AnimeModel(
               id: "1",
               name: "Sword Art Online",
+              imageURL: "aaaa",
+              type: "ANIME",
               character: [
                 CharacterModel(
                     id: "1",

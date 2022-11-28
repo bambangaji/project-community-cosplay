@@ -15,7 +15,7 @@ class EventPage extends GetView<EventController> {
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
       return Container(
-        margin: EdgeInsets.all(3),
+        margin: const EdgeInsets.all(3),
         width: 10,
         height: 10,
         decoration: BoxDecoration(
@@ -116,7 +116,7 @@ class EventPage extends GetView<EventController> {
                         child: Container(
                           width: Get.width,
                           height: 44,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10)),
@@ -142,8 +142,8 @@ class EventPage extends GetView<EventController> {
                                 width: Get.width - 40,
                                 height: Get.height / 1.8,
                                 child: PhotoView(
-                                    imageProvider:
-                                        AssetImage("lib/assets/mapEvent.jpg")),
+                                    imageProvider: const AssetImage(
+                                        "lib/assets/mapEvent.jpg")),
                               ),
                             ),
                           ),
@@ -163,7 +163,7 @@ class EventPage extends GetView<EventController> {
                               child: Container(
                                   width: Get.width,
                                   height: Get.height / 2,
-                                  child: AttendanceDetail()),
+                                  child: const AttendanceDetail()),
                             ),
                           ))
                         : Container(),
