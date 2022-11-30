@@ -61,7 +61,8 @@ class AttendanceDetail extends GetView<EventController> {
     return SizedBox.expand(
         child: DraggableScrollableSheet(
             minChildSize: 0.2,
-            initialChildSize: 0.75,
+            initialChildSize: 0.7,
+            
             maxChildSize: 0.85,
             builder: (BuildContext context, ScrollController scrollController) {
               return GestureDetector(

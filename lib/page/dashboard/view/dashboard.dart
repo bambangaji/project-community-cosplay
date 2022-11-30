@@ -74,7 +74,7 @@ class DashboardPage extends GetView<DashboardController> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Container(
-                            height: 200,
+                            height: 210,
                             child: controller.listEvent.length == 0
                                 ? const Center(
                                     child: Text("Tidak Ada Event di bulan ini"),

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:coscos/component/MotionTabBar/MotionTabController.dart';
+import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/dateFormat.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
@@ -9,14 +12,15 @@ import 'package:coscos/page/dashboard/model/ticketModel.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/event/view/Event.dart';
 import 'package:coscos/page/main_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-
-import '../../dashboard.dart';
+import 'package:geocoding/geocoding.dart';
 
 class DashboardController extends GetxController
     with GetTickerProviderStateMixin {
   var isLoading = false.obs;
+  String? _currentAddress;
+  Position? _currentPosition;
   List<EventModel> listEvent = [];
   MotionTabController? tabController;
 
@@ -43,23 +47,73 @@ class DashboardController extends GetxController
     addDataDummy("Comifuro 15");
     addDataDummy("Indonesia Comic Con ");
     addDataDummy("Clash H");
-    // event.name_event = "Comifuro 15";
-    // event.date_start_event = CustomFormatDate().toDateFormat("2022-09-24");
-    // event.date_end_event = CustomFormatDate().toDateFormat("2022-09-25");
-    // update();
-    // listEvent.add(event);
-    // event.name_event = "Clas:5 2022";
-    // event.date_start_event = CustomFormatDate().toDateFormat("2022-09-24");
-    // event.date_end_event = CustomFormatDate().toDateFormat("2022-09-25");
-    // update();
-    // listEvent.add(event);
-    // event.name_event = "Indonesia Comic Con 2022";
-    // event.date_start_event = CustomFormatDate().toDateFormat("2022-10-01");
-    // event.date_end_event = CustomFormatDate().toDateFormat("2022-10-02");
-    // update();
-    // listEvent.add(event);
-    // getMainController().changeLoading();
+    await handleLocationPermission();
+    await getCurrentPosition();
     changeLoading();
+    
+  }
+
+  // getCurrentLocation() async {
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //       getCurrentPosition();
+  // }
+  Future<void> getCurrentPosition() async {
+  final hasPermission = await handleLocationPermission();
+  if (!hasPermission) return;
+  await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high)
+      .then((Position position) {
+    _currentPosition = position;
+    update();
+    getAddressFromLatLng(_currentPosition!);
+  }).catchError((e) {
+    print(e);
+  });
+}
+
+Future<void> getAddressFromLatLng(Position position) async {
+  await placemarkFromCoordinates(
+          _currentPosition!.latitude, _currentPosition!.longitude)
+      .then((List<Placemark> placemarks) {
+    Placemark place = placemarks[0];
+    // setState(() {
+      _currentAddress =
+         '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+    update();
+    inspect(placemarks);
+    print(_currentAddress);
+    // });
+  }).catchError((e) {
+    print(e);
+  });
+ }
+
+
+  Future<bool> handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      CustomWidget.showSnackBar(
+          'Location services are disabled. Please enable the services');
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        CustomWidget.showSnackBar('Location permissions are denied');
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      CustomWidget.showSnackBar(
+          'Location permissions are permanently denied, we cannot request permissions.');
+      return false;
+    }
+    return true;
   }
 
   changeLoading() {

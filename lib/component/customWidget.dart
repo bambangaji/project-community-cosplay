@@ -11,6 +11,10 @@ import 'color.dart';
 import 'customText.dart';
 
 class CustomWidget {
+  static showSnackBar(String message) {
+    Get.showSnackbar(GetSnackBar(message: message));
+  }
+
   static Widget customTextField(
       {String hintText = "",
       void Function()? callBack,

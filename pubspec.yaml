@@ -52,7 +52,8 @@ dependencies:
   dropdown_below: ^1.0.3
   animate_gradient: ^0.0.2
   path: ^1.8.2
-  
+  geocoding: ^2.0.5
+  geolocator: ^8.2.0  
 dev_dependencies:
   flutter_test:
     sdk: flutter
