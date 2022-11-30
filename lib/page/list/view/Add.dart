@@ -17,8 +17,8 @@ class AddDetail extends GetView<ListController> {
       body: SizedBox.expand(
           child: DraggableScrollableSheet(
               minChildSize: 0.2,
-              initialChildSize: 0.5,
-              maxChildSize: 0.5,
+              initialChildSize: 340 / Get.height,
+              maxChildSize: 340 / Get.height,
               builder:
                   (BuildContext context, ScrollController scrollController) {
                 return GestureDetector(

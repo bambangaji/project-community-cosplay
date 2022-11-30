@@ -1,17 +1,20 @@
 import 'dart:developer';
 
+import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/card.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
+import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
 import 'package:coscos/page/dashboard/model/runDown.dart';
 import 'package:coscos/page/dashboard/model/schedule.dart';
+import 'package:coscos/page/event/model/CharacterModel.dart';
+import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/event/view/Cosplayer.dart';
 import 'package:coscos/page/event/view/Information.dart';
 import 'package:coscos/page/event/view/ListCosplayer.dart';
-import 'package:coscos/page/event/view/Performance.dart';
 import 'package:coscos/page/event/view/Rules.dart';
 import 'package:coscos/page/event/view/RunDown.dart';
 import 'package:coscos/page/list/controller/ListController.dart';
@@ -27,8 +30,15 @@ class EventController extends GetxController {
   int selectTab = 1;
   int typeContent = 1;
   EventModel? eventModel;
-
-  AnimeModel? animeModel;
+  AnimeModel animeModel = AnimeModel(
+      id: "",
+      name: "",
+      character: [],
+      createdAt: DateTime.now(),
+      imageURL: "",
+      type: "");
+  ListSerial? listSerialModel;
+  ListCharacter? listCharacterModel;
   String selectSerialValue = "";
   var selectSerialController = TextEditingController().obs;
   var selectCharacterController = TextEditingController().obs;
@@ -41,13 +51,25 @@ class EventController extends GetxController {
     update();
   }
 
+  getDataListSerial() async {
+    getDashboardController().changeLoading();
+    var data = {"id_event": "", "type": "", "start": 0, "end": 5};
+    var retval = await getListSerial(data);
+    listSerialModel = retval;
+    getDashboardController().changeLoading();
+  }
+
+  DashboardController getDashboardController() {
+    return Get.find<DashboardController>();
+  }
+
   List<String>? rulesEvent;
   changeTab(int page) {
     selectTab = page;
     update();
   }
 
-  changeAttendanceCosplayer() {
+  changeAttendanceCosplayer() async {
     openAttendanceCosplayer.value = !openAttendanceCosplayer.value;
     update();
   }
@@ -220,19 +242,20 @@ class EventController extends GetxController {
     Get.to(ListCosplayerPage());
   }
 
-  selectSerial(AnimeModel data) {
+  selectSerial(Serial data) {
     // selectSerialValue = data.name;
     print(data.name);
     selectSerialController.value.text = data.name;
     selectCharacterController.value.text = "";
-    animeModel = data;
+    animeModel!.id = data.id;
+    animeModel!.name = data.name;
 
     update();
     print(selectSerialController.value.text);
     Get.back();
   }
 
-  selectCharacter(CharacterModel data) {
+  selectCharacter(Character data) {
     // selectSerialValue = data.name;
     print(data.name);
     selectCharacterController.value.text = data.name;
@@ -298,7 +321,21 @@ class EventController extends GetxController {
     );
   }
 
-  goToSerialPage(int type) {
+  getDataListCharacter() async {
+    getDashboardController().changeLoading();
+    var data = {
+      "id_event": "",
+      "gender": "",
+      "start": 0,
+      "end": 50,
+      "id_serial": animeModel!.id
+    };
+    var retval = await getListCharacter(data);
+    listCharacterModel = retval;
+    getDashboardController().changeLoading();
+  }
+
+  goToSerialPage(int type) async {
     typeContent = type;
     update();
     Get.lazyPut(() => ListController());
@@ -310,9 +347,11 @@ class EventController extends GetxController {
           backgroundColor: Warna.abuMuda,
         ));
       } else {
+        await getDataListCharacter();
         Get.to(const PageList());
       }
     } else {
+      await getDataListSerial();
       Get.to(const PageList());
     }
   }

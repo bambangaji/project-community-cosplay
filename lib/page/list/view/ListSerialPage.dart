@@ -12,19 +12,19 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
 
   Widget RetVal = Container();
   if (type == 1) {
-    var dataModel = controller.eventModel!;
-    RetVal = dataModel.anime.isNotEmpty
+    var dataModel = controller.listSerialModel!.data;
+    RetVal = dataModel.isNotEmpty
         ? ListView.builder(
             controller: scrollController,
-            itemCount: dataModel.anime.length,
+            itemCount: dataModel.length,
             itemBuilder: (context, snapshot) {
-              var data = dataModel.anime[snapshot];
+              var data = dataModel[snapshot];
               return Padding(
                 padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                 child: Column(
                   children: [
                     CustomWidget.ListTileTopUpCard(
-                      leadIconLocation: "lib/assets/sword_art_online.jpg",
+                      leadIconLocation: data.imageUrl,
                       title: data.name,
                       subTitle: data.type,
                       isPopular: snapshot == 0 ? true : false,
@@ -44,7 +44,7 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
             style: TextStyle(color: Warna.biruTua),
           ));
   } else if (type == 2) {
-    var dataModel = controller.animeModel!.character;
+    var dataModel = controller.listCharacterModel!.data;
     RetVal = dataModel.isNotEmpty
         ? ListView.builder(
             controller: scrollController,
@@ -56,7 +56,7 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
                 child: Column(
                   children: [
                     CustomWidget.ListTileTopUpCard(
-                      leadIconLocation: "lib/assets/sword_art_online.jpg",
+                      leadIconLocation: data.imageUrl,
                       title: data.name,
                       icon: Padding(
                         padding: const EdgeInsets.only(left: 5.0),

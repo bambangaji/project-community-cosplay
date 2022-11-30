@@ -53,7 +53,10 @@ dependencies:
   animate_gradient: ^0.0.2
   path: ^1.8.2
   geocoding: ^2.0.5
-  geolocator: ^8.2.0  
+  geolocator: ^8.2.0
+  flutter_secure_storage: ^5.0.2
+  
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter

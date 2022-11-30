@@ -39,67 +39,67 @@ class ListCosplayerPage extends GetView<EventController> {
                             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                             child: Column(
                               children: [
-                                CustomWidget.ListTileTopUp(
-                                  dataChara,
-                                  leadIconLocation: "lib/assets/tanjiro.jpg",
-                                  title: dataChara.name,
-                                  callBack: () {
-                                    controller.expandCharacter(dataChara);
-                                  },
-                                ),
-                                dataChara.isExpand
-                                    ? ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                            minHeight: 0, maxHeight: Get.width),
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          padding: EdgeInsets.zero,
-                                          itemCount: dataChara.cosplayer.length,
-                                          itemBuilder: (context, index) {
-                                            var dataCosplayer =
-                                                dataChara.cosplayer[index];
-                                            return Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    8, 0, 8, 0),
-                                                child: customCard().cardWidget(
-                                                  colorBg:
-                                                      dataCosplayer.gender ==
-                                                              "M"
-                                                          ? Warna.softIjoMedium
-                                                          : Warna.kuning,
-                                                  colorBorder:
-                                                      dataCosplayer.gender ==
-                                                              "M"
-                                                          ? Warna.softIjoMuda
-                                                          : Colors.yellow[800]!,
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8.0),
-                                                    child: Row(
-                                                      children: [
-                                                        CustomText()
-                                                            .titleTextWithWidgetIcon(
-                                                                dataCosplayer
-                                                                    .socmed,
-                                                                isMaxWidth:
-                                                                    true,
-                                                                FaIcon(
-                                                                  FontAwesomeIcons
-                                                                      .instagram,
-                                                                  color: Warna
-                                                                      .softWhite,
-                                                                ),
-                                                                isBack: true)
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ));
-                                            // return Text("data");
-                                          },
-                                        ),
-                                      )
-                                    : Container()
+                                // CustomWidget.ListTileTopUp(
+                                //   dataChara,
+                                //   leadIconLocation: "lib/assets/tanjiro.jpg",
+                                //   title: dataChara.name,
+                                //   callBack: () {
+                                //     controller.expandCharacter(dataChara);
+                                //   },
+                                // ),
+                                // dataChara.isExpand
+                                //     ? ConstrainedBox(
+                                //         constraints: BoxConstraints(
+                                //             minHeight: 0, maxHeight: Get.width),
+                                //         child: ListView.builder(
+                                //           shrinkWrap: true,
+                                //           padding: EdgeInsets.zero,
+                                //           itemCount: dataChara.cosplayer.length,
+                                //           itemBuilder: (context, index) {
+                                //             var dataCosplayer =
+                                //                 dataChara.cosplayer[index];
+                                //             return Padding(
+                                //                 padding: EdgeInsets.fromLTRB(
+                                //                     8, 0, 8, 0),
+                                //                 child: customCard().cardWidget(
+                                //                   colorBg:
+                                //                       dataCosplayer.gender ==
+                                //                               "M"
+                                //                           ? Warna.softIjoMedium
+                                //                           : Warna.kuning,
+                                //                   colorBorder:
+                                //                       dataCosplayer.gender ==
+                                //                               "M"
+                                //                           ? Warna.softIjoMuda
+                                //                           : Colors.yellow[800]!,
+                                //                   Padding(
+                                //                     padding:
+                                //                         const EdgeInsets.only(
+                                //                             left: 8.0),
+                                //                     child: Row(
+                                //                       children: [
+                                //                         CustomText()
+                                //                             .titleTextWithWidgetIcon(
+                                //                                 dataCosplayer
+                                //                                     .socmed,
+                                //                                 isMaxWidth:
+                                //                                     true,
+                                //                                 FaIcon(
+                                //                                   FontAwesomeIcons
+                                //                                       .instagram,
+                                //                                   color: Warna
+                                //                                       .softWhite,
+                                //                                 ),
+                                //                                 isBack: true)
+                                //                       ],
+                                //                     ),
+                                //                   ),
+                                //                 ));
+                                //             // return Text("data");
+                                //           },
+                                //         ),
+                                //       )
+                                //     : Container()
                               ],
                             ),
                           );

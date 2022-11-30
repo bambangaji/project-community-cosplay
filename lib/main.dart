@@ -1,3 +1,4 @@
+import 'package:coscos/api/API.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/sizeConfig.dart';
 import 'package:coscos/page/dashboard/view/dashboard.dart';
@@ -17,6 +18,7 @@ void main() async {
     //   // Includes  caller info, but this is expensive.
     //   includeCallerInfo: true,
     // );
+    API().initAPI();
   } else {
     // logger.setLevel(
     //   Level.WARNING,

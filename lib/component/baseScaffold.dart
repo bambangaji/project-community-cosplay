@@ -37,7 +37,7 @@ class CustomScaffold {
       String title = "",
       bool isTabBar = false}) {
     return LoadingOverlay(
-      isLoading: Get.find<MainController>().isLoading.value,
+      isLoading: Get.find<DashboardController>().isLoading.value,
       progressIndicator: CircularProgressIndicator(),
       color: Warna.softLavender,
       opacity: 0.8,

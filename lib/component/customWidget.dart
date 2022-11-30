@@ -208,10 +208,11 @@ class CustomWidget {
             height: 150,
             width: 90,
             decoration: BoxDecoration(
-                color: Colors.amber,
+                // color: Colors.amber,
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage(leadIconLocation))),
+                    fit: BoxFit.fitHeight,
+                    image: NetworkImage(leadIconLocation))),
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

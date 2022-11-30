@@ -17,7 +17,7 @@ class EventModel {
   String description;
   List<TicketModel> tiket;
   List<GuestStarModel> guest_star;
-  List<AnimeModel> anime;
+  List<AnimeModel>? anime;
   DateTime createdAt;
 
   EventModel(
@@ -33,7 +33,7 @@ class EventModel {
       required this.description,
       required this.createdAt,
       required this.guest_star,
-      required this.anime,
+      this.anime,
       this.time_end_event,
       this.time_start_event});
   factory EventModel.onError() => EventModel(

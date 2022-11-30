@@ -1,4 +1,5 @@
 import 'package:coscos/page/dashboard/model/cosplayer.dart';
+import 'package:coscos/page/event/model/CharacterModel.dart';
 
 import 'character.dart';
 
@@ -6,7 +7,7 @@ class AnimeModel {
   String id;
   String name;
   // String gender;
-  List<CharacterModel> character;
+  List<Character> character;
   DateTime createdAt;
   bool isExpand;
   String imageURL;

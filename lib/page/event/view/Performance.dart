@@ -188,9 +188,9 @@ class GuestEventPage extends GetView<EventController> {
                         child: ListView.builder(
                           padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                           shrinkWrap: true,
-                          itemCount: controller.eventModel!.anime.length,
+                          itemCount: controller.eventModel!.anime!.length,
                           itemBuilder: (context, i) {
-                            var data = controller.eventModel!.anime[i];
+                            var data = controller.eventModel!.anime![i];
                             return GestureDetector(
                               onTap: (() {
                                 controller.goToListCosplayer(data);
