@@ -273,43 +273,47 @@ class customCard {
       bool isPopular = false}) {
     return GestureDetector(
       onTap: callBack,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
-        child: Container(
-          // width: Get.width / 2.5,
-          decoration: BoxDecoration(
-              border: Border.all(color: colorBorder),
-              borderRadius: BorderRadius.circular(10),
-              color: colorBg),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: content,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 0.0),
+            child: Container(
+              // width: Get.width / 2.5,
+              decoration: BoxDecoration(
+                  border: Border.all(color: colorBorder),
+                  borderRadius: BorderRadius.circular(10),
+                  color: colorBg),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                    child: content,
+                  ),
+                ],
               ),
-              Positioned(
-                  top: 0,
-                  child: isPopular
-                      ? Container(
-                          // width: 100,
-                          // height: 15,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              gradient: LinearGradient(colors: [
-                                Color(0xff2196f3),
-                                Color(0xff8bc34a)
-                              ])),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 10),
-                            child: CustomText().titleText("Most Popular",
-                                textColor: Warna.white, fontSize: 10),
-                          ),
-                        )
-                      : Container())
-            ],
+            ),
           ),
-        ),
+          Positioned(
+              top: 0,
+              child: isPopular
+                  ? AnimatedContainer(
+                      // width: 100,
+                      // height: 15,
+                      duration: Duration(seconds: 2),
+                      curve: Curves.easeInQuad,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          gradient: LinearGradient(
+                              colors: [Color(0xff2196f3), Color(0xff8bc34a)])),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 10),
+                        child: CustomText().titleText("Most Popular",
+                            textColor: Warna.white, fontSize: 10),
+                      ),
+                    )
+                  : Container())
+        ],
       ),
     );
   }
