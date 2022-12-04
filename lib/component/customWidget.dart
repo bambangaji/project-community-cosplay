@@ -476,8 +476,14 @@ class CustomWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: CustomText()
-                          .titleText(title, textColor: Warna.abuDisable),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomText()
+                              .titleText(title, textColor: Warna.abuDisable),
+                          icon ?? Container()
+                        ],
+                      ),
                     ),
                   ],
                 ),
