@@ -40,7 +40,7 @@ class CustomScaffold {
       isLoading: Get.find<DashboardController>().isLoading.value,
       progressIndicator: CircularProgressIndicator(),
       color: Warna.softLavender,
-      opacity: 0.8,
+      opacity: 0.6,
       child: Scaffold(
           appBar: appBar
               ? CustomAppBar(context,

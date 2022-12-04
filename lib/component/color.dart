@@ -10,6 +10,7 @@ class Warna {
   static const Color abuLebihMuda = Color.fromRGBO(245, 245, 245, 1);
   static const Color biruMuda = Color.fromRGBO(85, 172, 238, 1);
   static const Color biru = Color.fromRGBO(0, 91, 189, 1);
+  static const Color biru2 = Color.fromRGBO(37, 150, 190, 1);
   static const Color biruTosca = Color.fromRGBO(27, 255, 255, 1);
   static const Color biruToscaMuda = Color.fromRGBO(39, 191, 225, 1);
   static const Color white = Colors.white;

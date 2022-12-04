@@ -55,6 +55,8 @@ dependencies:
   geocoding: ^2.0.5
   geolocator: ^8.2.0
   flutter_secure_storage: ^5.0.2
+  cached_network_image: ^3.2.3
+  shimmer: ^2.0.0
   
     
 dev_dependencies:

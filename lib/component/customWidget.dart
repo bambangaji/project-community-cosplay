@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coscos/component/enum.dart';
+import 'package:coscos/component/shimmerCustom.dart';
+import 'package:coscos/component/validator.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
+import 'package:coscos/page/main_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,31 +17,206 @@ import 'customText.dart';
 
 class CustomWidget {
   static showSnackBar(String message) {
-    Get.showSnackbar(GetSnackBar(message: message));
+    Get.showSnackbar(GetSnackBar(
+      message: message,
+      duration: Duration(seconds: 1),
+    ));
   }
 
   static Widget customTextField(
       {String hintText = "",
+      int minLength = 0,
       void Function()? callBack,
       void Function(String)? onChanged,
+      // String? Function(String)? validator,
       bool isDisable = false,
+      bool obsecureText = false,
+      int validator = 0,
+      int type = 0,
+      InputType inputType = InputType.none,
+      InputBorder inputBorder = InputBorder.none,
+      Rx<TextEditingController>? controller,
+      bool isMandatory = true,
+      Color bgColor = Warna.softWhite}) {
+    return TextFormField(
+      autofocus: true,
+      onChanged: onChanged,
+      obscureText: obsecureText,
+      controller: controller?.value,
+      onTap: callBack,
+      readOnly: isDisable,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        if (isMandatory) {
+          if (value == null || value.isEmpty) {
+            return "Can't be empty";
+          }
+          if (inputType == InputType.email) {
+            if (!GetUtils.isEmail(value!)) {
+              return "Invalid email format";
+            } else {
+              return null;
+            }
+          }
+          if (inputType == InputType.phone) {
+            if (!GetUtils.isPhoneNumber(value!)) {
+              return "Invalid phone number format";
+            } else {
+              return null;
+            }
+          }
+          if (inputType == InputType.password) {
+            if (!validateStructure(value!)) {
+              return "*Password must like 'Abcdefg123!' ";
+            } else {
+              return null;
+            }
+          }
+          if (minLength > 0) {
+            if (value.length < minLength) {
+              return "Min length $minLength";
+            } else {
+              return null;
+            }
+          } else {
+            return null;
+          }
+        } else {
+          return null;
+        }
+      },
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xffEEF2F7),
+        suffixIcon: inputType == InputType.password
+            ? GestureDetector(
+                onTap: () {
+                  Get.find<MainController>().changeObsecureText();
+                },
+                child: Icon(
+                    obsecureText
+                        ? Icons.remove_red_eye_outlined
+                        : Icons.remove_red_eye,
+                    color: Warna.abuMuda),
+              )
+            : null,
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Warna.flowerGreen, width: 2),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.pink[400]!, width: 2),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        border: inputBorder,
+        hintText: hintText,
+      ),
+    );
+  }
+
+  Widget emailField(
+    Rx<TextEditingController>? controller,
+  ) {
+    return Container(
+      margin: const EdgeInsets.all(15),
+      child: TextFormField(
+        controller: controller?.value,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          fillColor: const Color(0xffEEF2F7),
+          hintText: 'Email',
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xff535FF7), width: 2),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.pink[400]!, width: 2),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        validator: (value) {
+          if (!GetUtils.isEmail(value!)) {
+            return "Invalid email";
+          } else {
+            return null;
+          }
+        },
+      ),
+    );
+  }
+
+  Widget customTextFieldDynamic(
+      {String hintText = "",
+      void Function()? callBack,
+      void Function(String)? onChanged,
+      // String? Function(String)? validator,
+      bool isDisable = false,
+      bool obsecureText = false,
+      int validator = 0,
       InputBorder inputBorder = InputBorder.none,
       Rx<TextEditingController>? controller,
       Color bgColor = Warna.softWhite}) {
+    var mainController = Get.find<MainController>();
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15), color: bgColor),
         child: Padding(
           padding: EdgeInsets.only(left: Get.height / 30),
-          child: TextFormField(
-            onChanged: onChanged,
-            controller: controller?.value,
-            onTap: callBack,
-            readOnly: isDisable,
-            decoration: InputDecoration(
-              border: inputBorder,
-              hintText: hintText,
-            ),
+          child: Column(
+            children: [
+              TextFormField(
+                autofocus: true,
+                onChanged: onChanged,
+                obscureText: obsecureText,
+                controller: controller?.value,
+                onTap: callBack,
+                readOnly: isDisable,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (text) {
+                  if (text == null || text.isEmpty) {
+                    mainController.showErrorMessage(1, text: "Empty");
+                    return null;
+                  }
+                  if (validator == 1) {
+                    if (validatorEmail(text)) {
+                      return null;
+                    } else {
+                      return "Insert email format correctly";
+                    }
+                  }
+                  // if (text.length < 4) {
+                  //   return 'Too short';
+                  // }
+                  mainController.showErrorMessage(0, text: "Empty");
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: inputBorder,
+                  hintText: hintText,
+                ),
+              ),
+              Obx(() => mainController.showError.value
+                  ? CustomText()
+                      .titleTextWithoutBold(mainController.message.value)
+                  : Container())
+            ],
           ),
         ));
   }
@@ -208,11 +388,14 @@ class CustomWidget {
             height: 150,
             width: 90,
             decoration: BoxDecoration(
-                // color: Colors.amber,
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    fit: BoxFit.fitHeight,
-                    image: NetworkImage(leadIconLocation))),
+              // color: Colors.amber,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: leadIconLocation,
+              placeholder: (context, url) => new CircularProgressIndicator(),
+              errorWidget: (context, url, error) => new Icon(Icons.error),
+            ),
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -240,6 +423,68 @@ class CustomWidget {
         colorBg: Warna.white,
         colorBorder: Warna.white,
         isPopular: isPopular);
+  }
+
+  static Widget ListTileTopUpCardGrid(
+      {required String leadIconLocation,
+      required String title,
+      String? subTitle,
+      Widget? icon,
+      required void Function() callBack,
+      bool isPopular = false,
+      double imageWidth = 10}) {
+    return SizedBox(
+        height: 300,
+        width: 200,
+        child: Stack(
+          children: [
+            SizedBox(
+              height: 300,
+              width: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  fit: BoxFit.fitWidth,
+                  imageUrl: leadIconLocation,
+                  placeholder: (context, url) => ShimmerLoading(
+                      isLoading: true,
+                      child: Container(
+                        width: 200,
+                        height: 300,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                      )),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                width: 200,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Warna.softBlack.withOpacity(0.7),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: CustomText()
+                          .titleText(title, textColor: Warna.abuDisable),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ));
   }
 
   static Future<dynamic> showDialog(String title, String content) {

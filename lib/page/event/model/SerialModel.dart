@@ -2,7 +2,7 @@
 //
 //     final listSerial = listSerialFromJson(jsonString);
 
-import 'package:meta/meta.dart';
+import 'package:coscos/api/Error.dart';
 import 'dart:convert';
 
 ListSerial listSerialFromJson(String str) =>
@@ -28,6 +28,10 @@ class ListSerial {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "error": error.toJson(),
       };
+  factory ListSerial.dataError(int errorCode, String message) => ListSerial(
+        data: [],
+        error: Error.onError(errorCode, message),
+      );
 }
 
 SerialData serialDataFromJson(String str) =>
@@ -53,6 +57,10 @@ class SerialData {
         "data": data.toJson(),
         "error": error.toJson(),
       };
+  factory SerialData.dataError(int errorCode, String message) => SerialData(
+        data: Serial.onError(),
+        error: Error.onError(errorCode, message),
+      );
 }
 
 class Serial {
@@ -77,6 +85,13 @@ class Serial {
         type: json["type"],
         isFromApi: json["isFromAPI"] ?? "",
       );
+  factory Serial.onError() => Serial(
+        id: "",
+        name: "",
+        imageUrl: "",
+        type: "",
+        isFromApi: "",
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -84,25 +99,5 @@ class Serial {
         "image_url": imageUrl,
         "type": type,
         "isFromAPI": isFromApi,
-      };
-}
-
-class Error {
-  Error({
-    required this.errorCode,
-    required this.message,
-  });
-
-  String errorCode;
-  String message;
-
-  factory Error.fromJson(Map<String, dynamic> json) => Error(
-        errorCode: json["errorCode"],
-        message: json["message"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "errorCode": errorCode,
-        "message": message,
       };
 }

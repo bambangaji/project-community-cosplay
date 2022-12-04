@@ -1,10 +1,14 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customWidget.dart';
+import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/list/model/model.dart';
 import 'package:coscos/page/list/view/ListSerialPage.dart';
+import 'package:coscos/page/main_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,8 +26,8 @@ class ListController extends GetxController
   var selectedType = "";
   var addSelectedType = "ANIME";
   var addSelectedGender = "M";
-  var addSerialName = TextEditingController().obs;
-  var addCharacterlName = "";
+  var addSerialName = TextEditingController();
+  var addCharacterlName = TextEditingController().obs;
   var selectedOrder = "";
   var fileName = "";
   var isRebuild = true.obs;
@@ -31,6 +35,7 @@ class ListController extends GetxController
   var startDateController = TextEditingController().obs;
   var addNameSerial = TextEditingController().obs;
   var endDateController = TextEditingController().obs;
+  File? fileUpload;
   // ignore: prefer_final_fields
   ScrollController _scrollControllerDetail =
       ScrollController(initialScrollOffset: 15);
@@ -70,6 +75,22 @@ class ListController extends GetxController
   changeAddBtn() {
     resetAddState();
     openAdd.value = !openAdd.value;
+    clearForm();
+    update();
+  }
+
+  clearForm() {
+    addSelectedType = "ANIME";
+    addSelectedGender = "M";
+    fileName = "";
+    addCharacterlName.value.text = "";
+    addSerialName.text = "";
+    update();
+    print(addSerialName.value.text);
+  }
+
+  changeLoading() {
+    isLoading.value = !isLoading.value;
     update();
   }
 
@@ -85,11 +106,12 @@ class ListController extends GetxController
       final kb = bytes / 1024;
       final mb = kb / 1024;
       print(mb);
-      if (mb > 1) {
+      if (mb > 3) {
         CustomWidget.showDialog(
-            "Alert Size Image", "Image size must under 2Mb0");
+            "Alert Size Image", "Image size must under 3Mb");
       } else {
         fileName = basename(file.path);
+        fileUpload = file;
         update();
       }
 
@@ -104,11 +126,71 @@ class ListController extends GetxController
     update();
   }
 
-  SubmitSerial() {
+  DashboardController getDashboardController() {
+    return Get.find<DashboardController>();
+  }
+
+  EventController getEventController() {
+    return Get.find<EventController>();
+  }
+
+  SubmitSerial(int type) async {
     print(addSerialName.value.text);
     print(addSelectedType);
     print(fileName);
-    changeAddBtn();
+    // changeAddBtn();
+    var isValid = true;
+    var errorMessage = [];
+    if (addSerialName.value.text == "") {
+      errorMessage.add("Name , ");
+      isValid = false;
+    }
+    if (fileName == "") {
+      errorMessage.add("Image ");
+      isValid = false;
+    }
+    if (isValid) {
+      changeLoading();
+      await saveToDatabase(type);
+      changeAddBtn();
+      changeLoading();
+    } else {
+      CustomWidget.showSnackBar("${errorMessage.join()}field cant be empty");
+    }
+  }
+
+  saveToDatabase(int type) async {
+    var upload;
+    if (type == 1) {
+      upload = await uploadIMGSerial(fileUpload!);
+    } else {
+      upload = await uploadIMGCharacter(fileUpload!);
+    }
+
+    inspect(upload);
+    if (upload.error.errorCode == 0) {
+      var add;
+      if (type == 1) {
+        var data = {
+          "name": addSerialName.value.text,
+          "type": addSelectedType,
+          "imageURL": upload.data.imageUrl,
+          "id_event": ""
+        };
+        add = await addSerial(data);
+        await getEventController().getDataListSerial();
+      } else {
+        var data = {
+          "name": addSerialName.value.text,
+          "gender": addSelectedGender,
+          "imageURL": upload.data.imageUrl,
+          "id_serial": getEventController().animeModel.id,
+          "id_event": ""
+        };
+        add = await addCharacter(data);
+        await getEventController().getDataListCharacter();
+      }
+    }
   }
 
   Container resetFilter() {

@@ -7,6 +7,7 @@ class API {
   String addSerial = dotenv.env['ADD_SERIAL'].toString();
   String getCharacter = dotenv.env['GET_CHARACTER'].toString();
   String addCharacter = dotenv.env['ADD_CHARACTER'].toString();
+  String register = dotenv.env['REGISTER'].toString();
   String replaceURL(String URL,
       {String id = "",
       String id2 = "",

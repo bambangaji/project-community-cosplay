@@ -51,12 +51,24 @@ class EventController extends GetxController {
     update();
   }
 
-  getDataListSerial() async {
+  getBack() {
+    update();
+    print(selectSerialController.value.text);
+    Get.back();
+  }
+
+  Future<bool> getDataListSerial() async {
     getDashboardController().changeLoading();
-    var data = {"id_event": "", "type": "", "start": 0, "end": 5};
+    var data = {"id_event": "", "type": "", "start": 0, "end": 50};
     var retval = await getListSerial(data);
-    listSerialModel = retval;
     getDashboardController().changeLoading();
+    inspect(retval);
+    if (retval.error.errorCode == 200 || retval.error.errorCode == 0) {
+      listSerialModel = retval;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   DashboardController getDashboardController() {
@@ -242,13 +254,15 @@ class EventController extends GetxController {
     Get.to(ListCosplayerPage());
   }
 
-  selectSerial(Serial data) {
+  selectSerial(Serial data, {bool isBack = false}) {
     // selectSerialValue = data.name;
     print(data.name);
-    selectSerialController.value.text = data.name;
-    selectCharacterController.value.text = "";
-    animeModel!.id = data.id;
-    animeModel!.name = data.name;
+    if (!isBack) {
+      selectSerialController.value.text = data.name;
+      selectCharacterController.value.text = "";
+      animeModel.id = data.id;
+      animeModel.name = data.name;
+    }
 
     update();
     print(selectSerialController.value.text);
@@ -328,7 +342,7 @@ class EventController extends GetxController {
       "gender": "",
       "start": 0,
       "end": 50,
-      "id_serial": animeModel!.id
+      "id_serial": animeModel.id
     };
     var retval = await getListCharacter(data);
     listCharacterModel = retval;
@@ -338,9 +352,9 @@ class EventController extends GetxController {
   goToSerialPage(int type) async {
     typeContent = type;
     update();
-    Get.lazyPut(() => ListController());
+    Get.put<ListController>(ListController(), permanent: true);
     if (typeContent == 2) {
-      if (animeModel == null) {
+      if (animeModel.name == "") {
         Get.showSnackbar(const GetSnackBar(
           duration: Duration(seconds: 2),
           message: "Select serial first",
@@ -351,8 +365,11 @@ class EventController extends GetxController {
         Get.to(const PageList());
       }
     } else {
-      await getDataListSerial();
-      Get.to(const PageList());
+      getDataListSerial().then((value) {
+        if (value) {
+          Get.to(() => PageList());
+        }
+      });
     }
   }
 }

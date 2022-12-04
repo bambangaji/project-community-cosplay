@@ -21,10 +21,10 @@ AppBar CustomAppBar(BuildContext context,
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: back == false && callback == null
                   ? () {
-                      Get.close(1);
+                      Get.back();
                     }
                   : callback == null
-                      ? () => Get.close(1)
+                      ? () => Get.back()
                       : callback,
             )
           : GestureDetector(

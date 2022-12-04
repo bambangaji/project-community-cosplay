@@ -1,6 +1,7 @@
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/header.dart';
+import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/list/controller/ListController.dart';
 import 'package:coscos/page/list/view/Add.dart';
 import 'package:dropdown_below/dropdown_below.dart';
@@ -75,55 +76,6 @@ class PageList extends GetView<ListController> {
     );
   }
 
-  Container contentDialog(BuildContext context) {
-    return Container(
-      // color: Warna.abuDisable,
-      height: 60,
-      // width: 200,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Container(
-              //   width: 100,
-              //   // height: 20,
-              //   child: TextFormField(
-              //     controller: controller.StartDateController.value,
-              //     decoration: InputDecoration(
-              //       border: UnderlineInputBorder(),
-              //       labelText: 'Start Date',
-              //     ),
-              //     readOnly: true,
-              //     onTap: () {
-              //       controller.selectDate(context, 1);
-              //     },
-              //     // initialValue: "test",
-              //   ),
-              // ),
-              // Container(
-              //   width: 100,
-              //   // height: 20,
-              //   child: TextFormField(
-              //     controller: controller.EndDateController.value,
-              //     decoration: InputDecoration(
-              //       border: UnderlineInputBorder(),
-              //       labelText: 'End Date',
-              //     ),
-              //     readOnly: true,
-              //     onTap: () {
-              //       controller.selectDate(context, 2);
-              //     },
-              //     // initialValue: "test",
-              //   ),
-              // )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     controller.onRebuild();
@@ -136,7 +88,16 @@ class PageList extends GetView<ListController> {
                 Scaffold(
                   backgroundColor: Warna.abuMudaBG,
                   appBar: CustomAppBar(context, back: true, callback: () {
-                    Get.back();
+                    // Get.back();
+                    controller.getEventController().getBack();
+                    // controller.getEventController().selectSerial(
+                    //     Serial(
+                    //         id: "",
+                    //         name: "",
+                    //         imageUrl: "",
+                    //         type: "",
+                    //         isFromApi: ""),
+                    //     isBack: true);
                     // controller.resetAll();
                   }),
                   body: SizedBox(
@@ -144,127 +105,132 @@ class PageList extends GetView<ListController> {
                     width: Get.width,
                     child: Stack(children: [
                       Positioned(
-                          top: 7,
-                          left: 7,
+                          top: 0,
+                          left: 0,
                           child: Container(
                             width: Get.width,
+                            color: Warna.abuMudaBG,
                             height: 50,
-                            child: Center(
-                              child: ListView(
-                                padding: const EdgeInsets.all(5),
-                                scrollDirection: Axis.horizontal,
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  // Padding(
-                                  //   padding: const EdgeInsets.only(right: 9.0),
-                                  //   child: controller.resetFilter(),
-                                  // ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 12.0),
-                                    child: DropdownBelow(
-                                      itemWidth: 100,
-                                      itemTextstyle: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black),
-                                      boxTextstyle: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Warna.biruTua),
-                                      boxPadding: const EdgeInsets.fromLTRB(
-                                          12, 0, 0, 0),
-                                      boxWidth: 100,
-                                      boxHeight: 35,
-                                      boxDecoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.2),
-                                              spreadRadius: 1.1,
-                                              blurRadius: 5,
-                                              offset: const Offset(1, 1),
-                                            )
-                                          ],
-                                          // border: Border.all(
-                                          //     color: Warna.biruTua, width: 1.1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Warna.white),
-                                      hint: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8),
-                                          child: CustomText().titleText(
-                                            "All",
-                                            textColor: Warna.biruTua,
-                                          )),
-                                      value: controller.selectedType,
-                                      items: controller.dropdownType,
-                                      onChanged:
-                                          controller.onChangeDropdownType,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 7.0, left: 7),
+                              child: Center(
+                                child: ListView(
+                                  padding: const EdgeInsets.all(5),
+                                  scrollDirection: Axis.horizontal,
+                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(right: 9.0),
+                                    //   child: controller.resetFilter(),
+                                    // ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 12.0),
+                                      child: DropdownBelow(
+                                        itemWidth: 100,
+                                        itemTextstyle: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.black),
+                                        boxTextstyle: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Warna.biruTua),
+                                        boxPadding: const EdgeInsets.fromLTRB(
+                                            12, 0, 0, 0),
+                                        boxWidth: 100,
+                                        boxHeight: 35,
+                                        boxDecoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 1.1,
+                                                blurRadius: 5,
+                                                offset: const Offset(1, 1),
+                                              )
+                                            ],
+                                            // border: Border.all(
+                                            //     color: Warna.biruTua, width: 1.1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Warna.white),
+                                        hint: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 8),
+                                            child: CustomText().titleText(
+                                              "All",
+                                              textColor: Warna.biruTua,
+                                            )),
+                                        value: controller.selectedType,
+                                        items: controller.dropdownType,
+                                        onChanged:
+                                            controller.onChangeDropdownType,
+                                      ),
                                     ),
-                                  ),
-                                  // controller.selectedOrder == "" ||
-                                  //         controller.selectedOrder
-                                  //                 .toLowerCase() ==
-                                  //             "signing"
-                                  //     ? Padding(
-                                  //         padding: const EdgeInsets.only(
-                                  //             right: 12.0),
-                                  //         child: OutlinedButton(
-                                  //           onPressed: () {
-                                  //             // Get.off(PageDashboard());
-                                  //             Get.defaultDialog(
-                                  //                 title: "Chose Date",
-                                  //                 contentPadding:
-                                  //                     const EdgeInsets.all(15),
-                                  //                 textConfirm: "Confirm",
-                                  //                 textCancel: "Cancel",
-                                  //                 onConfirm: () {
-                                  //                   // controller.confirmFilter(1);
-                                  //                   Navigator.pop(context);
-                                  //                 },
-                                  //                 confirmTextColor:
-                                  //                     Colors.white,
-                                  //                 content:
-                                  //                     contentDialog(context));
-                                  //             // child: dialogDate(true)));
-                                  //             // showAlertDialog(context);
-                                  //           },
-                                  //           style: OutlinedButton.styleFrom(
-                                  //             elevation: 5.0,
-                                  //             backgroundColor: Warna.white,
-                                  //             side: const BorderSide(
-                                  //                 color: Warna.biruTua,
-                                  //                 width: 1.1),
-                                  //             shape: const StadiumBorder(),
-                                  //             // fixedSize: Size(size.width! / 3.3, 20)
-                                  //           ),
-                                  //           child: Row(
-                                  //             mainAxisAlignment:
-                                  //                 MainAxisAlignment.spaceAround,
-                                  //             children: [
-                                  //               // Icon(
-                                  //               //   Icons.arrow_left_outlined,
-                                  //               //   color: Warna.biruTua,
-                                  //               // ),
-                                  //               Text(
-                                  //                 controller.filterDate.value
-                                  //                     ? "${controller.StartDateController.value.text} - ${controller.EndDateController.value.text}"
-                                  //                     : 'Date Document',
-                                  //                 style: const TextStyle(
-                                  //                     color: Warna.biruTua),
-                                  //               )
-                                  //             ],
-                                  //           ),
-                                  //         ),
-                                  //       )
-                                  //     : Container(),
-                                ],
+                                    // controller.selectedOrder == "" ||
+                                    //         controller.selectedOrder
+                                    //                 .toLowerCase() ==
+                                    //             "signing"
+                                    //     ? Padding(
+                                    //         padding: const EdgeInsets.only(
+                                    //             right: 12.0),
+                                    //         child: OutlinedButton(
+                                    //           onPressed: () {
+                                    //             // Get.off(PageDashboard());
+                                    //             Get.defaultDialog(
+                                    //                 title: "Chose Date",
+                                    //                 contentPadding:
+                                    //                     const EdgeInsets.all(15),
+                                    //                 textConfirm: "Confirm",
+                                    //                 textCancel: "Cancel",
+                                    //                 onConfirm: () {
+                                    //                   // controller.confirmFilter(1);
+                                    //                   Navigator.pop(context);
+                                    //                 },
+                                    //                 confirmTextColor:
+                                    //                     Colors.white,
+                                    //                 content:
+                                    //                     contentDialog(context));
+                                    //             // child: dialogDate(true)));
+                                    //             // showAlertDialog(context);
+                                    //           },
+                                    //           style: OutlinedButton.styleFrom(
+                                    //             elevation: 5.0,
+                                    //             backgroundColor: Warna.white,
+                                    //             side: const BorderSide(
+                                    //                 color: Warna.biruTua,
+                                    //                 width: 1.1),
+                                    //             shape: const StadiumBorder(),
+                                    //             // fixedSize: Size(size.width! / 3.3, 20)
+                                    //           ),
+                                    //           child: Row(
+                                    //             mainAxisAlignment:
+                                    //                 MainAxisAlignment.spaceAround,
+                                    //             children: [
+                                    //               // Icon(
+                                    //               //   Icons.arrow_left_outlined,
+                                    //               //   color: Warna.biruTua,
+                                    //               // ),
+                                    //               Text(
+                                    //                 controller.filterDate.value
+                                    //                     ? "${controller.StartDateController.value.text} - ${controller.EndDateController.value.text}"
+                                    //                     : 'Date Document',
+                                    //                 style: const TextStyle(
+                                    //                     color: Warna.biruTua),
+                                    //               )
+                                    //             ],
+                                    //           ),
+                                    //         ),
+                                    //       )
+                                    //     : Container(),
+                                  ],
+                                ),
                               ),
                             ),
                           )),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
                         child: Obx(() => controller.isRebuild.value
                             ? const Center(
                                 child: SizedBox(

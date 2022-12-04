@@ -9,6 +9,7 @@ class CustomText {
       FontWeight fontWeight = FontWeight.bold}) {
     return Text(
       Content,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           color: textColor, fontWeight: fontWeight, fontSize: fontSize),
     );

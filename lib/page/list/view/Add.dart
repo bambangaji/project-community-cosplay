@@ -49,14 +49,25 @@ class AddDetail extends GetView<ListController> {
                                         const EdgeInsets.only(bottom: 10.0),
                                     child: CustomText().titleText("Name"),
                                   ),
-                                  Obx(() => CustomWidget.customTextField(
-                                      callBack: () {
-                                        // controller.goToSerialPage();
-                                      },
-                                      hintText: "Naruto",
-                                      bgColor: Warna.grey,
-                                      controller: controller.addSerialName,
-                                      isDisable: false)),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Warna.grey),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: Get.height / 30),
+                                        child: TextFormField(
+                                          // onChanged: onChanged,
+                                          controller: controller.addSerialName,
+                                          // onTap: callBack,
+                                          readOnly: false,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: "Naruto",
+                                          ),
+                                        ),
+                                      )),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -223,7 +234,8 @@ class AddDetail extends GetView<ListController> {
                                         style: TextButton.styleFrom(
                                             backgroundColor: Warna.biruTua),
                                         onPressed: () {
-                                          controller.SubmitSerial();
+                                          controller.SubmitSerial(
+                                              controller.typeContent);
                                         },
                                         child: CustomText().titleText("Submit",
                                             textColor: Warna.white)),
