@@ -121,7 +121,7 @@ class _PageOTPState extends State<PageOTP> {
               width: width,
               color: Colors.white,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0, bottom: 10),
