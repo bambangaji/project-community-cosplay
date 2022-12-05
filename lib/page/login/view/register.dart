@@ -16,7 +16,7 @@ class RegisterPage extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
         init: AuthController(), // INIT IT ONLY THE FIRST TIME
-        builder: (_) => LoadingOverlay(
+        builder: (_) => Obx(() => LoadingOverlay(
               progressIndicator: CircularProgressIndicator(),
               isLoading: controller.getMainController().isLoading.value,
               color: Warna.white,
@@ -158,6 +158,6 @@ class RegisterPage extends GetView<AuthController> {
                   ),
                 ),
               ),
-            ));
+            )));
   }
 }

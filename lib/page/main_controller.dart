@@ -35,5 +35,6 @@ class MainController extends GetxController {
   changeLoading() {
     isLoading.value = !isLoading.value;
     update();
+    print("loading::" + isLoading.value.toString());
   }
 }
