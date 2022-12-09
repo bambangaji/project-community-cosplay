@@ -17,7 +17,7 @@ class RegisterPage extends GetView<AuthController> {
     return GetBuilder<AuthController>(
         init: AuthController(), // INIT IT ONLY THE FIRST TIME
         builder: (_) => Obx(() => LoadingOverlay(
-              progressIndicator: CircularProgressIndicator(),
+              progressIndicator: const CircularProgressIndicator(),
               isLoading: controller.getMainController().isLoading.value,
               color: Warna.white,
               opacity: 0.7,
@@ -26,7 +26,7 @@ class RegisterPage extends GetView<AuthController> {
                     back: true, title: "Register", isSearchBar: false),
                 resizeToAvoidBottomInset: true,
                 backgroundColor: Warna.softWhite,
-                body: Container(
+                body: SizedBox(
                   height: Get.height,
                   width: Get.width,
                   child: SingleChildScrollView(
@@ -141,7 +141,7 @@ class RegisterPage extends GetView<AuthController> {
                                           textColor: Warna.softBlack),
                                       GestureDetector(
                                         onTap: () {
-                                          Get.to(PageOTP());
+                                          Get.to(const PageOTP());
                                         },
                                         child: CustomText().titleText("  Login",
                                             textColor: Warna.biruTua),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print, file_names
+
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/dateFormat.dart';
 import 'package:flutter/gestures.dart';
@@ -42,14 +44,12 @@ class GuestEventPage extends GetView<EventController> {
                               CustomText().titleText(
                                   controller.eventModel!.name_event,
                                   fontSize: 17),
-                              customCard().cardBlue(CustomFormatDate()
+                              customCard().cardBlue("${CustomFormatDate()
                                       .formatDateID(controller
                                           .eventModel!.date_start_event
-                                          .toString()) +
-                                  " - " +
-                                  CustomFormatDate().formatDateID(controller
+                                          .toString())} - ${CustomFormatDate().formatDateID(controller
                                       .eventModel!.date_end_event
-                                      .toString()))
+                                      .toString())}")
                             ],
                           ),
                           // Column(
@@ -74,7 +74,7 @@ class GuestEventPage extends GetView<EventController> {
                         "Ticket : ",
                         fontSize: 17,
                       ),
-                      Container(
+                      SizedBox(
                         height: 80,
                         width: Get.width,
                         child: ListView.builder(
@@ -96,33 +96,28 @@ class GuestEventPage extends GetView<EventController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                        child: Container(
-                          // width: Get.width - Get.width / 16,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(Icons.location_on_outlined,
-                                      color: Warna.abuMuda),
-                                  Container(
-                                    width: Get.width / 1.5,
-                                    child: CustomText().longText(
-                                      controller.eventModel!.city +
-                                          ", " +
-                                          controller.eventModel!.address,
-                                      textColor: Warna.abuMuda,
-                                    ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(Icons.location_on_outlined,
+                                    color: Warna.abuMuda),
+                                SizedBox(
+                                  width: Get.width / 1.5,
+                                  child: CustomText().longText(
+                                    "${controller.eventModel!.city}, ${controller.eventModel!.address}",
+                                    textColor: Warna.abuMuda,
                                   ),
-                                ],
-                              ),
-                              Image.asset(
-                                "lib/assets/googleMaps.png",
-                                height: Get.height / 15,
-                              )
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              "lib/assets/googleMaps.png",
+                              height: Get.height / 15,
+                            )
+                          ],
                         ),
                       ),
                       CustomText().titleText(
@@ -133,7 +128,7 @@ class GuestEventPage extends GetView<EventController> {
                         padding: const EdgeInsets.only(top: 5.0, bottom: 5),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: Get.width - Get.width / 10,
                               child: RichText(
                                 text: TextSpan(
@@ -166,7 +161,7 @@ class GuestEventPage extends GetView<EventController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 4, 0, 10),
-                        child: Container(
+                        child: SizedBox(
                           width: Get.width,
                           height: 180,
                           child: ListView.builder(
@@ -183,91 +178,88 @@ class GuestEventPage extends GetView<EventController> {
                         "Cosplayer :",
                         fontSize: 17,
                       ),
-                      Container(
-                        // height: 1,
-                        child: ListView.builder(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          shrinkWrap: true,
-                          itemCount: controller.eventModel!.anime!.length,
-                          itemBuilder: (context, i) {
-                            var data = controller.eventModel!.anime![i];
-                            return GestureDetector(
-                              onTap: (() {
-                                controller.goToListCosplayer(data);
-                              }),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 10.0, right: 5),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: Get.width,
-                                      decoration: const BoxDecoration(
-                                          color: Warna.softWhite,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey,
-                                                blurRadius: 5,
-                                                spreadRadius: 1,
-                                                offset: Offset(4, 4)),
-                                            BoxShadow(
-                                                color: Colors.white,
-                                                offset: Offset(-5, -5),
-                                                blurRadius: 15,
-                                                spreadRadius: 1),
-                                          ],
-                                          border: Border(
-                                            left: BorderSide(
-                                                color: Warna.biruMuda,
-                                                width: 2),
-                                          )),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .fromLTRB(
-                                                        10, 12, 10, 12),
-                                                    child: Container(
-                                                      height: 60,
-                                                      width: 60,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          image: DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image: AssetImage(
-                                                                  "lib/assets/kimetsu.jpg"))),
-                                                    ),
-                                                  ),
-                                                  CustomText()
-                                                      .titleText(data.name)
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    EdgeInsets.only(right: 8.0),
-                                                child: customCard()
-                                                    .cardPurpleRowBetween("100",
-                                                        text2nd: "Cosplayer"),
-                                              )
-                                            ],
-                                          ),
+                      ListView.builder(
+                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                        shrinkWrap: true,
+                        itemCount: controller.eventModel!.anime!.length,
+                        itemBuilder: (context, i) {
+                          var data = controller.eventModel!.anime![i];
+                          return GestureDetector(
+                            onTap: (() {
+                              controller.goToListCosplayer(data);
+                            }),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 10.0, right: 5),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: Get.width,
+                                    decoration: const BoxDecoration(
+                                        color: Warna.softWhite,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.grey,
+                                              blurRadius: 5,
+                                              spreadRadius: 1,
+                                              offset: Offset(4, 4)),
+                                          BoxShadow(
+                                              color: Colors.white,
+                                              offset: Offset(-5, -5),
+                                              blurRadius: 15,
+                                              spreadRadius: 1),
                                         ],
-                                      ),
+                                        border: Border(
+                                          left: BorderSide(
+                                              color: Warna.biruMuda,
+                                              width: 2),
+                                        )),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .fromLTRB(
+                                                      10, 12, 10, 12),
+                                                  child: Container(
+                                                    height: 60,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        image: DecorationImage(
+                                                            fit: BoxFit.cover,
+                                                            image: AssetImage(
+                                                                "lib/assets/kimetsu.jpg"))),
+                                                  ),
+                                                ),
+                                                CustomText()
+                                                    .titleText(data.name)
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.0),
+                                              child: customCard()
+                                                  .cardPurpleRowBetween("100",
+                                                      text2nd: "Cosplayer"),
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       )
                     ],
                   ),

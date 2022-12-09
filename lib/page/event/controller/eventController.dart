@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:developer';
 
 import 'package:coscos/api/Methode.dart';
@@ -53,7 +55,6 @@ class EventController extends GetxController {
 
   getBack() {
     update();
-    print(selectSerialController.value.text);
     Get.back();
   }
 
@@ -107,19 +108,19 @@ class EventController extends GetxController {
     switch (selectTab) {
       case 1:
         // do something
-        output = InformationPage();
+        output = const InformationPage();
         break;
       case 2:
         // do something else
-        output = RulesEventPage();
+        output = const RulesEventPage();
         break;
       case 3:
         // do something else
-        output = CosplayerPage();
+        output = const CosplayerPage();
         break;
       case 4:
         // do something else
-        output = RunDownPage();
+        output = const RunDownPage();
         getDataRunDown();
         break;
     }
@@ -240,23 +241,20 @@ class EventController extends GetxController {
   expandAnime(AnimeModel data) {
     data.isExpand = !data.isExpand;
     update();
-    print(data.isExpand);
   }
 
   expandCharacter(CharacterModel data) {
     data.isExpand = !data.isExpand;
     update();
-    print(data.isExpand);
   }
 
   goToListCosplayer(AnimeModel data) {
     animeModel = data;
-    Get.to(ListCosplayerPage());
+    Get.to(const ListCosplayerPage());
   }
 
   selectSerial(Serial data, {bool isBack = false}) {
     // selectSerialValue = data.name;
-    print(data.name);
     if (!isBack) {
       selectSerialController.value.text = data.name;
       selectCharacterController.value.text = "";
@@ -265,23 +263,20 @@ class EventController extends GetxController {
     }
 
     update();
-    print(selectSerialController.value.text);
     Get.back();
   }
 
   selectCharacter(Character data) {
     // selectSerialValue = data.name;
-    print(data.name);
     selectCharacterController.value.text = data.name;
     update();
-    print(selectSerialController.value.text);
     Get.back();
   }
 
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
       return Container(
-        margin: EdgeInsets.all(3),
+        margin: const EdgeInsets.all(3),
         width: 10,
         height: 10,
         decoration: BoxDecoration(
@@ -367,7 +362,7 @@ class EventController extends GetxController {
     } else {
       getDataListSerial().then((value) {
         if (value) {
-          Get.to(() => PageList());
+          Get.to(() => const PageList());
         }
       });
     }

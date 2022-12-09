@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unused_import, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types, avoid_print
+
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';

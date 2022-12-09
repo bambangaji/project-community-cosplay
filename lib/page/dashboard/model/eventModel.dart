@@ -1,7 +1,8 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/guestStarModel.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
-import 'package:flutter/material.dart';
 
 class EventModel {
   String id_event;

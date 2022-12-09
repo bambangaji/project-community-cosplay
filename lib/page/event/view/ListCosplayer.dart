@@ -1,14 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../component/baseScaffold.dart';
-import '../../../component/card.dart';
-import '../../../component/color.dart';
-import '../../../component/customText.dart';
-import '../../../component/customWidget.dart';
 import '../controller/eventController.dart';
 
 class ListCosplayerPage extends GetView<EventController> {
@@ -22,22 +17,21 @@ class ListCosplayerPage extends GetView<EventController> {
               context,
               isSearchBar: false,
               isBack: true,
-              title: controller.animeModel!.name,
+              title: controller.animeModel.name,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Container(
+                  child: SizedBox(
                       height: Get.height,
                       width: Get.width,
                       child: ListView.builder(
-                        padding: EdgeInsets.only(bottom: 100),
-                        itemCount: controller.animeModel!.character.length,
+                        padding: const EdgeInsets.only(bottom: 100),
+                        itemCount: controller.animeModel.character.length,
                         itemBuilder: (context, index) {
-                          var dataChara =
-                              controller.animeModel!.character[index];
                           return Padding(
-                            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                             child: Column(
+                              // ignore: prefer_const_literals_to_create_immutables
                               children: [
                                 // CustomWidget.ListTileTopUp(
                                 //   dataChara,

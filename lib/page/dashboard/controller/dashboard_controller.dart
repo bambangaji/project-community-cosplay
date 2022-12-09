@@ -1,11 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 
 import 'package:coscos/component/MotionTabBar/MotionTabController.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/dateFormat.dart';
-import 'package:coscos/page/dashboard/model/anime.dart';
-import 'package:coscos/page/dashboard/model/character.dart';
-import 'package:coscos/page/dashboard/model/cosplayer.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
 import 'package:coscos/page/dashboard/model/guestStarModel.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
@@ -19,7 +18,6 @@ import 'package:geocoding/geocoding.dart';
 class DashboardController extends GetxController
     with GetTickerProviderStateMixin {
   var isLoading = false.obs;
-  String? _currentAddress;
   Position? _currentPosition;
   List<EventModel> listEvent = [];
   MotionTabController? tabController;
@@ -66,7 +64,6 @@ class DashboardController extends GetxController
       update();
       getAddressFromLatLng(_currentPosition!);
     }).catchError((e) {
-      print(e);
     });
   }
 
@@ -74,16 +71,11 @@ class DashboardController extends GetxController
     await placemarkFromCoordinates(
             _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
       // setState(() {
-      _currentAddress =
-          '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       update();
       inspect(placemarks);
-      print(_currentAddress);
       // });
     }).catchError((e) {
-      print(e);
     });
   }
 
@@ -121,7 +113,7 @@ class DashboardController extends GetxController
   goToEventDetail(EventModel data) async {
     Get.put(EventController());
     Get.find<EventController>().onBuildPage(data);
-    Get.to(() => EventPage());
+    Get.to(() => const EventPage());
   }
 
   addDataDummy(String EventName) {

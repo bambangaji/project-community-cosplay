@@ -1,31 +1,27 @@
 import 'package:coscos/component/ImageLoc.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
-import 'package:coscos/component/sizeConfig.dart';
-import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: non_constant_identifier_names
 AppBar CustomAppBar(BuildContext context,
     {bool back = false,
-    void Function()? callback = null,
+    void Function()? callback,
     bool isSearchBar = true,
     String title = ""}) {
-  print(callback);
   return AppBar(
     centerTitle: true,
     leading: Padding(
       padding: EdgeInsets.only(left: Get.width / 95),
       child: back
           ? IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: back == false && callback == null
                   ? () {
                       Get.back();
                     }
-                  : callback == null
-                      ? () => Get.back()
-                      : callback,
+                  : callback ?? () => Get.back(),
             )
           : GestureDetector(
               onTap: () => Get.until((route) => Get.currentRoute == '/'),
@@ -45,7 +41,7 @@ AppBar CustomAppBar(BuildContext context,
               child: TextFormField(
                 // scrollPadding: ,
                 maxLines: 1,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   contentPadding: EdgeInsets.only(bottom: 6),
                   border: InputBorder.none,
                   hintText: "Indonesia Comic Con",
@@ -63,7 +59,7 @@ AppBar CustomAppBar(BuildContext context,
           padding: EdgeInsets.only(right: Get.height / 80),
           child: GestureDetector(
             onTap: () {},
-            child: Icon(Icons.more_horiz_rounded),
+            child: const Icon(Icons.more_horiz_rounded),
           )),
     ],
   );

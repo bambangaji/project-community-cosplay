@@ -1,7 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
-import 'package:coscos/component/customWidget.dart';
-import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/list/controller/ListController.dart';
 import 'package:dropdown_below/dropdown_below.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,6 @@ class AddDetail extends GetView<ListController> {
                   (BuildContext context, ScrollController scrollController) {
                 return GestureDetector(
                   onTap: () {
-                    print("object");
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -62,7 +61,7 @@ class AddDetail extends GetView<ListController> {
                                           controller: controller.addSerialName,
                                           // onTap: callBack,
                                           readOnly: false,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             border: InputBorder.none,
                                             hintText: "Naruto",
                                           ),
@@ -217,7 +216,7 @@ class AddDetail extends GetView<ListController> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 4,
                                   ),
                                   CustomText().titleTextWithoutBold(

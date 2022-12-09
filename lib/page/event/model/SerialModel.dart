@@ -2,6 +2,8 @@
 //
 //     final listSerial = listSerialFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'package:coscos/api/Error.dart';
 import 'dart:convert';
 

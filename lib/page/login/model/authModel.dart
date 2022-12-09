@@ -2,8 +2,9 @@
 //
 //     final register = registerFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'package:coscos/api/Error.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Register registerFromJson(String str) => Register.fromJson(json.decode(str));

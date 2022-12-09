@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 bool validatorEmail(String text) {
   var isValid = RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")

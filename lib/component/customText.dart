@@ -1,6 +1,7 @@
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, duplicate_ignore, file_names
+
 import 'package:coscos/component/color.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomText {
   Text titleText(String Content,
@@ -24,6 +25,7 @@ class CustomText {
     );
   }
 
+  // ignore: non_constant_identifier_names
   String Capitalize(String content) {
     return "${content[0].toUpperCase()}${content.substring(1).toLowerCase()}";
   }
@@ -83,6 +85,7 @@ class CustomText {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        // ignore: prefer_const_constructors
         Text("• "),
         Expanded(
           child: Text(
@@ -110,7 +113,7 @@ class CustomText {
       children: [
         isBack
             ? Padding(
-                padding: EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 4.0),
                 child: icon,
               )
             : Container(),
@@ -127,7 +130,7 @@ class CustomText {
         ),
         !isBack
             ? Padding(
-                padding: EdgeInsets.only(left: 4.0),
+                padding: const EdgeInsets.only(left: 4.0),
                 child: icon,
               )
             : Container()

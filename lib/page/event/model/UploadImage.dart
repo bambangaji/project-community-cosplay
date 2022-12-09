@@ -2,6 +2,8 @@
 //
 //     final uploadImage = uploadImageFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 import 'package:coscos/api/Error.dart';

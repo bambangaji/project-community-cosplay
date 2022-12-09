@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
@@ -53,6 +55,7 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
   }
 }
 
+// ignore: unused_element
 class _SlidingGradientTransform extends GradientTransform {
   const _SlidingGradientTransform({
     required this.slidePercent,
@@ -85,6 +88,7 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: todo
     // TODO: implement build
     throw UnimplementedError();
   }

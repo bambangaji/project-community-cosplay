@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/header.dart';
-import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/list/controller/ListController.dart';
 import 'package:coscos/page/list/view/Add.dart';
 import 'package:dropdown_below/dropdown_below.dart';
@@ -11,70 +12,6 @@ import 'package:get/get.dart';
 
 class PageList extends GetView<ListController> {
   const PageList({Key? key}) : super(key: key);
-  Container dialogDate(bool confirm) {
-    return Container(
-      width: Get.width / 1.5,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          OutlinedButton(
-            onPressed: () {
-              // Get.off(PageDashboard());
-            },
-            style: OutlinedButton.styleFrom(
-                elevation: 5.0,
-                backgroundColor: Warna.white,
-                side: const BorderSide(color: Warna.biruTua, width: 1.1),
-                shape: const StadiumBorder(),
-                fixedSize: Size(Get.width / 5, 20)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Icon(
-                //   Icons.arrow_left_outlined,
-                //   color: Warna.biruTua,
-                // ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Text(
-                    'Confirm',
-                    style: TextStyle(color: Warna.biruTua),
-                  ),
-                )
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              // Get.off(PageDashboard());
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Icon(
-                //   Icons.arrow_left_outlined,
-                //   color: Warna.biruTua,
-                // ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Text(
-                    'Back',
-                    style: TextStyle(color: Warna.biruTua),
-                  ),
-                )
-              ],
-            ),
-            style: OutlinedButton.styleFrom(
-                elevation: 5.0,
-                backgroundColor: Warna.white,
-                side: const BorderSide(color: Warna.biruTua, width: 1.1),
-                shape: const StadiumBorder(),
-                fixedSize: Size(Get.width / 5, 20)),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,17 +25,7 @@ class PageList extends GetView<ListController> {
                 Scaffold(
                   backgroundColor: Warna.abuMudaBG,
                   appBar: CustomAppBar(context, back: true, callback: () {
-                    // Get.back();
                     controller.getEventController().getBack();
-                    // controller.getEventController().selectSerial(
-                    //     Serial(
-                    //         id: "",
-                    //         name: "",
-                    //         imageUrl: "",
-                    //         type: "",
-                    //         isFromApi: ""),
-                    //     isBack: true);
-                    // controller.resetAll();
                   }),
                   body: SizedBox(
                     height: Get.height,
@@ -117,7 +44,6 @@ class PageList extends GetView<ListController> {
                                 child: ListView(
                                   padding: const EdgeInsets.all(5),
                                   scrollDirection: Axis.horizontal,
-                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     // Padding(
                                     //   padding: const EdgeInsets.only(right: 9.0),
@@ -150,8 +76,6 @@ class PageList extends GetView<ListController> {
                                                 offset: const Offset(1, 1),
                                               )
                                             ],
-                                            // border: Border.all(
-                                            //     color: Warna.biruTua, width: 1.1),
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             color: Warna.white),
@@ -167,64 +91,7 @@ class PageList extends GetView<ListController> {
                                         onChanged:
                                             controller.onChangeDropdownType,
                                       ),
-                                    ),
-                                    // controller.selectedOrder == "" ||
-                                    //         controller.selectedOrder
-                                    //                 .toLowerCase() ==
-                                    //             "signing"
-                                    //     ? Padding(
-                                    //         padding: const EdgeInsets.only(
-                                    //             right: 12.0),
-                                    //         child: OutlinedButton(
-                                    //           onPressed: () {
-                                    //             // Get.off(PageDashboard());
-                                    //             Get.defaultDialog(
-                                    //                 title: "Chose Date",
-                                    //                 contentPadding:
-                                    //                     const EdgeInsets.all(15),
-                                    //                 textConfirm: "Confirm",
-                                    //                 textCancel: "Cancel",
-                                    //                 onConfirm: () {
-                                    //                   // controller.confirmFilter(1);
-                                    //                   Navigator.pop(context);
-                                    //                 },
-                                    //                 confirmTextColor:
-                                    //                     Colors.white,
-                                    //                 content:
-                                    //                     contentDialog(context));
-                                    //             // child: dialogDate(true)));
-                                    //             // showAlertDialog(context);
-                                    //           },
-                                    //           style: OutlinedButton.styleFrom(
-                                    //             elevation: 5.0,
-                                    //             backgroundColor: Warna.white,
-                                    //             side: const BorderSide(
-                                    //                 color: Warna.biruTua,
-                                    //                 width: 1.1),
-                                    //             shape: const StadiumBorder(),
-                                    //             // fixedSize: Size(size.width! / 3.3, 20)
-                                    //           ),
-                                    //           child: Row(
-                                    //             mainAxisAlignment:
-                                    //                 MainAxisAlignment.spaceAround,
-                                    //             children: [
-                                    //               // Icon(
-                                    //               //   Icons.arrow_left_outlined,
-                                    //               //   color: Warna.biruTua,
-                                    //               // ),
-                                    //               Text(
-                                    //                 controller.filterDate.value
-                                    //                     ? "${controller.StartDateController.value.text} - ${controller.EndDateController.value.text}"
-                                    //                     : 'Date Document',
-                                    //                 style: const TextStyle(
-                                    //                     color: Warna.biruTua),
-                                    //               )
-                                    //             ],
-                                    //           ),
-                                    //         ),
-                                    //       )
-                                    //     : Container(),
-                                  ],
+                                    ),],
                                 ),
                               ),
                             ),
@@ -280,10 +147,10 @@ class PageList extends GetView<ListController> {
                           height: Get.height,
                           width: Get.width,
                           color: Warna.silver.withOpacity(0.8),
-                          child: Container(
+                          child: SizedBox(
                               width: Get.width,
                               height: Get.height / 2,
-                              child: AddDetail()),
+                              child: const AddDetail()),
                         ),
                       ))
                     : Container())

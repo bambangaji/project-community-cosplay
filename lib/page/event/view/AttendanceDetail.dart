@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
@@ -7,8 +9,8 @@ import 'package:get/get.dart';
 
 class AttendanceDetail extends GetView<EventController> {
   const AttendanceDetail({super.key});
-  Container contentDialog(BuildContext context) {
-    return Container(
+  Widget contentDialog(BuildContext context) {
+    return SizedBox(
       // color: Warna.abuDisable,
       height: 60,
       // width: 200,
@@ -17,7 +19,7 @@ class AttendanceDetail extends GetView<EventController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: 100,
                 // height: 20,
                 child: TextFormField(
@@ -33,7 +35,7 @@ class AttendanceDetail extends GetView<EventController> {
                   // initialValue: "test",
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 100,
                 // height: 20,
                 child: TextFormField(
@@ -66,7 +68,6 @@ class AttendanceDetail extends GetView<EventController> {
             builder: (BuildContext context, ScrollController scrollController) {
               return GestureDetector(
                 onTap: () {
-                  print("object");
                 },
                 child: Container(
                   decoration: BoxDecoration(

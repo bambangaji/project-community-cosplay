@@ -1,8 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/MySliverAppBar.dart';
 import 'package:coscos/component/baseScaffold.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
-import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/event/view/AttendanceDetail.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +139,7 @@ class EventPage extends GetView<EventController> {
                             width: Get.width,
                             color: Warna.abuMuda.withOpacity(0.7),
                             child: Center(
-                              child: Container(
+                              child: SizedBox(
                                 width: Get.width - 40,
                                 height: Get.height / 1.8,
                                 child: PhotoView(
@@ -160,7 +161,7 @@ class EventPage extends GetView<EventController> {
                               height: Get.height,
                               width: Get.width,
                               color: Warna.silver.withOpacity(0.8),
-                              child: Container(
+                              child: SizedBox(
                                   width: Get.width,
                                   height: Get.height / 2,
                                   child: const AttendanceDetail()),

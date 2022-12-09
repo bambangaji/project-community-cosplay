@@ -1,18 +1,18 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:coscos/service/storage.dart';
 import 'package:dio/dio.dart';
 
 Dio fetch() {
-  var _dio = Dio();
+  var dio = Dio();
   String? userToken;
 
-  _dio.interceptors.add(QueuedInterceptorsWrapper(
+  dio.interceptors.add(QueuedInterceptorsWrapper(
     onRequest: (options, handler) {
       // print('send request：path:${options.path}，baseURL:${options.baseUrl}');
       if (userToken == null) {
         // print('no token，request token firstly...');
         SecureStorage().readSecureData("userToken").then((token) {
-          print(token.toString());
-          print("token: $token");
           if (token != null) {
             options.headers['Authorization'] = userToken = "Bearer " + token;
             // options.headers['Cookie'] = 'lang=id-ID; ut=${userToken}';
@@ -22,7 +22,7 @@ Dio fetch() {
           handler.reject(error, true);
         });
       } else {
-        options.headers['Authorization'] = userToken = "Bearer " + userToken!;
+        options.headers['Authorization'] = userToken = "Bearer ${userToken!}";
         // options.headers['Cookie'] = 'lang=id-ID; ut=${userToken}';
         return handler.next(options);
       }
@@ -35,5 +35,5 @@ Dio fetch() {
     },
   ));
 
-  return _dio;
+  return dio;
 }

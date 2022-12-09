@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/validator.dart';
-import 'package:coscos/page/dashboard/view/dashboard.dart';
 import 'package:coscos/page/login/view/pin.dart';
 import 'package:coscos/page/login/view/register.dart';
 import 'package:coscos/page/main_controller.dart';
@@ -23,7 +24,6 @@ class AuthController extends GetxController {
 
   showErrorMessage(int type, {String text = ""}) {
     if (type == 1) {
-      print("object");
       // showError.value = true;
       // message.value = text;
       update();

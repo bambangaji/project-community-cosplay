@@ -1,4 +1,5 @@
-import 'package:coscos/page/dashboard/model/cosplayer.dart';
+
+// ignore_for_file: non_constant_identifier_names
 
 class CosplayerModel {
   String id;

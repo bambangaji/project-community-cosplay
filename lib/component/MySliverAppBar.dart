@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, file_names
+
 import 'dart:ui';
 
 import 'package:coscos/component/color.dart';
@@ -50,6 +52,11 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                             curve: Curves.easeInOutCubic,
                             height: Get.height / 4.5,
                             width: Get.width,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("lib/assets/comifuro.jpg"),
+                                  fit: BoxFit.cover),
+                            ),
                             child: Container(
                               child: BackdropFilter(
                                 filter: shrinkOffset > 120
@@ -62,17 +69,12 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                 ),
                               ),
                             ),
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("lib/assets/comifuro.jpg"),
-                                  fit: BoxFit.cover),
-                            ),
                           );
                         }),
                   ),
                   Positioned(
                       bottom: Get.height / 18,
-                      child: Container(
+                      child: SizedBox(
                         width: Get.width,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

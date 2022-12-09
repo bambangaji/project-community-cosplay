@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:developer';
 
 import 'package:coscos/component/customWidget.dart';
@@ -24,7 +26,7 @@ class Error {
   factory Error.onError(int errorCode, String message) {
     var error = Error(errorCode: 200, message: "Sukses");
     if (errorCode == 400) {
-      CustomWidget.showDialog("Error 400", "Data not found");
+      CustomWidget.showDialog("Error 400", message);
       error = Error(
         errorCode: 400,
         message: 'Data not found',

@@ -1,13 +1,12 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, file_names
+
 library motiontabbar;
 
-import 'package:coscos/page/login/view/login.dart';
 import 'package:coscos/page/main_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../page/dashboard/controller/dashboard_controller.dart';
-import '../color.dart';
 import 'TabItem.dart';
+// ignore: depend_on_referenced_packages
 import 'package:vector_math/vector_math.dart' as vector;
 
 typedef MotionTabBuilder = Widget Function();
@@ -21,7 +20,7 @@ class MotionTabBar extends StatefulWidget {
   final List<String> labels;
   final List<IconData> icons;
 
-  MotionTabBar({
+  const MotionTabBar({
     required this.textStyle,
     required this.tabIconColor,
     required this.tabSelectedColor,
@@ -70,22 +69,18 @@ class _MotionTabBarState extends State<MotionTabBar>
     super.initState();
 
     labels = widget.labels;
-    icons = Map.fromIterable(
-      labels!,
-      key: (label) => label,
-      value: (label) => widget.icons[labels!.indexOf(label)],
-    );
+    icons = { for (var label in labels!) label : widget.icons[labels!.indexOf(label)] };
 
     selectedTab = widget.initialSelectedTab;
     activeIcon = icons![selectedTab];
 
     _animationController = AnimationController(
-      duration: Duration(milliseconds: ANIM_DURATION),
+      duration: const Duration(milliseconds: ANIM_DURATION),
       vsync: this,
     );
 
     _fadeOutController = AnimationController(
-      duration: Duration(milliseconds: (ANIM_DURATION ~/ 5)),
+      duration: const Duration(milliseconds: (ANIM_DURATION ~/ 5)),
       vsync: this,
     );
 
@@ -115,7 +110,7 @@ class _MotionTabBarState extends State<MotionTabBar>
     _fadeFabInAnimation = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(
             parent: _animationController!,
-            curve: Interval(0.8, 1, curve: Curves.easeOut)))
+            curve: const Interval(0.8, 1, curve: Curves.easeOut)))
       ..addListener(() {
         setState(() {
           fabIconAlpha = _fadeFabInAnimation!.value;
@@ -131,7 +126,7 @@ class _MotionTabBarState extends State<MotionTabBar>
         Container(
           height: 55,
           //margin: EdgeInsets.only(top: 45),
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
               color: Colors.black12,
               offset: Offset(0, -1),
@@ -146,7 +141,7 @@ class _MotionTabBarState extends State<MotionTabBar>
         ),
         IgnorePointer(
           child: Container(
-            decoration: BoxDecoration(color: Colors.transparent),
+            decoration: const BoxDecoration(color: Colors.transparent),
             child: Align(
               heightFactor: 0,
               alignment: Alignment(_positionAnimation!.value, 0),
@@ -160,21 +155,19 @@ class _MotionTabBarState extends State<MotionTabBar>
                       width: 90,
                       child: ClipRect(
                         clipper: HalfClipper(),
-                        child: Container(
-                          child: Center(
-                            child: Container(
-                              width: 70,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 8,
-                                  )
-                                ],
-                              ),
+                        child: Center(
+                          child: Container(
+                            width: 70,
+                            height: 70,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 8,
+                                )
+                              ],
                             ),
                           ),
                         ),

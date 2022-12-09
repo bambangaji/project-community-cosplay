@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -6,10 +8,9 @@ import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
+import 'package:coscos/page/event/model/UploadImage.dart';
 import 'package:coscos/page/list/model/model.dart';
 import 'package:coscos/page/list/view/ListSerialPage.dart';
-import 'package:coscos/page/main_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -86,7 +87,6 @@ class ListController extends GetxController
     addCharacterlName.value.text = "";
     addSerialName.text = "";
     update();
-    print(addSerialName.value.text);
   }
 
   changeLoading() {
@@ -105,7 +105,6 @@ class ListController extends GetxController
       final bytes = file.readAsBytesSync().lengthInBytes;
       final kb = bytes / 1024;
       final mb = kb / 1024;
-      print(mb);
       if (mb > 3) {
         CustomWidget.showDialog(
             "Alert Size Image", "Image size must under 3Mb");
@@ -115,7 +114,6 @@ class ListController extends GetxController
         update();
       }
 
-      print(pickedFile.path);
     }
   }
 
@@ -134,10 +132,8 @@ class ListController extends GetxController
     return Get.find<EventController>();
   }
 
+  // ignore: non_constant_identifier_names
   SubmitSerial(int type) async {
-    print(addSerialName.value.text);
-    print(addSelectedType);
-    print(fileName);
     // changeAddBtn();
     var isValid = true;
     var errorMessage = [];
@@ -160,7 +156,7 @@ class ListController extends GetxController
   }
 
   saveToDatabase(int type) async {
-    var upload;
+    UploadImage upload;
     if (type == 1) {
       upload = await uploadIMGSerial(fileUpload!);
     } else {
@@ -169,25 +165,9 @@ class ListController extends GetxController
 
     inspect(upload);
     if (upload.error.errorCode == 0) {
-      var add;
       if (type == 1) {
-        var data = {
-          "name": addSerialName.value.text,
-          "type": addSelectedType,
-          "imageURL": upload.data.imageUrl,
-          "id_event": ""
-        };
-        add = await addSerial(data);
         await getEventController().getDataListSerial();
       } else {
-        var data = {
-          "name": addSerialName.value.text,
-          "gender": addSelectedGender,
-          "imageURL": upload.data.imageUrl,
-          "id_serial": getEventController().animeModel.id,
-          "id_event": ""
-        };
-        add = await addCharacter(data);
         await getEventController().getDataListCharacter();
       }
     }
@@ -236,7 +216,6 @@ class ListController extends GetxController
 
   resetAllFilter() {}
   void onChangeDropdownOrder(value) async {
-    print(value.toString());
     selectedOrder = value;
     // applyFilterType = value;
     update();
@@ -249,7 +228,6 @@ class ListController extends GetxController
   }
 
   void onChangeDropdownType(value) async {
-    print(value.toString());
     selectedType = value;
     // applyFilterType = value;
     update();
@@ -262,13 +240,11 @@ class ListController extends GetxController
   }
 
   void onChangeDropdownAddType(value) async {
-    print(value.toString());
     addSelectedType = value;
     update();
   }
 
   void onChangeDropdownAddGender(value) async {
-    print(value.toString());
     addSelectedGender = value;
     update();
   }

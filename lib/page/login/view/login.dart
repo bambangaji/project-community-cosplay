@@ -75,7 +75,6 @@ class LoginPage extends GetView<AuthController> {
                                     children: [
                                       GestureDetector(
                                           onTap: () {
-                                            print("object");
                                           },
                                           child: CustomText().titleText(
                                               "Forgot Password ?",

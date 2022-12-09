@@ -18,7 +18,7 @@ class _DashboardPageState extends State<DashboardPage> {
         builder: (_) => Scaffold(
               resizeToAvoidBottomInset: true,
               backgroundColor: Warna.softMerahMuda2,
-              body: Container(
+              body: SizedBox(
                 height: Get.height,
                 width: Get.width,
                 child: Stack(
@@ -31,7 +31,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             child: Image.asset("lib/assets/bg/logo-bg.png"),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                             width: Get.width,
                             child: Padding(
                               padding: EdgeInsets.all(Get.width / 10),
@@ -76,18 +76,18 @@ class _DashboardPageState extends State<DashboardPage> {
                         bottom: 10,
                         right: 0,
                         left: 0,
-                        child: Container(
+                        child: SizedBox(
                             width: Get.width,
                             child: Padding(
                               padding: EdgeInsets.all(Get.width / 10),
                               child: OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                     backgroundColor: Warna.softBiruMuda,
-                                    side: BorderSide(
+                                    side: const BorderSide(
                                         color: Colors.transparent, width: 1.0),
                                   ),
                                   onPressed: null,
-                                  child: Text(
+                                  child: const Text(
                                     "Login",
                                     style: TextStyle(color: Warna.softWhite),
                                   )),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, file_names
+
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/dateFormat.dart';
 import 'package:flutter/gestures.dart';
@@ -42,20 +44,14 @@ class InformationPage extends GetView<EventController> {
                             CustomText().titleText(
                                 controller.eventModel!.name_event,
                                 fontSize: 19),
-                            customCard().cardBlue(CustomFormatDate()
+                            customCard().cardBlue("${CustomFormatDate()
                                     .formatDateID(controller.eventModel!.date_start_event
                                         .toString())
-                                    .substring(0, 1) +
-                                " - " +
-                                CustomFormatDate().formatDateID(controller
+                                    .substring(0, 1)} - ${CustomFormatDate().formatDateID(controller
                                     .eventModel!.date_end_event
-                                    .toString()) +
-                                " at " +
-                                DateFormat.Hm().format(DateFormat("HH:mm").parse(
-                                    controller.eventModel!.time_start_event!)) +
-                                " - " +
-                                DateFormat.Hm().format(DateFormat("HH:mm")
-                                    .parse(controller.eventModel!.time_end_event!)))
+                                    .toString())} at ${DateFormat.Hm().format(DateFormat("HH:mm").parse(
+                                    controller.eventModel!.time_start_event!))} - ${DateFormat.Hm().format(DateFormat("HH:mm")
+                                    .parse(controller.eventModel!.time_end_event!))}")
                           ],
                         ),
                         // Column(
@@ -80,7 +76,7 @@ class InformationPage extends GetView<EventController> {
                       "Ticket : ",
                       fontSize: 17,
                     ),
-                    Container(
+                    SizedBox(
                       height: 80,
                       width: Get.width,
                       child: ListView.builder(
@@ -102,33 +98,28 @@ class InformationPage extends GetView<EventController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                      child: Container(
-                        // width: Get.width - Get.width / 16,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(Icons.location_on_outlined,
-                                    color: Warna.abuMuda),
-                                Container(
-                                  width: Get.width / 1.5,
-                                  child: CustomText().longText(
-                                    controller.eventModel!.city +
-                                        ", " +
-                                        controller.eventModel!.address,
-                                    textColor: Warna.abuMuda,
-                                  ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.location_on_outlined,
+                                  color: Warna.abuMuda),
+                              SizedBox(
+                                width: Get.width / 1.5,
+                                child: CustomText().longText(
+                                  "${controller.eventModel!.city}, ${controller.eventModel!.address}",
+                                  textColor: Warna.abuMuda,
                                 ),
-                              ],
-                            ),
-                            Image.asset(
-                              "lib/assets/googleMaps.png",
-                              height: Get.height / 15,
-                            )
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                          Image.asset(
+                            "lib/assets/googleMaps.png",
+                            height: Get.height / 15,
+                          )
+                        ],
                       ),
                     ),
                     CustomText().titleText(
@@ -139,7 +130,7 @@ class InformationPage extends GetView<EventController> {
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5),
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: Get.width - Get.width / 10,
                             child: RichText(
                               text: TextSpan(
@@ -153,7 +144,6 @@ class InformationPage extends GetView<EventController> {
                                             text: " See More",
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                print("tappp");
                                               },
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -174,7 +164,7 @@ class InformationPage extends GetView<EventController> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-                child: Container(
+                child: SizedBox(
                   width: Get.width,
                   height: 180,
                   child: ListView.builder(

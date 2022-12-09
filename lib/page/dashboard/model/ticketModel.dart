@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 class TicketModel {
   String id_ticket;
   String name_ticket;

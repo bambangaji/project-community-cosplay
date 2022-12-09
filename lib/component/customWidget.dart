@@ -1,12 +1,12 @@
+// ignore_for_file: non_constant_identifier_names, file_names
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coscos/component/enum.dart';
 import 'package:coscos/component/shimmerCustom.dart';
 import 'package:coscos/component/validator.dart';
-import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
 import 'package:coscos/page/main_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +19,7 @@ class CustomWidget {
   static showSnackBar(String message) {
     Get.showSnackbar(GetSnackBar(
       message: message,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     ));
   }
 
@@ -52,21 +52,21 @@ class CustomWidget {
             return "Can't be empty";
           }
           if (inputType == InputType.email) {
-            if (!GetUtils.isEmail(value!)) {
+            if (!GetUtils.isEmail(value)) {
               return "Invalid email format";
             } else {
               return null;
             }
           }
           if (inputType == InputType.phone) {
-            if (!GetUtils.isPhoneNumber(value!)) {
+            if (!GetUtils.isPhoneNumber(value)) {
               return "Invalid phone number format";
             } else {
               return null;
             }
           }
           if (inputType == InputType.password) {
-            if (!validateStructure(value!)) {
+            if (!validateStructure(value)) {
               return "*Password must like 'Abcdefg123!' ";
             } else {
               return null;
@@ -238,7 +238,7 @@ class CustomWidget {
                 child: Icon(icon, size: Get.height / 22, color: IconColor),
               )),
           Padding(
-            padding: EdgeInsets.only(top: 4.0),
+            padding: const EdgeInsets.only(top: 4.0),
             child: Column(
               children: [
                 CustomText().titleTextWithoutBold(content,
@@ -328,7 +328,7 @@ class CustomWidget {
                     borderRadius: BorderRadius.circular(10)),
                 title: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Warna.softWhite, fontWeight: FontWeight.bold),
                 ),
                 tileColor: Colors.white,
@@ -360,7 +360,7 @@ class CustomWidget {
                     borderRadius: BorderRadius.circular(10)),
                 title: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Warna.softWhite, fontWeight: FontWeight.bold),
                 ),
                 tileColor: Colors.white,
@@ -393,8 +393,8 @@ class CustomWidget {
             ),
             child: CachedNetworkImage(
               imageUrl: leadIconLocation,
-              placeholder: (context, url) => new CircularProgressIndicator(),
-              errorWidget: (context, url, error) => new Icon(Icons.error),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           shape:
@@ -415,7 +415,7 @@ class CustomWidget {
               ? null
               : Text(
                   CustomText().Capitalize(subTitle),
-                  style: TextStyle(color: Warna.softBlack),
+                  style: const TextStyle(color: Warna.softBlack),
                 ),
           tileColor: Colors.white,
         ),
@@ -454,7 +454,7 @@ class CustomWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20)),
                       )),
-                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
@@ -467,7 +467,7 @@ class CustomWidget {
                 height: 30,
                 decoration: BoxDecoration(
                   color: Warna.softBlack.withOpacity(0.7),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20)),
                 ),
@@ -499,5 +499,70 @@ class CustomWidget {
         content: Center(
           child: CustomText().titleTextWithoutBold(content),
         ));
+  }
+
+  Widget dialogDate(bool confirm) {
+    return SizedBox(
+      width: Get.width / 1.5,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          OutlinedButton(
+            onPressed: () {
+              // Get.off(PageDashboard());
+            },
+            style: OutlinedButton.styleFrom(
+                elevation: 5.0,
+                backgroundColor: Warna.white,
+                side: const BorderSide(color: Warna.biruTua, width: 1.1),
+                shape: const StadiumBorder(),
+                fixedSize: Size(Get.width / 5, 20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // Icon(
+                //   Icons.arrow_left_outlined,
+                //   color: Warna.biruTua,
+                // ),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Confirm',
+                    style: TextStyle(color: Warna.biruTua),
+                  ),
+                )
+              ],
+            ),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              // Get.off(PageDashboard());
+            },
+            style: OutlinedButton.styleFrom(
+                elevation: 5.0,
+                backgroundColor: Warna.white,
+                side: const BorderSide(color: Warna.biruTua, width: 1.1),
+                shape: const StadiumBorder(),
+                fixedSize: Size(Get.width / 5, 20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // Icon(
+                //   Icons.arrow_left_outlined,
+                //   color: Warna.biruTua,
+                // ),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Back',
+                    style: TextStyle(color: Warna.biruTua),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

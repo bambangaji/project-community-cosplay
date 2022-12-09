@@ -1,5 +1,8 @@
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: unnecessary_null_comparison, file_names
+
 import 'dart:math' as math;
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 class MotionTabController extends ChangeNotifier {
@@ -30,10 +33,10 @@ class MotionTabController extends ChangeNotifier {
   MotionTabController _copyWith(
       {required int index, required int length, required int previousIndex}) {
     return MotionTabController._(
-      index: index ?? _index,
-      length: length ?? this.length,
+      index: index,
+      length: length,
       animationController: _animationController!,
-      previousIndex: previousIndex ?? _previousIndex,
+      previousIndex: previousIndex,
     );
   }
 
@@ -204,6 +207,7 @@ class DefaultMotionTabController extends StatefulWidget {
   }
 
   @override
+  // ignore: library_private_types_in_public_api
   _DefaultMotionTabControllerState createState() =>
       _DefaultMotionTabControllerState();
 }

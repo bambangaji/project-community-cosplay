@@ -1,9 +1,10 @@
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, file_names
+
 import 'dart:async';
 
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/validator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class TextFieldExample extends StatefulWidget {
   Rx<TextEditingController>? controller;
   Color? bgColor = Warna.softWhite;
   TextFieldExample(
-      {required this.hintText,
+      {super.key, required this.hintText,
       required this.validator,
       required this.isDisable,
       required this.bgColor,
@@ -43,6 +44,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
       StreamController<String>(); //stream to   validate   the text
   final _password = StreamController<String>();
 
+  @override
   Widget build(BuildContext context) {
     bool showError = false;
     String message = "";
@@ -68,8 +70,6 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                         showError = true;
                         message = 'Can\'t be empty';
 
-                        print(showError);
-                        print(message);
                         return null;
                       }
                       if (widget.validator == 1) {

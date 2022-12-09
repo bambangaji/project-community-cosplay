@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:coscos/api/Error.dart';
@@ -11,11 +13,11 @@ import 'package:dio/dio.dart';
 import 'API.dart';
 
 Future<ListSerial> getListSerial(dynamic data) async {
+  // ignore: duplicate_ignore
   try {
-    var URL = API().getSerial;
-    print("URL::" + URL);
+    // ignore: non_constant_identifier_names
+    var URL = API.getSerial;
     final Response response = await fetch().post(URL, data: data);
-    print(response.data.toString());
     return ListSerial.fromJson(response.data);
   } on DioError catch (e) {
     var error = validationError(e);
@@ -25,10 +27,9 @@ Future<ListSerial> getListSerial(dynamic data) async {
 
 Future<ListCharacter> getListCharacter(dynamic data) async {
   try {
-    var URL = API().getCharacter;
-    print("URL::" + URL);
+    // ignore: non_constant_identifier_names
+    var URL = API.getCharacter;
     final Response response = await fetch().post(URL, data: data);
-    print(response.data.toString());
     return ListCharacter.fromJson(response.data);
   } on DioError catch (e) {
     var error = validationError(e);
@@ -38,10 +39,9 @@ Future<ListCharacter> getListCharacter(dynamic data) async {
 
 Future<SerialData> addSerial(dynamic data) async {
   try {
-    var URL = API().addSerial;
-    print("URL::" + URL);
+    // ignore: non_constant_identifier_names
+    var URL = API.addSerial;
     final Response response = await fetch().post(URL, data: data);
-    print(response.data.toString());
     return SerialData.fromJson(response.data);
   } on DioError catch (e) {
     var error = validationError(e);
@@ -51,10 +51,9 @@ Future<SerialData> addSerial(dynamic data) async {
 
 Future<CharacterData> addCharacter(dynamic data) async {
   try {
-    var URL = API().addCharacter;
-    print("URL::" + URL);
+    // ignore: non_constant_identifier_names
+    var URL = API.addCharacter;
     final Response response = await fetch().post(URL, data: data);
-    print(response.data.toString());
     return CharacterData.fromJson(response.data);
   } on DioError catch (e) {
     var error = validationError(e);
@@ -67,10 +66,9 @@ Future<UploadImage> uploadIMGSerial(File data) async {
     String fileName = data.path.split('/').last;
     var formData = FormData.fromMap(
         {'file': await MultipartFile.fromFile(data.path, filename: fileName)});
-    var URL = API().uploadIMGSerial;
-    print("URL::" + URL);
+    // ignore: non_constant_identifier_names
+    var URL = API.uploadIMGSerial;
     final Response response = await fetch().post(URL, data: formData);
-    print("data::" + response.data.toString());
     return UploadImage.fromJson(response.data);
   } on DioError catch (e) {
     var error = validationError(e);
@@ -83,10 +81,9 @@ Future<UploadImage> uploadIMGCharacter(dynamic data) async {
     String fileName = data.path.split('/').last;
     var formData = FormData.fromMap(
         {'file': await MultipartFile.fromFile(data.path, filename: fileName)});
-    var URL = API().uploadIMGCharacter;
-    print("URL::" + URL);
+    // ignore: non_constant_identifier_names
+    var URL = API.uploadIMGCharacter;
     final Response response = await fetch().post(URL, data: formData);
-    print(response.data.toString());
     return UploadImage.fromJson(response.data);
   } on DioError catch (e) {
     var error = validationError(e);
@@ -96,8 +93,7 @@ Future<UploadImage> uploadIMGCharacter(dynamic data) async {
 
 Future<Register> registerAccount(dynamic data) async {
   try {
-    var URL = API().register;
-    print("URL::" + URL);
+    var URL = API.register;
     final Response response = await fetch().post(URL, data: data);
     return Register.fromJson(response.data);
   } on DioError catch (e) {

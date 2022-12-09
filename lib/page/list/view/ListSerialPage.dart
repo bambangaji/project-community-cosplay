@@ -1,15 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:coscos/component/card.dart';
+// ignore_for_file: file_names, prefer_const_constructors, non_constant_identifier_names, duplicate_ignore
+
 import 'package:coscos/component/color.dart';
-import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/shimmerCustom.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
-// ignore: non_constant_identifier_names
 Widget CardListDocument(int type, {ScrollController? scrollController}) {
   var controller = Get.find<EventController>();
 
@@ -17,14 +14,12 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
   if (type == 1) {
     var dataModel = controller.listSerialModel!.data;
     RetVal = dataModel.isNotEmpty
-        ? Container(
+        ? SizedBox(
             height: Get.height,
             child: GridView.builder(
               // shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.75,
-                  // banyak grid yang ditampilkan dalam satu baris
-                  crossAxisCount: 2),
+                  childAspectRatio: 0.75, crossAxisCount: 2),
               controller: scrollController,
               itemCount: dataModel.length,
               itemBuilder: (context, snapshot) {
@@ -42,9 +37,7 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
                         title: data.name,
                         subTitle: data.type,
                         isPopular: snapshot == 0 ? true : false,
-                        callBack: () {
-                          print("object");
-                        },
+                        callBack: () {},
                       ),
                     ),
                   ),
@@ -60,7 +53,7 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
   } else if (type == 2) {
     var dataModel = controller.listCharacterModel!.data;
     RetVal = dataModel.isNotEmpty
-        ? Container(
+        ? SizedBox(
             height: Get.height,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -97,7 +90,6 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
                       // subTitle: data.,
                       isPopular: snapshot == 0 ? true : false,
                       callBack: () {
-                        print("object");
                         controller.selectCharacter(data);
                       },
                     ),

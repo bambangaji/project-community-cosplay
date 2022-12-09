@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/page/event/controller/eventController.dart';

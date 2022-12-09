@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, non_constant_identifier_names, duplicate_ignore, avoid_unnecessary_containers
+
 import 'package:coscos/component/color.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/main_controller.dart';
@@ -18,12 +20,10 @@ class CustomScaffold {
         children: children,
       );
     } else if (controller.tabController!.index == 1) {
-      Container(
-        child: Text("Acitivty"),
-      );
+      const Text("Acitivty");
     } else if (controller.tabController!.index == 2) {
       Container(
-        child: Text("Profile"),
+        child: const Text("Profile"),
       );
     }
     return Output;
@@ -38,7 +38,7 @@ class CustomScaffold {
       bool isTabBar = false}) {
     return LoadingOverlay(
       isLoading: Get.find<DashboardController>().isLoading.value,
-      progressIndicator: CircularProgressIndicator(),
+      progressIndicator: const CircularProgressIndicator(),
       color: Warna.softLavender,
       opacity: 0.6,
       child: Scaffold(
@@ -86,12 +86,12 @@ class CustomScaffold {
           // ));,
           body: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (overscroll) {
-                overscroll.disallowGlow();
+                overscroll.disallowIndicator();
                 return false;
               },
               child: Padding(
-                padding: EdgeInsets.only(bottom: 0.0),
-                child: Container(
+                padding: const EdgeInsets.only(bottom: 0.0),
+                child: SizedBox(
                   height: Get.height,
                   width: Get.width,
                   child: Stack(
@@ -101,7 +101,7 @@ class CustomScaffold {
                           ? Positioned(
                               top: 0,
                               left: 0,
-                              child: Container(
+                              child: SizedBox(
                                 // color: Colors.black,
                                 width: Get.width,
                                 height: Get.height / 8,
@@ -110,7 +110,7 @@ class CustomScaffold {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     IconButton(
-                                        icon: Icon(Icons.arrow_back,
+                                        icon: const Icon(Icons.arrow_back,
                                             color: Warna.softIjoMuda),
                                         onPressed: () {
                                           Get.close(1);
@@ -118,14 +118,14 @@ class CustomScaffold {
                                     Row(
                                       children: [
                                         IconButton(
-                                            icon: Icon(
+                                            icon: const Icon(
                                                 Icons.star_border_outlined,
                                                 color: Warna.softMerahMuda),
                                             onPressed: () {
                                               Get.close(1);
                                             }),
                                         IconButton(
-                                            icon: Icon(Icons.more_horiz_rounded,
+                                            icon: const Icon(Icons.more_horiz_rounded,
                                                 color: Warna.softWhite),
                                             onPressed: () {
                                               Get.close(1);
@@ -150,7 +150,6 @@ class CustomScaffold {
                                   tabIconColor: Colors.green,
                                   tabSelectedColor: Colors.cyan,
                                   onTabItemSelected: (int value) {
-                                    print(value);
 
                                     if (Get.find<MainController>()
                                         .isLogin
@@ -159,33 +158,34 @@ class CustomScaffold {
                                           .changeIndexTab(value);
                                     } else {
                                       Get.defaultDialog(
-                                        contentPadding: EdgeInsets.all(20),
+                                        contentPadding: const EdgeInsets.all(20),
                                         backgroundColor: Warna.white,
                                         title: "Login Verification",
                                         barrierDismissible: true,
-                                        titleStyle: TextStyle(
+                                        titleStyle: const TextStyle(
                                             color: Warna.biruTua,
                                             fontWeight: FontWeight.bold),
                                         middleText:
                                             "Login first to use all feature",
                                         middleTextStyle:
-                                            TextStyle(color: Warna.biruTua),
+                                            const TextStyle(color: Warna.biruTua),
                                         confirmTextColor: Warna.white,
                                         textConfirm: "Login",
                                         onConfirm: () {
                                           // LogOut();
-                                          Get.to(() => LoginPage());
+                                          Get.to(() => const LoginPage());
                                           // Get.off(() => Get.off(LoginPage()));
                                         },
                                       );
                                     }
                                   },
+                                  // ignore: prefer_const_literals_to_create_immutables
                                   icons: [
                                     Icons.home_outlined,
                                     Icons.list_alt_sharp,
                                     Icons.person
                                   ],
-                                  textStyle: TextStyle(color: Warna.biruTua),
+                                  textStyle: const TextStyle(color: Warna.biruTua),
                                 ),
                                 // child: Text("sa"),
                               ),

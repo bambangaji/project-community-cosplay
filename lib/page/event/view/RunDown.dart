@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:coscos/component/card.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
@@ -16,7 +18,7 @@ class RunDownPage extends GetView<EventController> {
       color: Warna.softWhite,
       // height: Get.heigh  t,
       width: Get.width,
-      child: controller.scheduleModel!.length == 0 ? Center(child: Text("Run down not found"),):
+      child: controller.scheduleModel!.isEmpty ? const Center(child: Text("Run down not found"),):
       Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for(var i in controller.scheduleModel!)
@@ -25,19 +27,19 @@ class RunDownPage extends GetView<EventController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText().titleText(DateFormat('EEEE').format(i.dateEvent)+ " " +CustomFormatDate().formatDateID(i.dateEvent.toString()) ,fontSize: 20,textColor: Warna.navy),
+                CustomText().titleText("${DateFormat('EEEE').format(i.dateEvent)} ${CustomFormatDate().formatDateID(i.dateEvent.toString())}" ,fontSize: 20,textColor: Warna.navy),
                 for(var j in i.runDown)
                 
-                customCard().cardWidget(Container(child: Row(
+                customCard().cardWidget(Row(
                   children: [ 
-                    SizedBox(width: 8,),
-                    CustomText().titleText(j.startTime + " - " + j.endTime,textColor: Warna.cyan ),
-                    SizedBox(width: 10,),
-                    Container(
+                    const SizedBox(width: 8,),
+                    CustomText().titleText("${j.startTime} - ${j.endTime}",textColor: Warna.cyan ),
+                    const SizedBox(width: 10,),
+                    SizedBox(
                       width: Get.width/1.48,
                       child: CustomText().titleTextWithoutBold(j.content ))
                   ],
-                ),),
+                ),
                 colorBg: Warna.white
                 )
               ],

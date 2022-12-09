@@ -1,9 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:coscos/component/baseScaffold.dart';
 import 'package:coscos/component/card.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
-import 'package:coscos/component/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,9 +74,9 @@ class DashboardPage extends GetView<DashboardController> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: Container(
+                          child: SizedBox(
                             height: 210,
-                            child: controller.listEvent.length == 0
+                            child: controller.listEvent.isEmpty
                                 ? const Center(
                                     child: Text("Tidak Ada Event di bulan ini"),
                                   )
@@ -124,34 +125,29 @@ class DashboardPage extends GetView<DashboardController> {
                                           Icons.event_rounded, "Event",
                                           IconColor: Warna.softIjoMuda,
                                           callBack: () {
-                                        print("Event");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.theater_comedy_rounded,
                                           "Cosplayer",
                                           IconColor: Warna.softPeach,
                                           callBack: () {
-                                        print("Cosplayer");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.shopify, "Rental",
                                           IconColor: Warna.softMerahMuda,
                                           callBack: () {
-                                        print("Rental");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.camera_indoor_rounded, "Studio",
                                           text2nd: "Photoshoot",
                                           IconColor: Warna.softBlueCyan,
                                           callBack: () {
-                                        print("Studio");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.campaign_outlined,
                                           "Information",
                                           IconColor: Warna.kuning,
                                           callBack: () {
-                                        print("Information");
                                       }),
                                     ],
                                   ),
@@ -169,32 +165,27 @@ class DashboardPage extends GetView<DashboardController> {
                                           // text2nd: "Photoshoot",
                                           IconColor: Warna.softBlueCyan,
                                           callBack: () {
-                                        print("Studio");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.coronavirus_outlined,
                                           "Covid-19",
                                           IconColor: Warna.softIjoMuda,
                                           callBack: () {
-                                        print("Event");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.edit, "Commission",
                                           IconColor: Warna.softPurple,
                                           callBack: () {
-                                        print("Rental");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.camera, "Photographer",
                                           IconColor: Warna.softPeach,
                                           callBack: () {
-                                        print("Cosplayer");
                                       }),
                                       CustomWidget.IconMenu(
                                           Icons.apps_rounded, "All",
                                           IconColor: Warna.softIjoMedium,
                                           callBack: () {
-                                        print("All");
                                       }),
                                     ],
                                   ),
