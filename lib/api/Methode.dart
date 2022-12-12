@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:coscos/api/Error.dart';
+import 'package:coscos/page/dashboard/model/topEventModel.dart';
 import 'package:coscos/page/event/model/CharacterModel.dart';
 import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/event/model/UploadImage.dart';
@@ -99,5 +100,16 @@ Future<Register> registerAccount(dynamic data) async {
   } on DioError catch (e) {
     var error = validationError(e);
     return Register.dataError(error.errorCode, error.message);
+  }
+}
+
+Future<TopEvent> getTopEvent(dynamic data) async {
+  try {
+    var URL = API.getTopEvent;
+    final Response response = await fetch().post(URL, data: data);
+    return TopEvent.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return TopEvent.dataError(error.errorCode, error.message);
   }
 }

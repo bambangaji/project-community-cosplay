@@ -8,10 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget CardListDocument(int type, {ScrollController? scrollController}) {
-  var controller = Get.find<EventController>();
-
   Widget RetVal = Container();
   if (type == 1) {
+    var controller = Get.find<EventController>();
     var dataModel = controller.listSerialModel!.data;
     RetVal = dataModel.isNotEmpty
         ? SizedBox(
@@ -51,6 +50,7 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
             style: TextStyle(color: Warna.biruTua),
           ));
   } else if (type == 2) {
+    var controller = Get.find<EventController>();
     var dataModel = controller.listCharacterModel!.data;
     RetVal = dataModel.isNotEmpty
         ? SizedBox(
@@ -69,7 +69,7 @@ Widget CardListDocument(int type, {ScrollController? scrollController}) {
                     controller.selectCharacter(data);
                   },
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
                     child: CustomWidget.ListTileTopUpCardGrid(
                       leadIconLocation: data.imageUrl,
                       title: data.name,

@@ -565,4 +565,72 @@ class CustomWidget {
       ),
     );
   }
+
+  static Widget ListTileTopUpProfile(
+      {String leadIconLocation = "",
+      required String title,
+      Widget? message,
+      double borderRadius = 20,
+      required void Function() callBack,
+      double imageWidth = 10,
+      Widget? leadIconFromWidget,
+      double elevation = 2,
+      Color bgColor = Warna.white,
+      Color iconColor = Warna.softSilver,
+      Color textColor = Warna.softBlack,
+      Color borderColor = Warna.silver,
+      EdgeInsetsGeometry? padding}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
+      child: GestureDetector(
+        onTap: callBack,
+        child: Card(
+          color: Colors.transparent,
+          elevation: elevation,
+          shape: RoundedRectangleBorder(
+              // side: BorderSide(
+              //   color: borderColor,
+              // ),
+              borderRadius: BorderRadius.circular(borderRadius)),
+          child: ListTile(
+            // iconColor: Warna.red,
+            contentPadding: padding != null
+                ? padding
+                : EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+            trailing: Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: iconColor,
+              size: 30,
+            ),
+            leading: leadIconFromWidget != null
+                ? leadIconFromWidget
+                : leadIconLocation != ""
+                    ? Image.asset(
+                        leadIconLocation,
+                        width: imageWidth == 10 ? Get.width / 13 : imageWidth,
+                      )
+                    : null,
+            shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: borderColor,
+                ),
+                borderRadius: BorderRadius.circular(borderRadius)),
+
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                message != null ? message : Container()
+              ],
+            ),
+            tileColor: bgColor,
+            textColor: textColor,
+          ),
+        ),
+      ),
+    );
+  }
 }

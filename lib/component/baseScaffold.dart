@@ -2,7 +2,9 @@
 
 import 'package:coscos/component/color.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
+import 'package:coscos/page/history/view/history.dart';
 import 'package:coscos/page/main_controller.dart';
+import 'package:coscos/page/profile/view/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -20,11 +22,9 @@ class CustomScaffold {
         children: children,
       );
     } else if (controller.tabController!.index == 1) {
-      const Text("Acitivty");
+      Output = HistoryPage();
     } else if (controller.tabController!.index == 2) {
-      Container(
-        child: const Text("Profile"),
-      );
+      Output = profilePage();
     }
     return Output;
   }
@@ -125,7 +125,8 @@ class CustomScaffold {
                                               Get.close(1);
                                             }),
                                         IconButton(
-                                            icon: const Icon(Icons.more_horiz_rounded,
+                                            icon: const Icon(
+                                                Icons.more_horiz_rounded,
                                                 color: Warna.softWhite),
                                             onPressed: () {
                                               Get.close(1);
@@ -150,7 +151,6 @@ class CustomScaffold {
                                   tabIconColor: Colors.green,
                                   tabSelectedColor: Colors.cyan,
                                   onTabItemSelected: (int value) {
-
                                     if (Get.find<MainController>()
                                         .isLogin
                                         .value) {
@@ -158,7 +158,8 @@ class CustomScaffold {
                                           .changeIndexTab(value);
                                     } else {
                                       Get.defaultDialog(
-                                        contentPadding: const EdgeInsets.all(20),
+                                        contentPadding:
+                                            const EdgeInsets.all(20),
                                         backgroundColor: Warna.white,
                                         title: "Login Verification",
                                         barrierDismissible: true,
@@ -167,8 +168,8 @@ class CustomScaffold {
                                             fontWeight: FontWeight.bold),
                                         middleText:
                                             "Login first to use all feature",
-                                        middleTextStyle:
-                                            const TextStyle(color: Warna.biruTua),
+                                        middleTextStyle: const TextStyle(
+                                            color: Warna.biruTua),
                                         confirmTextColor: Warna.white,
                                         textConfirm: "Login",
                                         onConfirm: () {
@@ -185,7 +186,8 @@ class CustomScaffold {
                                     Icons.list_alt_sharp,
                                     Icons.person
                                   ],
-                                  textStyle: const TextStyle(color: Warna.biruTua),
+                                  textStyle:
+                                      const TextStyle(color: Warna.biruTua),
                                 ),
                                 // child: Text("sa"),
                               ),

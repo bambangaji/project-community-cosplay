@@ -12,6 +12,7 @@ import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
 import 'package:coscos/page/dashboard/model/runDown.dart';
 import 'package:coscos/page/dashboard/model/schedule.dart';
+import 'package:coscos/page/dashboard/model/topEventModel.dart';
 import 'package:coscos/page/event/model/CharacterModel.dart';
 import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/event/view/Cosplayer.dart';
@@ -214,28 +215,28 @@ class EventController extends GetxController {
     update();
   }
 
-  onBuildPage(EventModel data) {
-    eventModel = data;
-    rulesEvent = [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "Fusce venenatis lectus vel magna convallis pulvinar.",
-      "Nulla lacinia elit ut ipsum finibus, eu elementum ex rhoncus.",
-      "Mauris feugiat sem sit amet risus tempor, eget aliquet dui placerat,Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      "Proin vitae ipsum vel arcu imperdiet hendrerit sit amet vel augue.",
-      "Pellentesque congue purus quis mi pharetra, id cursus nisi molestie., Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      "Curabitur eu felis nec ante faucibus posuere. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      "Nunc ullamcorper nunc non gravida tincidunt.Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      "Nam at erat elementum sapien eleifend imperdiet ornare id neque. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      "Ut vulputate neque ac nulla pharetra dictum quis et augue. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..., Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-      "Donec finibus massa eget ante viverra, ac maximus orci gravida.",
-      "Aenean ut turpis ac massa rhoncus efficitur pretium sed velit.",
-      "Proin eget nunc tristique urna ultrices varius.",
-      "Curabitur venenatis lacus id porttitor pulvinar.",
-      "Etiam accumsan ligula vel dolor sollicitudin, placerat ullamcorper purus placerat.",
-      "Etiam molestie quam id erat semper, dictum suscipit ante aliquet.",
-    ];
-    update();
-    inspect(eventModel);
+  onBuildPage(TopEventModel data) {
+    // eventModel = data;
+    // rulesEvent = [
+    //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    //   "Fusce venenatis lectus vel magna convallis pulvinar.",
+    //   "Nulla lacinia elit ut ipsum finibus, eu elementum ex rhoncus.",
+    //   "Mauris feugiat sem sit amet risus tempor, eget aliquet dui placerat,Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    //   "Proin vitae ipsum vel arcu imperdiet hendrerit sit amet vel augue.",
+    //   "Pellentesque congue purus quis mi pharetra, id cursus nisi molestie., Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    //   "Curabitur eu felis nec ante faucibus posuere. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    //   "Nunc ullamcorper nunc non gravida tincidunt.Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    //   "Nam at erat elementum sapien eleifend imperdiet ornare id neque. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    //   "Ut vulputate neque ac nulla pharetra dictum quis et augue. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..., Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    //   "Donec finibus massa eget ante viverra, ac maximus orci gravida.",
+    //   "Aenean ut turpis ac massa rhoncus efficitur pretium sed velit.",
+    //   "Proin eget nunc tristique urna ultrices varius.",
+    //   "Curabitur venenatis lacus id porttitor pulvinar.",
+    //   "Etiam accumsan ligula vel dolor sollicitudin, placerat ullamcorper purus placerat.",
+    //   "Etiam molestie quam id erat semper, dictum suscipit ante aliquet.",
+    // ];
+    // update();
+    // inspect(eventModel);
   }
 
   expandAnime(AnimeModel data) {
