@@ -18,33 +18,49 @@ class RunDownPage extends GetView<EventController> {
       color: Warna.softWhite,
       // height: Get.heigh  t,
       width: Get.width,
-      child: controller.scheduleModel!.isEmpty ? const Center(child: Text("Run down not found"),):
-      Column(crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for(var i in controller.scheduleModel!)
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
+      child: controller.scheduleModel!.isEmpty
+          ? const Center(
+              child: Text("Run down not found"),
+            )
+          : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText().titleText("${DateFormat('EEEE').format(i.dateEvent)} ${CustomFormatDate().formatDateID(i.dateEvent.toString())}" ,fontSize: 20,textColor: Warna.navy),
-                for(var j in i.runDown)
-                
-                customCard().cardWidget(Row(
-                  children: [ 
-                    const SizedBox(width: 8,),
-                    CustomText().titleText("${j.startTime} - ${j.endTime}",textColor: Warna.cyan ),
-                    const SizedBox(width: 10,),
-                    SizedBox(
-                      width: Get.width/1.48,
-                      child: CustomText().titleTextWithoutBold(j.content ))
-                  ],
-                ),
-                colorBg: Warna.white
-                )
+                for (var i in controller.scheduleModel!)
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText().titleText(
+                            "${DateFormat('EEEE').format(i.date)} ${CustomFormatDate().formatDateID(i.date.toString())}",
+                            fontSize: 20,
+                            textColor: Warna.navy),
+                        for (var j in i.rundown)
+                          customCard().cardWidget(
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  CustomText().titleText(
+                                      "${j.startTime.substring(0, 5)} - ${j.endTime.substring(0, 5)}",
+                                      textColor: Warna.cyan),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                      // color: Colors.red,
+                                      width: (Get.width - 30) * 0.7,
+                                      child: CustomText()
+                                          .titleTextWithoutBold(j.topic))
+                                ],
+                              ),
+                              colorBg: Warna.white)
+                      ],
+                    ),
+                  )
               ],
             ),
-          )
-        ],
-      ),
-    );}}
+    );
+  }
+}

@@ -1,28 +1,35 @@
 // ignore_for_file: unused_field, non_constant_identifier_names
 
+import 'dart:developer';
+
+import 'package:coscos/api/Auth.dart';
+import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
+import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/header.dart';
+import 'package:coscos/page/login/model/authModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 class PageOTP extends StatefulWidget {
-  const PageOTP({super.key});
+  Map<String, String> data;
+  PageOTP(this.data, {super.key});
 
   @override
   State<PageOTP> createState() => _PageOTPState();
 }
 
 class _PageOTPState extends State<PageOTP> {
-  final bool _isLoading = false;
+  bool _isLoading = false;
   bool isValid = true;
   bool isSuccess = true;
   String _otp = "";
   String request_id = "";
   String kodeOTP = "111111";
   bool _keyboard = false;
-  final _otpSymbols = ["", "", "", ""];
+  List<String> _otpSymbols = ["", "", "", ""];
   int _heightKeyboard = 3;
   final interval = const Duration(seconds: 1);
   String register_id = "";
@@ -70,12 +77,22 @@ class _PageOTPState extends State<PageOTP> {
         fontWeight: FontWeight.w400);
   }
 
-  void _handleSubmit() {
-    // Get.to(MapPage());
+  void _handleSubmit() async {
+    changeIsLoading();
+    var payload = {"email": widget.data["email"], "otp": _otp};
+    var retVal = await applyOTP(payload);
+    await verifyLogin(retVal);
+    changeIsLoading();
   }
 
-
-  verifyLogin() async {}
+  verifyLogin(Login data) async {
+    resetOTP();
+    if (data.error.errorCode == 200) {
+      saveLogin(data.data.id, data.data.name, data.data.email);
+    } else {
+      CustomWidget.showDialog("OTP", data.error.message);
+    }
+  }
 
   @override
   void initState() {
@@ -84,11 +101,45 @@ class _PageOTPState extends State<PageOTP> {
       !_keyboard ? _heightKeyboard = 5 : _heightKeyboard = 3;
       _keyboard = !_keyboard;
     });
+    print(widget.data.toString());
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  resendOTP() async {
+    Get.defaultDialog(
+      title: "Resend OTP",
+      middleText: "Are you sure to resend otp code?",
+      onCancel: () {},
+      confirmTextColor: Warna.white,
+      onConfirm: () async {
+        Navigator.pop(context);
+        changeIsLoading();
+        var data = await registerAccount(widget.data);
+        changeIsLoading();
+        if (data.error.errorCode == 200) {
+          resetOTP();
+        } else {
+          CustomWidget.showDialog("OTP", data.error.message);
+        }
+      },
+    );
+  }
+
+  resetOTP() {
+    setState(() {
+      _otp = "";
+      _otpSymbols = ["", "", "", ""];
+    });
+  }
+
+  changeIsLoading() {
+    setState(() {
+      _isLoading = !_isLoading;
+    });
   }
 
   @override
@@ -170,6 +221,7 @@ class _PageOTPState extends State<PageOTP> {
                     child: Center(
                       child: GestureDetector(
                           onTap: () {
+                            resendOTP();
                           },
                           child:
                               CustomText().titleText("Resend ?", fontSize: 18)),
@@ -354,8 +406,7 @@ class _PageOTPState extends State<PageOTP> {
                                   },
                                   child: Icon(
                                     Icons.arrow_forward_sharp,
-                                    size:
-                                        MediaQuery.of(context).size.width / 9,
+                                    size: MediaQuery.of(context).size.width / 9,
                                     color: Warna.white,
                                   ),
                                 ),

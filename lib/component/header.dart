@@ -1,3 +1,4 @@
+import 'package:coscos/api/Auth.dart';
 import 'package:coscos/component/ImageLoc.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
@@ -24,7 +25,10 @@ AppBar CustomAppBar(BuildContext context,
                   : callback ?? () => Get.back(),
             )
           : GestureDetector(
-              onTap: () => Get.until((route) => Get.currentRoute == '/'),
+              onTap: () {
+                logOut();
+                Get.until((route) => Get.currentRoute == '/');
+              },
               child: Image.asset(ImageLoc.logoTrans)),
     ),
     title: isSearchBar

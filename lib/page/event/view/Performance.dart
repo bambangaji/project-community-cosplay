@@ -42,14 +42,10 @@ class GuestEventPage extends GetView<EventController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CustomText().titleText(
-                                  controller.eventModel!.name_event,
+                                  controller.eventModel!.name,
                                   fontSize: 17),
-                              customCard().cardBlue("${CustomFormatDate()
-                                      .formatDateID(controller
-                                          .eventModel!.date_start_event
-                                          .toString())} - ${CustomFormatDate().formatDateID(controller
-                                      .eventModel!.date_end_event
-                                      .toString())}")
+                              customCard().cardBlue(
+                                  "${CustomFormatDate().formatDateID(controller.startDate.toString())} - ${CustomFormatDate().formatDateID(controller.endDate.toString())}")
                             ],
                           ),
                           // Column(
@@ -78,10 +74,10 @@ class GuestEventPage extends GetView<EventController> {
                         height: 80,
                         width: Get.width,
                         child: ListView.builder(
-                          itemCount: controller.eventModel!.tiket.length,
+                          itemCount: controller.listTicketModel.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, i) {
-                            var data = controller.eventModel!.tiket[i];
+                            var data = controller.listTicketModel[i];
                             return Padding(
                               padding:
                                   EdgeInsets.fromLTRB(0, 0, Get.width / 40, 0),
@@ -189,8 +185,8 @@ class GuestEventPage extends GetView<EventController> {
                               controller.goToListCosplayer(data);
                             }),
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 10.0, right: 5),
+                              padding:
+                                  const EdgeInsets.only(bottom: 10.0, right: 5),
                               child: Column(
                                 children: [
                                   Container(
@@ -211,8 +207,7 @@ class GuestEventPage extends GetView<EventController> {
                                         ],
                                         border: Border(
                                           left: BorderSide(
-                                              color: Warna.biruMuda,
-                                              width: 2),
+                                              color: Warna.biruMuda, width: 2),
                                         )),
                                     child: Column(
                                       children: [
@@ -223,9 +218,9 @@ class GuestEventPage extends GetView<EventController> {
                                             Row(
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets
-                                                          .fromLTRB(
-                                                      10, 12, 10, 12),
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          10, 12, 10, 12),
                                                   child: Container(
                                                     height: 60,
                                                     width: 60,

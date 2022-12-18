@@ -23,11 +23,11 @@ class RulesEventPage extends GetView<EventController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText().titleText("Event Rules", fontSize: 17),
-                for (var i in controller.rulesEvent!)
+                for (var i in controller.eventModel!.rules)
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: CustomText()
-                        .bulletList(i, fontWeight: FontWeight.normal),
+                        .bulletList(i.rules, fontWeight: FontWeight.normal),
                   )
               ],
             ),

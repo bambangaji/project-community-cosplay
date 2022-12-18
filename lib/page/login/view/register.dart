@@ -141,7 +141,7 @@ class RegisterPage extends GetView<AuthController> {
                                           textColor: Warna.softBlack),
                                       GestureDetector(
                                         onTap: () {
-                                          Get.to(const PageOTP());
+                                          Get.back();
                                         },
                                         child: CustomText().titleText("  Login",
                                             textColor: Warna.biruTua),

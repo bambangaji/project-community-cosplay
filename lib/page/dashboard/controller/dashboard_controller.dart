@@ -5,10 +5,6 @@ import 'dart:developer';
 import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/MotionTabBar/MotionTabController.dart';
 import 'package:coscos/component/customWidget.dart';
-import 'package:coscos/component/dateFormat.dart';
-import 'package:coscos/page/dashboard/model/eventModel.dart';
-import 'package:coscos/page/dashboard/model/guestStarModel.dart';
-import 'package:coscos/page/dashboard/model/ticketModel.dart';
 import 'package:coscos/page/dashboard/model/topEventModel.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/event/view/Event.dart';
@@ -46,6 +42,7 @@ class DashboardController extends GetxController
     changeLoading();
     await handleLocationPermission();
     await getCurrentPosition();
+    await Get.find<MainController>().cekLogin();
     var payload = {"id_city": "3171", "id_provinces": "31", "id_country": "ID"};
     var data = await getTopEvent(payload);
     listEvent = data.data;
@@ -75,7 +72,6 @@ class DashboardController extends GetxController
         .then((List<Placemark> placemarks) {
       // setState(() {
       update();
-      inspect(placemarks);
       // });
     }).catchError((e) {});
   }
@@ -113,7 +109,12 @@ class DashboardController extends GetxController
 
   goToEventDetail(TopEventModel data) async {
     Get.put(EventController());
-    Get.find<EventController>().onBuildPage(data);
+
+    var payload = {"id_event": data.id};
+    print(data.id);
+    var retVal = await getDetailEvent(payload);
+    Get.find<EventController>().onBuildPage(retVal);
+    // inspect(retVal);
     Get.to(() => const EventPage());
   }
   // login() {

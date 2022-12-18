@@ -5,6 +5,7 @@ import 'package:coscos/component/enum.dart';
 import 'package:coscos/component/shimmerCustom.dart';
 import 'package:coscos/component/validator.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
+import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
 import 'package:coscos/page/main_controller.dart';
 import 'package:flutter/material.dart';
@@ -255,7 +256,7 @@ class CustomWidget {
     );
   }
 
-  static Widget TicketCard(TicketModel data) {
+  static Widget TicketCard(Ticket data) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
       child: Column(
@@ -265,16 +266,20 @@ class CustomWidget {
             // width: Get.width / 2.5,
             decoration: BoxDecoration(
                 border: Border.all(
-                    color: data.tiketFee > 100000 ? Colors.red : Colors.green),
+                    color: int.parse(data.price) > 100000
+                        ? Colors.red
+                        : Colors.green),
                 borderRadius: BorderRadius.circular(10),
-                color: data.tiketFee > 100000 ? Warna.pink : Warna.softIjoMuda),
+                color: int.parse(data.price) > 100000
+                    ? Warna.pink
+                    : Warna.softIjoMuda),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   CustomText().titleTextWithIcon(
                       NumberFormat.currency(locale: "id")
-                          .format(data.tiketFee)
+                          .format(int.parse(data.price))
                           .replaceAll("IDR", "IDR ")
                           .toString(),
                       Icons.receipt,
@@ -287,7 +292,7 @@ class CustomWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
-            child: CustomText().titleTextWithoutBold(data.name_ticket),
+            child: CustomText().titleTextWithoutBold(data.name),
           )
         ],
       ),

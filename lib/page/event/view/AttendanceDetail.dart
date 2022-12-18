@@ -3,6 +3,7 @@
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
+import 'package:coscos/component/fontSize.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,8 +68,7 @@ class AttendanceDetail extends GetView<EventController> {
             maxChildSize: 500 / Get.height,
             builder: (BuildContext context, ScrollController scrollController) {
               return GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Container(
                   decoration: BoxDecoration(
                       color: Warna.white,
@@ -86,7 +86,7 @@ class AttendanceDetail extends GetView<EventController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(
-                                  height: 65,
+                                  height: 45,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10.0),
@@ -141,8 +141,8 @@ class AttendanceDetail extends GetView<EventController> {
                                       // elevation: 5.0,
                                       // fixedSize: (40),
                                       // minimumSize,
-                                      maximumSize: Size(Get.width, 45),
-                                      minimumSize: Size(Get.width / 2, 45),
+                                      maximumSize: Size(Get.width, 40),
+                                      minimumSize: Size(Get.width / 2, 40),
                                       backgroundColor: Warna.grey,
                                       side: BorderSide.none,
                                       shape: RoundedRectangleBorder(
@@ -214,8 +214,7 @@ class AttendanceDetail extends GetView<EventController> {
                                         padding: const EdgeInsets.all(0.0),
                                         child: Padding(
                                             padding: EdgeInsets.only(
-                                                top: 15,
-                                                bottom: Get.width / 20),
+                                                top: 8, bottom: 0),
                                             child: Column(children: [
                                               Padding(
                                                 padding: EdgeInsets.only(
@@ -231,7 +230,7 @@ class AttendanceDetail extends GetView<EventController> {
                                                       style: TextStyle(
                                                         color: Warna.abuAbu,
                                                         fontSize:
-                                                            Get.width / 25,
+                                                            FontSize.title,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),

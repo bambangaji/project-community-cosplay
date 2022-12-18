@@ -58,3 +58,60 @@ class RegisterData {
         "email": email,
       };
 }
+
+Login loginFromJson(String str) => Login.fromJson(json.decode(str));
+
+String loginToJson(Login data) => json.encode(data.toJson());
+
+class Login {
+  Login({
+    required this.data,
+    required this.error,
+  });
+
+  LoginData data;
+  Error error;
+
+  factory Login.fromJson(Map<String, dynamic> json) => Login(
+        data: LoginData.fromJson(json["data"]),
+        error: Error.fromJson(json["error"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": data.toJson(),
+        "error": error.toJson(),
+      };
+
+  factory Login.dataError(int errorCode, String message) => Login(
+        data: LoginData(email: "", id: "", name: "", isActive: 0),
+        error: Error.onError(errorCode, message),
+      );
+}
+
+class LoginData {
+  LoginData({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.isActive,
+  });
+
+  String id;
+  String name;
+  String email;
+  int isActive;
+
+  factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        isActive: json["is_active"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "email": email,
+        "is_active": isActive,
+      };
+}

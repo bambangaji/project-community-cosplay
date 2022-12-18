@@ -1,3 +1,4 @@
+import 'package:coscos/service/storage.dart';
 import 'package:get/get.dart';
 
 class MainController extends GetxController {
@@ -17,6 +18,16 @@ class MainController extends GetxController {
       message.value = "";
       update();
     }
+  }
+
+  cekLogin() async {
+    var data = await SecureStorage().readSecureData('login');
+    if (data == 'true') {
+      isLogin.value = true;
+    } else {
+      isLogin.value = false;
+    }
+    update();
   }
 
   changeObsecureText() {

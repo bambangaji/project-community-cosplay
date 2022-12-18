@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:coscos/api/Auth.dart';
 import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/validator.dart';
@@ -34,11 +35,25 @@ class AuthController extends GetxController {
     }
   }
 
-  login() {
-    isLogin = true.obs;
-    update();
-    // Get.off(DashboardPage());
-    Get.until((route) => Get.currentRoute == '/');
+  login() async {
+    if (GetUtils.isEmail(emailController.value.text) ||
+        passwordController.value.text.isNotEmpty) {
+      getMainController().changeLoading();
+      var payload = {
+        "email": emailController.value.text,
+        "password": passwordController.value.text
+      };
+      print(payload.toString());
+      var data = await loginMethode(payload);
+      getMainController().changeLoading();
+      if (data.error.errorCode == 200) {
+        saveLogin(data.data.id, data.data.name, data.data.email);
+      } else {
+        CustomWidget.showDialog("OTP", data.error.message);
+      }
+    } else {
+      CustomWidget.showSnackBar("Form can't be empty");
+    }
   }
 
   resetForm() {
@@ -69,7 +84,7 @@ class AuthController extends GetxController {
         var retval = await registerAccount(data);
         getMainController().changeLoading();
         if (retval.data.id != "") {
-          Get.to(const PageOTP());
+          Get.to(PageOTP(data));
         } else {
           CustomWidget.showDialog("Register", retval.error.message);
         }

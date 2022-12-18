@@ -11,6 +11,8 @@ class API {
   static String getCharacter = dotenv.env['GET_CHARACTER'].toString();
   static String addCharacter = dotenv.env['ADD_CHARACTER'].toString();
   static String register = dotenv.env['REGISTER'].toString();
+  static String applyOTP = dotenv.env['APPLY_OTP'].toString();
+  static String login = dotenv.env['LOGIN'].toString();
   static String getImageEvent = dotenv.env['GET_IMAGE_EVENT'].toString();
   static String getMapEvent = dotenv.env['GET_MAP_EVENT'].toString();
   static String getTopEvent = dotenv.env['GET_TOP_EVENT'].toString();
@@ -37,15 +39,4 @@ class API {
     }
     return URL;
   }
-
-  // initAPI() {
-  //   print("object");
-  //   uploadIMGCharacter = dotenv.env['UPLOAD_IMG_CHARACTER'].toString();
-  //   uploadIMGSerial = dotenv.env['UPLOAD_IMG_SERIAL'].toString();
-  //   addCharacter = dotenv.env['ADD_CHARACTER'].toString();
-  //   addSerial = dotenv.env['ADD_SERIAL'].toString();
-  //   getCharacter = dotenv.env['GET_CHARACTER'].toString();
-  //   getSerial = dotenv.env['GET_SERIAL'].toString();
-  //   print(getSerial);
-  // }
 }

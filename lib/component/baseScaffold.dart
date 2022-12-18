@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, prefer_const_literals_to_create_immutables, non_constant_identifier_names, duplicate_ignore, avoid_unnecessary_containers
 
+import 'dart:developer';
+
 import 'package:coscos/component/color.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/history/view/history.dart';
@@ -150,7 +152,9 @@ class CustomScaffold {
                                   initialSelectedTab: "Home",
                                   tabIconColor: Colors.green,
                                   tabSelectedColor: Colors.cyan,
-                                  onTabItemSelected: (int value) {
+                                  onTabItemSelected: (int value) async {
+                                    // print(login);
+                                    print(value);
                                     if (Get.find<MainController>()
                                         .isLogin
                                         .value) {

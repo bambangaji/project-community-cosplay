@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/card.dart';
@@ -9,6 +10,7 @@ import 'package:coscos/component/customText.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
+import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
 import 'package:coscos/page/dashboard/model/runDown.dart';
 import 'package:coscos/page/dashboard/model/schedule.dart';
@@ -32,7 +34,7 @@ class EventController extends GetxController {
   int activePage = 1;
   int selectTab = 1;
   int typeContent = 1;
-  EventModel? eventModel;
+  EventDetailData? eventModel;
   AnimeModel animeModel = AnimeModel(
       id: "",
       name: "",
@@ -40,14 +42,19 @@ class EventController extends GetxController {
       createdAt: DateTime.now(),
       imageURL: "",
       type: "");
+  DateTime? startDate;
+  DateTime? endDate;
+  String? startTime;
+  String? endTime;
   ListSerial? listSerialModel;
   ListCharacter? listCharacterModel;
+  List<Ticket> listTicketModel = [];
   String selectSerialValue = "";
   var selectSerialController = TextEditingController().obs;
   var selectCharacterController = TextEditingController().obs;
   var selectDateController = TextEditingController().obs;
   var selectDateAttendance = "".obs;
-  List<ScheduleModel>? scheduleModel;
+  List<Schedule>? scheduleModel;
   var openAttendanceCosplayer = false.obs;
   changePage(int page) {
     activePage = page;
@@ -57,6 +64,17 @@ class EventController extends GetxController {
   getBack() {
     update();
     Get.back();
+  }
+
+  parsingDataTicket(List<Schedule> schedule) {
+    for (var i in schedule) {
+      if (i.ticket.isNotEmpty) {
+        for (var t in i.ticket) {
+          listTicketModel.add(t);
+        }
+      }
+    }
+    update();
   }
 
   Future<bool> getDataListSerial() async {
@@ -89,8 +107,8 @@ class EventController extends GetxController {
   }
 
   selectDate(BuildContext context, int type) async {
-    DateTime startDate = eventModel!.date_start_event;
-    DateTime endDate = eventModel!.date_end_event;
+    DateTime startDate = eventModel!.schedule[0].date;
+    DateTime endDate = eventModel!.schedule[eventModel!.schedule.length].date;
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: endDate, // Refer step 1
@@ -129,84 +147,7 @@ class EventController extends GetxController {
   }
 
   getDataRunDown() {
-    scheduleModel = [
-      ScheduleModel(id: "1", dateEvent: DateTime.parse("2022-10-01"), runDown: [
-        RunDownModel(
-            id: "1",
-            startTime: "08:00",
-            endTime: "10:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "10:00",
-            endTime: "11:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, cipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "11:00",
-            endTime: "12:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum t, consectetur, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "12:00",
-            endTime: "15:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "15:05",
-            endTime: "17:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "17:05",
-            endTime: "20:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsit amet, consectetur, adipisci velit")
-      ]),
-      ScheduleModel(id: "1", dateEvent: DateTime.parse("2022-10-02"), runDown: [
-        RunDownModel(
-            id: "1",
-            startTime: "08:00",
-            endTime: "10:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "10:00",
-            endTime: "11:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, cipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "11:00",
-            endTime: "12:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum t, consectetur, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "12:00",
-            endTime: "15:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "15:05",
-            endTime: "17:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, adipisci velit"),
-        RunDownModel(
-            id: "1",
-            startTime: "17:05",
-            endTime: "20:00",
-            content:
-                "Neque porro quisquam est qui dolorem ipsit amet, consectetur, adipisci velit")
-      ])
-    ];
+    scheduleModel = eventModel!.schedule;
   }
 
   var isExpand = false.obs;
@@ -215,28 +156,34 @@ class EventController extends GetxController {
     update();
   }
 
-  onBuildPage(TopEventModel data) {
-    // eventModel = data;
-    // rulesEvent = [
-    //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    //   "Fusce venenatis lectus vel magna convallis pulvinar.",
-    //   "Nulla lacinia elit ut ipsum finibus, eu elementum ex rhoncus.",
-    //   "Mauris feugiat sem sit amet risus tempor, eget aliquet dui placerat,Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-    //   "Proin vitae ipsum vel arcu imperdiet hendrerit sit amet vel augue.",
-    //   "Pellentesque congue purus quis mi pharetra, id cursus nisi molestie., Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-    //   "Curabitur eu felis nec ante faucibus posuere. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-    //   "Nunc ullamcorper nunc non gravida tincidunt.Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-    //   "Nam at erat elementum sapien eleifend imperdiet ornare id neque. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-    //   "Ut vulputate neque ac nulla pharetra dictum quis et augue. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..., Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-    //   "Donec finibus massa eget ante viverra, ac maximus orci gravida.",
-    //   "Aenean ut turpis ac massa rhoncus efficitur pretium sed velit.",
-    //   "Proin eget nunc tristique urna ultrices varius.",
-    //   "Curabitur venenatis lacus id porttitor pulvinar.",
-    //   "Etiam accumsan ligula vel dolor sollicitudin, placerat ullamcorper purus placerat.",
-    //   "Etiam molestie quam id erat semper, dictum suscipit ante aliquet.",
-    // ];
-    // update();
-    // inspect(eventModel);
+  onBuildPage(EventDetail data) async {
+    await parsingDataTicket(data.data.schedule);
+    eventModel = data.data;
+    update();
+    parsingDateTime();
+  }
+
+  parsingDateTime() {
+    var minus = 1;
+    for (var i in eventModel!.schedule) {
+      if (i.rundown.isEmpty) {
+        minus++;
+      }
+    }
+    startDate = eventModel!.schedule[0].date;
+    endDate = eventModel!.schedule[eventModel!.schedule.length - 1].date;
+    startTime = eventModel!.schedule[0].rundown[0].startTime;
+    endTime = eventModel!
+        .schedule[eventModel!.schedule.length - minus]
+        .rundown[eventModel!
+                .schedule[eventModel!.schedule.length - minus].rundown.length -
+            1]
+        .endTime;
+    update();
+  }
+
+  parsingRunDown() {
+    update();
   }
 
   expandAnime(AnimeModel data) {

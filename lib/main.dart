@@ -1,6 +1,8 @@
 import 'package:coscos/component/color.dart';
 import 'package:coscos/page/dashboard/view/dashboard.dart';
+import 'package:coscos/page/login/view/login.dart';
 import 'package:coscos/page/main_bindings.dart';
+import 'package:coscos/service/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -25,7 +27,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await cekLogin();
   runApp(const MyApp());
+}
+
+Future<void> cekLogin() async {
+  SecureStorage().readSecureData('login').then((data) {
+    if (data == 'true') {
+      Get.offNamed('/');
+    }
+  });
 }
 
 class Splash extends StatelessWidget {
@@ -63,6 +74,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const DashboardPage(), //
+        '/login': (context) => const LoginPage(), //
       },
       title: 'Coscos',
       theme: ThemeData(

@@ -3,6 +3,7 @@
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:coscos/component/fontSize.dart';
 import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
+import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
 import 'package:coscos/page/dashboard/model/eventModel.dart';
 import 'package:coscos/page/dashboard/model/guestStarModel.dart';
 import 'package:coscos/page/dashboard/model/topEventModel.dart';
@@ -136,7 +137,7 @@ class customCard {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                  child: CustomText().titleText("2000+ attend",
+                  child: CustomText().titleText("2000+ attender",
                       textColor: Warna.white, fontSize: 10),
                 ),
               )
@@ -147,16 +148,15 @@ class customCard {
     );
   }
 
-  Widget cardGuestStar(GuestStarModel data) {
+  Widget cardGuestStar(Guest data) {
     return Padding(
       padding: EdgeInsets.only(right: 10.0, top: 10),
       child: Container(
         width: 120,
         decoration: BoxDecoration(
-            border: Border.all(
-                color: data.gender == "F" ? Warna.softMerahMuda : Warna.biru),
+            border: Border.all(color: Warna.biru),
             borderRadius: BorderRadius.circular(30),
-            color: data.gender == "F" ? Warna.pink : Warna.softBlueCyan),
+            color: Warna.softBlueCyan),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -165,8 +165,8 @@ class customCard {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                 child: Container(
-                  height: 80,
-                  width: 80,
+                  height: 100,
+                  width: 150,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -177,14 +177,10 @@ class customCard {
               SizedBox(
                 height: 5,
               ),
-              CustomText().titleText(data.name, textColor: Warna.softWhite),
-              SizedBox(
-                height: 5,
-              ),
               Row(
                 children: [
                   Flag.fromString(
-                    data.country,
+                    data.idCountry,
                     borderRadius: 5,
                     height: Get.height / 40,
                     width: Get.width / 20,
@@ -192,14 +188,30 @@ class customCard {
                   SizedBox(
                     width: 5,
                   ),
-                  CustomText()
-                      .titleText(data.description, textColor: Warna.softWhite),
+                  CustomText().titleText(data.name, textColor: Warna.softWhite),
                 ],
               ),
+              SizedBox(
+                height: 5,
+              ),
+              // Row(
+              //   children: [
+              //     Flag.fromString(
+              //       data.idCountry,
+              //       borderRadius: 5,
+              //       height: Get.height / 40,
+              //       width: Get.width / 20,
+              //     ),
+              //     SizedBox(
+              //       width: 5,
+              //     ),
+              //     CustomText().titleText(data.bio, textColor: Warna.softWhite),
+              //   ],
+              // ),
               Padding(
                 padding: EdgeInsets.only(top: 4.0),
                 child: CustomText().titleTextWithWidgetIcon(
-                  data.social_media,
+                  data.instagram,
                   fontSize: 13,
                   FaIcon(FontAwesomeIcons.instagram,
                       size: 13, color: Warna.softWhite),

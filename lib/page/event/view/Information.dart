@@ -41,17 +41,10 @@ class InformationPage extends GetView<EventController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomText().titleText(
-                                controller.eventModel!.name_event,
+                            CustomText().titleText(controller.eventModel!.name,
                                 fontSize: 19),
-                            customCard().cardBlue("${CustomFormatDate()
-                                    .formatDateID(controller.eventModel!.date_start_event
-                                        .toString())
-                                    .substring(0, 1)} - ${CustomFormatDate().formatDateID(controller
-                                    .eventModel!.date_end_event
-                                    .toString())} at ${DateFormat.Hm().format(DateFormat("HH:mm").parse(
-                                    controller.eventModel!.time_start_event!))} - ${DateFormat.Hm().format(DateFormat("HH:mm")
-                                    .parse(controller.eventModel!.time_end_event!))}")
+                            customCard().cardBlue(
+                                "${CustomFormatDate().formatDateID(controller.startDate.toString()).substring(0, 1)} - ${CustomFormatDate().formatDateID(controller.endDate.toString())} at ${DateFormat.Hm().format(DateFormat("HH:mm").parse(controller.startTime!))} - ${DateFormat.Hm().format(DateFormat("HH:mm").parse(controller.endTime!))}")
                           ],
                         ),
                         // Column(
@@ -80,10 +73,10 @@ class InformationPage extends GetView<EventController> {
                       height: 80,
                       width: Get.width,
                       child: ListView.builder(
-                        itemCount: controller.eventModel!.tiket.length,
+                        itemCount: controller.listTicketModel.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, i) {
-                          var data = controller.eventModel!.tiket[i];
+                          var data = controller.listTicketModel[i];
                           return Padding(
                             padding:
                                 EdgeInsets.fromLTRB(0, 0, Get.width / 40, 0),
@@ -143,8 +136,7 @@ class InformationPage extends GetView<EventController> {
                                         ? TextSpan(
                                             text: " See More",
                                             recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                              },
+                                              ..onTap = () {},
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Warna.softBlueCyan))

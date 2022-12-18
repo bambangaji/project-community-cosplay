@@ -1,8 +1,10 @@
 // ignore_for_file: file_names, non_constant_identifier_names, duplicate_ignore
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:coscos/api/Error.dart';
+import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
 import 'package:coscos/page/dashboard/model/topEventModel.dart';
 import 'package:coscos/page/event/model/CharacterModel.dart';
 import 'package:coscos/page/event/model/SerialModel.dart';
@@ -103,6 +105,28 @@ Future<Register> registerAccount(dynamic data) async {
   }
 }
 
+Future<Login> applyOTP(dynamic data) async {
+  try {
+    var URL = API.applyOTP;
+    final Response response = await fetch().post(URL, data: data);
+    return Login.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return Login.dataError(error.errorCode, error.message);
+  }
+}
+
+Future<Login> loginMethode(dynamic data) async {
+  try {
+    var URL = API.login;
+    final Response response = await fetch().post(URL, data: data);
+    return Login.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return Login.dataError(error.errorCode, error.message);
+  }
+}
+
 Future<TopEvent> getTopEvent(dynamic data) async {
   try {
     var URL = API.getTopEvent;
@@ -111,5 +135,17 @@ Future<TopEvent> getTopEvent(dynamic data) async {
   } on DioError catch (e) {
     var error = validationError(e);
     return TopEvent.dataError(error.errorCode, error.message);
+  }
+}
+
+Future<EventDetail> getDetailEvent(dynamic data) async {
+  try {
+    var URL = API.getDetailEvent;
+    final Response response = await fetch().post(URL, data: data);
+    print(jsonEncode(response.data['data']));
+    return EventDetail.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return EventDetail.dataError(error.errorCode, error.message);
   }
 }
