@@ -37,7 +37,7 @@ class EventPage extends GetView<EventController> {
                   Container(
                     height: Get.height,
                     width: Get.width,
-                    color: Warna.white,
+                    color: Warna.softWhite,
                     child: CustomScrollView(
                       slivers: [
                         // SliverAppBar(

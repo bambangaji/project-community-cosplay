@@ -35,12 +35,12 @@ class MainController extends GetxController {
     update();
   }
 
-  login() {
-    isLogin = true.obs;
-    update();
-    // Get.off(DashboardPage());
-    Get.until((route) => Get.currentRoute == '/');
-  }
+  // login() {
+  //   isLogin = true.obs;
+  //   update();
+  //   // Get.off(DashboardPage());
+  //   // Get.until((route) => Get.currentRoute == '/');
+  // }
 
   changeLoading() {
     isLoading.value = !isLoading.value;

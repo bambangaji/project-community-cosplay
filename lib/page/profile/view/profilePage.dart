@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, file_names, camel_case_types, duplicate_ignore
 
+import 'package:coscos/api/Auth.dart';
 import 'package:coscos/component/color.dart';
 import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
@@ -92,7 +93,7 @@ class profilePage extends GetView<profileController> {
                                   CustomWidget.ListTileTopUpProfile(
                                       title: "LOG OUT",
                                       callBack: () {
-                                        // controller.logOut();
+                                        logOut();
                                       }),
                                 ],
                               ),

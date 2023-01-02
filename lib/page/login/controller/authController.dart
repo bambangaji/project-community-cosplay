@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:developer';
+
 import 'package:coscos/api/Auth.dart';
 import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/customWidget.dart';
@@ -46,8 +48,9 @@ class AuthController extends GetxController {
       print(payload.toString());
       var data = await loginMethode(payload);
       getMainController().changeLoading();
+      inspect(data);
       if (data.error.errorCode == 200) {
-        saveLogin(data.data.id, data.data.name, data.data.email);
+        await saveLogin(data.data.id, data.data.name, data.data.email);
       } else {
         CustomWidget.showDialog("OTP", data.error.message);
       }
