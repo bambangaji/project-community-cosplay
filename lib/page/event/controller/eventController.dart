@@ -1,8 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:developer';
-import 'dart:math';
-
 import 'package:coscos/api/Methode.dart';
 import 'package:coscos/component/card.dart';
 import 'package:coscos/component/color.dart';
@@ -11,11 +9,10 @@ import 'package:coscos/page/dashboard/controller/dashboard_controller.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
-import 'package:coscos/page/dashboard/model/eventModel.dart';
-import 'package:coscos/page/dashboard/model/runDown.dart';
-import 'package:coscos/page/dashboard/model/schedule.dart';
-import 'package:coscos/page/dashboard/model/topEventModel.dart';
+import 'package:coscos/page/event/model/CharacterCosplayerModel.dart';
 import 'package:coscos/page/event/model/CharacterModel.dart';
+import 'package:coscos/page/event/model/CosplayerModel.dart';
+import 'package:coscos/page/event/model/SerialCosplayerModel.dart';
 import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/event/view/Cosplayer.dart';
 import 'package:coscos/page/event/view/Information.dart';
@@ -23,6 +20,7 @@ import 'package:coscos/page/event/view/ListCosplayer.dart';
 import 'package:coscos/page/event/view/Rules.dart';
 import 'package:coscos/page/event/view/RunDown.dart';
 import 'package:coscos/page/list/controller/ListController.dart';
+import 'package:coscos/page/list/model/model.dart';
 import 'package:coscos/page/list/view/List.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,17 +33,22 @@ class EventController extends GetxController {
   int selectTab = 1;
   int typeContent = 1;
   EventDetailData? eventModel;
-  AnimeModel animeModel = AnimeModel(
-      id: "",
-      name: "",
-      character: [],
-      createdAt: DateTime.now(),
-      imageURL: "",
-      type: "");
+  SerialCosplayerData animeModel =
+      SerialCosplayerData(id: "", name: "", imageUrl: "", count: 0, type: "");
+  CharacterCosplayerData characterCosplayer = CharacterCosplayerData(
+      id: "", name: "", imageUrl: "", count: 0, gender: "");
+  List<CharacterCosplayerData> listCharacterCosplayer = [];
+  List<SerialCosplayerData> listSerialCosplayer = [];
+  List<CosplayerData> listCosplayer = [];
   DateTime? startDate;
   DateTime? endDate;
   String? startTime;
   String? endTime;
+  int start = 0;
+  int end = 5;
+  String type = "COSPLAYER";
+  String gender = "";
+  var loadData = false.obs;
   ListSerial? listSerialModel;
   ListCharacter? listCharacterModel;
   List<Ticket> listTicketModel = [];
@@ -61,19 +64,46 @@ class EventController extends GetxController {
     update();
   }
 
+  List<DropdownMenuItem<Object?>> dropdownDate = [];
+  var addSelectedDate = "".obs;
+  void onChangeDropdownAddDate(value) async {
+    addSelectedDate.value = value;
+    update();
+    print(value);
+    // DateTime startDate = eventModel!.schedule[0].date;
+    // DateTime endDate = eventModel!.schedule[eventModel!.schedule.length].date;
+    inspect(eventModel);
+  }
+
   getBack() {
     update();
     Get.back();
   }
 
+  resetFilter() {
+    start = 0;
+    end = 5;
+    type = "COSPLAYER";
+    gender = "";
+    update();
+  }
+
   parsingDataTicket(List<Schedule> schedule) {
+    dropdownDate = [];
+    listTicketModel = [];
+    update();
     for (var i in schedule) {
+      dropdownDate.add(DropdownMenuItem(
+          value: i.date.toString(),
+          child: Text(i.date.toString().substring(0, 10))));
       if (i.ticket.isNotEmpty) {
         for (var t in i.ticket) {
           listTicketModel.add(t);
         }
       }
     }
+    dropdownDate.add(const DropdownMenuItem(value: "", child: Text("ALL")));
+    inspect(dropdownDate);
     update();
   }
 
@@ -99,6 +129,7 @@ class EventController extends GetxController {
   changeTab(int page) {
     selectTab = page;
     update();
+    loadDataCosplayer();
   }
 
   changeAttendanceCosplayer() async {
@@ -122,28 +153,49 @@ class EventController extends GetxController {
     update();
   }
 
+  showLoading() {
+    loadData.value = true;
+    update();
+  }
+
   Widget contentTab() {
     Widget? output;
     switch (selectTab) {
       case 1:
         // do something
-        output = const InformationPage();
+        output = InformationPage();
         break;
       case 2:
         // do something else
-        output = const RulesEventPage();
+        output = RulesEventPage();
         break;
       case 3:
         // do something else
-        output = const CosplayerPage();
+        output = CosplayerPage();
+
         break;
       case 4:
         // do something else
-        output = const RunDownPage();
+        output = RunDownPage();
         getDataRunDown();
         break;
     }
     return output!;
+  }
+
+  loadDataCosplayer() async {
+    showLoading();
+    var payload = {
+      "id_event": eventModel!.id,
+      "start": start,
+      "end": end,
+      "type": type
+    };
+    var data = await getSerialCosplayer(payload);
+    eventModel!.anime = data.data!;
+    loadData.value = false;
+    update();
+    inspect(eventModel);
   }
 
   getDataRunDown() {
@@ -163,6 +215,7 @@ class EventController extends GetxController {
     parsingDateTime();
   }
 
+  parsingDataSchedule() {}
   parsingDateTime() {
     var minus = 1;
     for (var i in eventModel!.schedule) {
@@ -191,13 +244,25 @@ class EventController extends GetxController {
     update();
   }
 
-  expandCharacter(CharacterModel data) {
+  expandCharacter(CharacterCosplayerData data) async {
     data.isExpand = !data.isExpand;
+    var payload = {"id_event": eventModel!.id, "id_character": data.id};
+    var retVal = await getCosplayer(payload);
+    data.cosplayer = retVal.data!;
     update();
   }
 
-  goToListCosplayer(AnimeModel data) {
+  goToListCosplayer(SerialCosplayerData data) async {
     animeModel = data;
+    var payload = {
+      "id_event": eventModel!.id,
+      "id_serial": animeModel.id,
+      "start": start,
+      "end": end,
+      "gender": ""
+    };
+    var retVal = await getCharacterCosplayer(payload);
+    listCharacterCosplayer = retVal.data!;
     Get.to(const ListCosplayerPage());
   }
 

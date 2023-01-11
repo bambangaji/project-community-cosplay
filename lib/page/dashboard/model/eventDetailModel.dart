@@ -5,6 +5,7 @@
 import 'package:coscos/api/Error.dart';
 import 'package:coscos/page/dashboard/model/anime.dart';
 import 'package:coscos/page/dashboard/model/guestStarModel.dart';
+import 'package:coscos/page/event/model/SerialCosplayerModel.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -77,13 +78,13 @@ class EventDetailData {
   String whatsapp;
   String facebook;
   String email;
-  List<Guest> guest_star;
-  List<AnimeModel>? anime;
-  List<ImageEventData> imageEventData;
+  List<Guest> guest_star = [];
+  List<SerialCosplayerData> anime = [];
+  List<ImageEventData> imageEventData = [];
   int capacity;
   int visitor;
-  List<Schedule> schedule;
-  List<Rule> rules;
+  List<Schedule> schedule = [];
+  List<Rule> rules = [];
 
   factory EventDetailData.fromJson(Map<String, dynamic> json) =>
       EventDetailData(

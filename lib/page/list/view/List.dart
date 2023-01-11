@@ -91,7 +91,8 @@ class PageList extends GetView<ListController> {
                                         onChanged:
                                             controller.onChangeDropdownType,
                                       ),
-                                    ),],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

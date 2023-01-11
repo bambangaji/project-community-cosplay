@@ -5,6 +5,7 @@ import 'package:coscos/component/customText.dart';
 import 'package:coscos/component/customWidget.dart';
 import 'package:coscos/component/fontSize.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
+import 'package:dropdown_below/dropdown_below.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -130,41 +131,40 @@ class AttendanceDetail extends GetView<EventController> {
                                   child: CustomText()
                                       .titleText("Select Date Attendance"),
                                 ),
-                                OutlinedButton(
-                                  onPressed: () {
-                                    // Get.off(PageDashboard());
-                                    controller.selectDate(context, 1);
-                                    // child: dialogDate(true)));
-                                    // showAlertDialog(context);
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                      // elevation: 5.0,
-                                      // fixedSize: (40),
-                                      // minimumSize,
-                                      maximumSize: Size(Get.width, 40),
-                                      minimumSize: Size(Get.width / 2, 40),
-                                      backgroundColor: Warna.grey,
-                                      side: BorderSide.none,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      )
-                                      // fixedSize: Size(size.width! / 3.3, 20)
-                                      ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Obx(() => Text(
-                                            controller.selectDateAttendance
-                                                        .value ==
-                                                    ""
-                                                ? 'Select date attendace'
-                                                : controller
-                                                    .selectDateAttendance.value,
-                                            style: const TextStyle(
-                                                color: Warna.softBlack),
-                                          ))
-                                    ],
+                                SizedBox(
+                                  width: Get.width,
+                                  child: Obx(
+                                    () => DropdownBelow(
+                                      boxHeight: 46,
+                                      itemWidth: Get.width - 29,
+                                      itemTextstyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black),
+                                      boxTextstyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Warna.softBlack),
+                                      boxPadding: const EdgeInsets.fromLTRB(
+                                          12, 0, 0, 0),
+                                      boxWidth: Get.width,
+                                      // boxHeight: 45,
+                                      boxDecoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Warna.grey),
+                                      hint: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: CustomText().titleText(
+                                            "Select Date",
+                                            textColor: Warna.softBlack,
+                                          )),
+                                      value: controller.addSelectedDate.value,
+                                      items: controller.dropdownDate,
+                                      onChanged:
+                                          controller.onChangeDropdownAddDate,
+                                    ),
                                   ),
                                 ),
                                 Padding(

@@ -7,6 +7,8 @@ import 'package:coscos/component/validator.dart';
 import 'package:coscos/page/dashboard/model/character.dart';
 import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
 import 'package:coscos/page/dashboard/model/ticketModel.dart';
+import 'package:coscos/page/event/model/CharacterCosplayerModel.dart';
+import 'package:coscos/page/event/model/SerialCosplayerModel.dart';
 import 'package:coscos/page/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,7 +90,8 @@ class CustomWidget {
       },
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color(0xffEEF2F7),
+        fillColor: bgColor,
+        contentPadding: EdgeInsets.all(10),
         suffixIcon: inputType == InputType.password
             ? GestureDetector(
                 onTap: () {
@@ -299,7 +302,7 @@ class CustomWidget {
     );
   }
 
-  static Widget ListTileTopUp(CharacterModel characterModel,
+  static Widget ListTileTopUp(CharacterCosplayerData characterModel,
       {required String leadIconLocation,
       required String title,
       required void Function() callBack,
@@ -327,7 +330,7 @@ class CustomWidget {
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(leadIconLocation))),
+                          image: NetworkImage(leadIconLocation))),
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),

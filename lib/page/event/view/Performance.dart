@@ -235,7 +235,7 @@ class GuestEventPage extends GetView<EventController> {
                                                   ),
                                                 ),
                                                 CustomText()
-                                                    .titleText(data.name)
+                                                    .titleText(data.name!)
                                               ],
                                             ),
                                             Padding(

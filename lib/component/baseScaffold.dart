@@ -44,7 +44,7 @@ class CustomScaffold {
       color: Warna.softLavender,
       opacity: 0.6,
       child: Scaffold(
-          appBar: appBar
+          appBar: Get.find<MainController>().appBar.value
               ? CustomAppBar(context,
                   back: isBack, isSearchBar: isSearchBar, title: title)
               : null,
@@ -158,6 +158,13 @@ class CustomScaffold {
                                     if (Get.find<MainController>()
                                         .isLogin
                                         .value) {
+                                      if (value == 2) {
+                                        await Get.find<MainController>()
+                                            .showAppBar(false);
+                                      } else {
+                                        await Get.find<MainController>()
+                                            .showAppBar(true);
+                                      }
                                       Get.find<DashboardController>()
                                           .changeIndexTab(value);
                                     } else {

@@ -22,8 +22,7 @@ class AddDetail extends GetView<ListController> {
               builder:
                   (BuildContext context, ScrollController scrollController) {
                 return GestureDetector(
-                  onTap: () {
-                  },
+                  onTap: () {},
                   child: Container(
                     decoration: BoxDecoration(
                         color: Warna.white,
@@ -84,47 +83,58 @@ class AddDetail extends GetView<ListController> {
                                                   child: CustomText().titleText(
                                                       "Select Type Serial"),
                                                 ),
-                                                DropdownBelow(
-                                                  boxHeight: 40,
-                                                  itemWidth: Get.width / 3,
-                                                  itemTextstyle:
-                                                      const TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: Colors.black),
-                                                  boxTextstyle: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Warna.softBlack),
-                                                  boxPadding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          12, 0, 0, 0),
-                                                  boxWidth: Get.width / 2.2,
-                                                  // boxHeight: 45,
-                                                  boxDecoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      color: Warna.grey),
-                                                  hint: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 8),
-                                                      child: CustomText()
-                                                          .titleText(
-                                                        "Anime",
-                                                        textColor:
-                                                            Warna.softBlack,
-                                                      )),
-                                                  value: controller
-                                                      .addSelectedType,
-                                                  items: controller
-                                                      .dropdownAddType,
-                                                  onChanged: controller
-                                                      .onChangeDropdownAddType,
-                                                ),
+                                                Obx(() => DropdownBelow(
+                                                      boxHeight: 40,
+                                                      itemWidth: Get.width / 3,
+                                                      itemTextstyle:
+                                                          const TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color:
+                                                                  Colors.black),
+                                                      boxTextstyle:
+                                                          const TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Warna
+                                                                  .softBlack),
+                                                      boxPadding:
+                                                          const EdgeInsets
+                                                                  .fromLTRB(
+                                                              12, 0, 0, 0),
+                                                      boxWidth: Get.width / 2.2,
+                                                      // boxHeight: 45,
+                                                      boxDecoration:
+                                                          BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              color:
+                                                                  Warna.grey),
+                                                      hint: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 8),
+                                                          child: CustomText()
+                                                              .titleText(
+                                                            "Anime",
+                                                            textColor:
+                                                                Warna.softBlack,
+                                                          )),
+                                                      value: controller
+                                                          .addSelectedType
+                                                          .value,
+                                                      items: controller
+                                                          .dropdownAddType,
+                                                      onChanged: controller
+                                                          .onChangeDropdownAddType,
+                                                    )),
                                               ],
                                             )
                                           : Column(
@@ -139,47 +149,54 @@ class AddDetail extends GetView<ListController> {
                                                   child: CustomText().titleText(
                                                       "Select Gender"),
                                                 ),
-                                                DropdownBelow(
-                                                  boxHeight: 40,
-                                                  itemWidth: Get.width / 3,
-                                                  itemTextstyle:
-                                                      const TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color: Colors.black),
-                                                  boxTextstyle: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Warna.softBlack),
-                                                  boxPadding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          12, 0, 0, 0),
-                                                  boxWidth: Get.width / 2.2,
-                                                  // boxHeight: 45,
-                                                  boxDecoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      color: Warna.grey),
-                                                  hint: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 8),
-                                                      child: CustomText()
-                                                          .titleText(
-                                                        "Male",
-                                                        textColor:
-                                                            Warna.softBlack,
-                                                      )),
-                                                  value: controller
-                                                      .addSelectedGender,
-                                                  items:
-                                                      controller.dropdownGender,
-                                                  onChanged: controller
-                                                      .onChangeDropdownAddGender,
-                                                ),
+                                                Obx(
+                                                  () => DropdownBelow(
+                                                    boxHeight: 40,
+                                                    itemWidth: Get.width / 3,
+                                                    itemTextstyle:
+                                                        const TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color:
+                                                                Colors.black),
+                                                    boxTextstyle:
+                                                        const TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Warna
+                                                                .softBlack),
+                                                    boxPadding: const EdgeInsets
+                                                        .fromLTRB(12, 0, 0, 0),
+                                                    boxWidth: Get.width / 2.2,
+                                                    // boxHeight: 45,
+                                                    boxDecoration:
+                                                        BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            color: Warna.grey),
+                                                    hint: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 8),
+                                                        child: CustomText()
+                                                            .titleText(
+                                                          "Male",
+                                                          textColor:
+                                                              Warna.softBlack,
+                                                        )),
+                                                    value: controller
+                                                        .addSelectedGender
+                                                        .value,
+                                                    items: controller
+                                                        .dropdownGender,
+                                                    onChanged: controller
+                                                        .onChangeDropdownAddGender,
+                                                  ),
+                                                )
                                               ],
                                             ),
                                       Column(

@@ -6,10 +6,14 @@ import 'dart:io';
 import 'package:coscos/api/Error.dart';
 import 'package:coscos/page/dashboard/model/eventDetailModel.dart';
 import 'package:coscos/page/dashboard/model/topEventModel.dart';
+import 'package:coscos/page/event/model/CharacterCosplayerModel.dart';
 import 'package:coscos/page/event/model/CharacterModel.dart';
+import 'package:coscos/page/event/model/CosplayerModel.dart';
+import 'package:coscos/page/event/model/SerialCosplayerModel.dart';
 import 'package:coscos/page/event/model/SerialModel.dart';
 import 'package:coscos/page/event/model/UploadImage.dart';
 import 'package:coscos/page/login/model/authModel.dart';
+import 'package:coscos/page/profile/model/profileModel.dart';
 import 'package:coscos/service/fetch.dart';
 import 'package:dio/dio.dart';
 
@@ -127,6 +131,17 @@ Future<Login> loginMethode(dynamic data) async {
   }
 }
 
+Future<ProfileModel> getProfileData(dynamic data) async {
+  try {
+    var URL = API.profile;
+    final Response response = await fetch().post(URL, data: data);
+    return ProfileModel.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return ProfileModel.dataError(error.errorCode, error.message);
+  }
+}
+
 Future<TopEvent> getTopEvent(dynamic data) async {
   try {
     var URL = API.getTopEvent;
@@ -147,5 +162,41 @@ Future<EventDetail> getDetailEvent(dynamic data) async {
   } on DioError catch (e) {
     var error = validationError(e);
     return EventDetail.dataError(error.errorCode, error.message);
+  }
+}
+
+Future<SerialCosplayer> getSerialCosplayer(dynamic data) async {
+  try {
+    var URL = API.getSerialCosplayer;
+    final Response response = await fetch().post(URL, data: data);
+    print(jsonEncode(response.data['data']));
+    return SerialCosplayer.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return SerialCosplayer.dataError(error.errorCode, error.message);
+  }
+}
+
+Future<CharacterCosplayer> getCharacterCosplayer(dynamic data) async {
+  try {
+    var URL = API.getCharacterCosplayer;
+    final Response response = await fetch().post(URL, data: data);
+    print(jsonEncode(response.data['data']));
+    return CharacterCosplayer.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return CharacterCosplayer.dataError(error.errorCode, error.message);
+  }
+}
+
+Future<Cosplayer> getCosplayer(dynamic data) async {
+  try {
+    var URL = API.getCosplayer;
+    final Response response = await fetch().post(URL, data: data);
+    print(jsonEncode(response.data['data']));
+    return Cosplayer.fromJson(response.data);
+  } on DioError catch (e) {
+    var error = validationError(e);
+    return Cosplayer.dataError(error.errorCode, error.message);
   }
 }

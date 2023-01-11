@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:coscos/service/storage.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,27 @@ class MainController extends GetxController {
   var showError = false.obs;
   var obsecureText = true.obs;
   var message = "".obs;
+  var appBar = false.obs;
+  Function(String)? callBackSelected;
+  // List<DropdownModel> items = [];
+  // String selectedItem = "";
+  // String titleDropdown = "";
+  // Widget showDropDown(
+  //     {required Function(String) onSelected,
+  //     required String title,
+  //     required List<DropdownModel> item}) {
+  //   items = item;
+  //   titleDropdown = title;
+  //   callBackSelected = onSelected;
+  //   update();
+  //   return CustomDropDown();
+  // }
+
+  // selectedDropdown(String s) {
+  //   selectedItem = s;
+  //   update();
+  //   print(selectedItem);
+  // }
 
   showErrorMessage(int type, {String text = ""}) {
     if (type == 1) {
@@ -20,6 +42,12 @@ class MainController extends GetxController {
     }
   }
 
+  showAppBar(val) {
+    appBar.value = val;
+    update();
+  }
+
+  // List<
   cekLogin() async {
     var data = await SecureStorage().readSecureData('login');
     if (data == 'true') {

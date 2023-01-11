@@ -9,6 +9,9 @@ import 'package:coscos/page/dashboard/model/topEventModel.dart';
 import 'package:coscos/page/event/controller/eventController.dart';
 import 'package:coscos/page/event/view/Event.dart';
 import 'package:coscos/page/main_controller.dart';
+import 'package:coscos/page/profile/controller/profileController.dart';
+import 'package:coscos/page/profile/model/profileModel.dart';
+import 'package:coscos/service/storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:geocoding/geocoding.dart';
@@ -45,9 +48,24 @@ class DashboardController extends GetxController
     await Get.find<MainController>().cekLogin();
     var payload = {"id_city": "3171", "id_provinces": "31", "id_country": "ID"};
     var data = await getTopEvent(payload);
+    await getDataProfile();
     listEvent = data.data;
     inspect(data);
     changeLoading();
+  }
+
+  getDataProfile() async {
+    SecureStorage().readSecureData('login').then((data) async {
+      if (data == 'true') {
+        var payload = {
+          "id_user": await SecureStorage().readSecureData('userToken')
+        };
+        var data = await getProfileData(payload);
+        Get.lazyPut(() => profileController(), fenix: true);
+        Get.find<profileController>().updateProfile(data.data);
+        inspect(data);
+      }
+    });
   }
 
   // getCurrentLocation() async {
@@ -108,6 +126,7 @@ class DashboardController extends GetxController
   }
 
   goToEventDetail(TopEventModel data) async {
+    changeLoading();
     Get.put(EventController());
 
     var payload = {"id_event": data.id};
@@ -115,6 +134,7 @@ class DashboardController extends GetxController
     var retVal = await getDetailEvent(payload);
     Get.find<EventController>().onBuildPage(retVal);
     // inspect(retVal);
+    changeLoading();
     Get.to(() => const EventPage());
   }
   // login() {

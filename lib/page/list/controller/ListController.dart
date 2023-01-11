@@ -25,8 +25,8 @@ class ListController extends GetxController
   var openAdd = false.obs;
   var selectedStatus = "";
   var selectedType = "";
-  var addSelectedType = "ANIME";
-  var addSelectedGender = "M";
+  var addSelectedType = "ANIME".obs;
+  var addSelectedGender = "M".obs;
   var addSerialName = TextEditingController();
   var addCharacterlName = TextEditingController().obs;
   var selectedOrder = "";
@@ -41,11 +41,6 @@ class ListController extends GetxController
   ScrollController _scrollControllerDetail =
       ScrollController(initialScrollOffset: 15);
   final ImagePicker imagePicker = ImagePicker();
-  List<DropdownMenuItem<Object?>> dropdownOrder = [
-    DropdownMenuItem(
-        value: FilterModel.OrderDocument[0], child: const Text("Stamping")),
-    const DropdownMenuItem(value: "", child: Text("Signing")),
-  ];
   List<DropdownMenuItem<Object?>> dropdownType = [
     DropdownMenuItem(
         value: FilterModel.TypeSerial[0], child: const Text("Anime")),
@@ -81,8 +76,8 @@ class ListController extends GetxController
   }
 
   clearForm() {
-    addSelectedType = "ANIME";
-    addSelectedGender = "M";
+    addSelectedType.value = "ANIME";
+    addSelectedGender.value = "M";
     fileName = "";
     addCharacterlName.value.text = "";
     addSerialName.text = "";
@@ -113,14 +108,13 @@ class ListController extends GetxController
         fileUpload = file;
         update();
       }
-
     }
   }
 
   resetAddState() {
     addNameSerial.value.text = "";
     fileName = "";
-    addSelectedType = "ANIME";
+    addSelectedType.value = "ANIME";
     update();
   }
 
@@ -240,13 +234,15 @@ class ListController extends GetxController
   }
 
   void onChangeDropdownAddType(value) async {
-    addSelectedType = value;
+    addSelectedType.value = value;
     update();
+    print(value);
   }
 
   void onChangeDropdownAddGender(value) async {
-    addSelectedGender = value;
+    addSelectedGender.value = value;
     update();
+    print(value);
   }
 
   int type() {
